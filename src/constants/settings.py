@@ -9,6 +9,9 @@ DEFAULT_MAX_RETRY = 3
 DEFAULT_CHUNK_SIZE = 256 * 1024 * 1024  # 256MB
 CHECKPOINT_PERCENT = 10  # Resume setiap 10%
 
+# CHUNK_SIZE untuk kompatibilitas (sama dengan DEFAULT_CHUNK_SIZE)
+CHUNK_SIZE = DEFAULT_CHUNK_SIZE
+
 # Default extensions untuk file video
 DEFAULT_EXTENSIONS = [
     '.mxf', '.mov', '.mp4', '.avi', '.mkv', 

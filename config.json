@@ -1,6 +1,8 @@
 {
-    "source_folders": [],
-    "destination_folder": "",
+    "source_folders": [
+        "D:\\Test watch folder\\source"
+    ],
+    "destination_folder": "D:\\Test watch folder\\destination",
     "extensions": [
         ".mxf",
         ".mov",

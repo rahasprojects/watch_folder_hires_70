@@ -1,0 +1,79 @@
+====================================================================================================
+HISTORY COPY FILE - watch_folder_hires_70
+Created: 2026-02-23 19:55:14
+====================================================================================================
+Timestamp            Filename                                         Size Status     Duration   Retry
+----------------------------------------------------------------------------------------------------
+2026-02-23 19:55:14  test.mxf                                       10.00 GB SUCCESS    00:05:00   0    
+2026-02-23 20:34:33  test.mxf                                       10.00 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 20:34:33  test.mxf                                       10.00 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 20:34:33  test.mxf                                       10.00 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 20:37:05  test.mxf                                       10.00 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 20:37:05  test.mxf                                       10.00 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 20:37:05  test.mxf                                       10.00 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 20:42:17  test.mxf                                       10.00 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 20:42:17  test.mxf                                       10.00 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 20:42:17  test.mxf                                       10.00 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 20:55:19  test.mxf                                       10.00 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 20:56:22  test.mxf                                       10.00 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 20:56:22  test.mxf                                       10.00 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:00:27  test.mxf                                        1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 21:00:27  test.mxf                                        1.84 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 21:00:27  test.mxf                                        1.84 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:02:31  test 1.mxf                                      1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 21:02:31  test 1.mxf                                      1.84 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 21:02:31  test 1.mxf                                      1.84 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:03:02  testt.mp4                                       0.22 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 21:03:02  testt.mp4                                       0.22 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 21:03:02  testt.mp4                                       0.22 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:05:47  CSR SEKOLAH PONDOK DOMBA KALIJODOH ...          0.36 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 21:05:47  CSR SEKOLAH PONDOK DOMBA KALIJODOH ...          0.36 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 21:05:47  CSR SEKOLAH PONDOK DOMBA KALIJODOH ...          0.36 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:10:19  CSR SEKOLAH PONDOK DOMBA KALIJODOH ...          0.36 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 21:10:19  CSR SEKOLAH PONDOK DOMBA KALIJODOH ...          0.36 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 21:10:19  CSR SEKOLAH PONDOK DOMBA KALIJODOH ...          0.36 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:12:31  SEKOLAH PONDOK DOMBA KALIJODOH Rev.mp4          0.36 GB FAILED     -          1    
+                     ERROR:                                   Copy failed
+2026-02-23 21:12:31  SEKOLAH PONDOK DOMBA KALIJODOH Rev.mp4          0.36 GB FAILED     -          2    
+                     ERROR:                                   Copy failed
+2026-02-23 21:12:31  SEKOLAH PONDOK DOMBA KALIJODOH Rev.mp4          0.36 GB FAILED     -          3    
+                     ERROR:                                   Copy failed
+2026-02-23 21:25:28  SEKOLAH PONDOK DOMBA KALIJODOH re .mp4          0.36 GB SUCCESS    00:00:03   0    
+2026-02-23 21:28:30  test 1.mxf                                      1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 21:28:30  test 1.mxf                                      1.84 GB FAILED     -          2    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 21:28:30  test 1.mxf                                      1.84 GB FAILED     -          3    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 21:35:45  test 1.mxf                                      1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 21:36:31  test 1.mxf                                      1.84 GB SUCCESS    00:00:45   1    
+2026-02-23 21:40:13  test 01.mxf                                     1.84 GB SUCCESS    00:00:26   0    
+2026-02-23 21:57:59  test 010.mxf                                    1.84 GB SUCCESS    00:00:18   0    

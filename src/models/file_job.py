@@ -70,8 +70,24 @@ class FileJob:
         """Detik yang sudah berlalu sejak mulai"""
         if not self.start_time:
             return 0
-        end = self.end_time or datetime.now()
-        return (end - self.start_time).total_seconds()
+        
+        # Konversi ke datetime jika masih berupa float
+        if isinstance(self.start_time, (int, float)):
+            start = datetime.fromtimestamp(self.start_time)
+        else:
+            start = self.start_time
+        
+        # Konversi end_time jika ada
+        if self.end_time:
+            if isinstance(self.end_time, (int, float)):
+                end = datetime.fromtimestamp(self.end_time)
+            else:
+                end = self.end_time
+        else:
+            end = datetime.now()
+        
+        return (end - start).total_seconds()
+    
     
     @property
     def speed_mbps(self) -> float:
@@ -115,6 +131,7 @@ class FileJob:
             return True  # Ada checkpoint baru
         return False
     
+
     def to_dict(self) -> dict:
         """Konversi ke dictionary untuk disimpan ke JSON"""
         return {
@@ -126,8 +143,8 @@ class FileJob:
             'progress': self.progress,
             'copied_bytes': self.copied_bytes,
             'detected_time': self.detected_time.isoformat() if self.detected_time else None,
-            'start_time': self.start_time.isoformat() if self.start_time else None,
-            'end_time': self.end_time.isoformat() if self.end_time else None,
+            'start_time': self.start_time.isoformat() if isinstance(self.start_time, datetime) else self.start_time,
+            'end_time': self.end_time.isoformat() if isinstance(self.end_time, datetime) else self.end_time,
             'queue_position': self.queue_position,
             'priority': self.priority,
             'retry_count': self.retry_count,
@@ -136,29 +153,40 @@ class FileJob:
             'last_checkpoint': self.last_checkpoint,
             'checkpoints': self.checkpoints
         }
-    
+
+
+
     @classmethod
     def from_dict(cls, data: dict) -> 'FileJob':
         """Buat FileJob dari dictionary"""
-        # Parse datetime
+        # Parse datetime dengan handle untuk float/int
         detected_time = None
         if data.get('detected_time'):
             try:
-                detected_time = datetime.fromisoformat(data['detected_time'])
+                if isinstance(data['detected_time'], (int, float)):
+                    detected_time = datetime.fromtimestamp(data['detected_time'])
+                else:
+                    detected_time = datetime.fromisoformat(data['detected_time'])
             except:
                 detected_time = datetime.now()
         
         start_time = None
         if data.get('start_time'):
             try:
-                start_time = datetime.fromisoformat(data['start_time'])
+                if isinstance(data['start_time'], (int, float)):
+                    start_time = datetime.fromtimestamp(data['start_time'])
+                else:
+                    start_time = datetime.fromisoformat(data['start_time'])
             except:
                 pass
         
         end_time = None
         if data.get('end_time'):
             try:
-                end_time = datetime.fromisoformat(data['end_time'])
+                if isinstance(data['end_time'], (int, float)):
+                    end_time = datetime.fromtimestamp(data['end_time'])
+                else:
+                    end_time = datetime.fromisoformat(data['end_time'])
             except:
                 pass
         
