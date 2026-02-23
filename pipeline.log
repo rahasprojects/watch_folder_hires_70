@@ -1,0 +1,5 @@
+2026-02-23 18:08:52 [INFO] Testing logger...
+2026-02-23 18:10:06 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 18:10:06 [INFO] Config file not found: C:\watch_folder_hires_70\config.json, using defaults
+2026-02-23 18:10:06 [DEBUG] Settings updated: max_download = 5
+2026-02-23 18:10:06 [INFO] Config saved to: C:\watch_folder_hires_70\config.json

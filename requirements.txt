@@ -1,0 +1,17 @@
+# SMB Protocol untuk change notification (versi terbaru kompatibel Python 3.14)
+smbprotocol>=1.15.0
+
+# File system monitoring
+watchdog>=6.0.0
+
+# Utility untuk monitoring resource
+psutil>=5.9.0
+
+# Colored logging
+colorlog>=6.8.0
+
+# Untuk validasi dan utility tambahan
+python-dateutil>=2.9.0
+
+# Untuk konversi ukuran file
+humanfriendly>=10.0

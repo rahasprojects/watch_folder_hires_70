@@ -1,0 +1,23 @@
+{
+    "source_folders": [],
+    "destination_folder": "",
+    "extensions": [
+        ".mxf",
+        ".mov",
+        ".mp4",
+        ".avi",
+        ".mkv",
+        ".m4v",
+        ".mpg",
+        ".mpeg",
+        ".wmv",
+        ".flv",
+        ".mts",
+        ".m2ts",
+        ".vob",
+        ".3gp",
+        ".webm"
+    ],
+    "max_download": 5,
+    "max_retry": 3
+}
