@@ -1,17 +1,4228 @@
-# SMB Protocol untuk change notification (versi terbaru kompatibel Python 3.14)
-smbprotocol>=1.15.0
+src/constants/settings.py :
 
-# File system monitoring
-watchdog>=6.0.0
+# -*- coding: utf-8 -*-
+"""
+Konstanta dan default settings untuk aplikasi
+"""
 
-# Utility untuk monitoring resource
-psutil>=5.9.0
+# Default settings
+DEFAULT_MAX_DOWNLOAD = 4
+DEFAULT_MAX_RETRY = 3
+DEFAULT_CHUNK_SIZE = 256 * 1024 * 1024  # 256MB
+CHECKPOINT_PERCENT = 10  # Resume setiap 10%
 
-# Colored logging
-colorlog>=6.8.0
+# CHUNK_SIZE untuk kompatibilitas (sama dengan DEFAULT_CHUNK_SIZE)
+CHUNK_SIZE = DEFAULT_CHUNK_SIZE
 
-# Untuk validasi dan utility tambahan
-python-dateutil>=2.9.0
+# Default extensions untuk file video
+DEFAULT_EXTENSIONS = [
+    '.mxf', '.mov', '.mp4', '.avi', '.mkv', 
+    '.m4v', '.mpg', '.mpeg', '.wmv', '.flv',
+    '.mts', '.m2ts', '.vob', '.3gp', '.webm'
+]
 
-# Untuk konversi ukuran file
-humanfriendly>=10.0
+# Status values
+STATUS_WAITING = "waiting"
+STATUS_DOWNLOADING = "downloading"
+STATUS_COMPLETED = "completed"
+STATUS_FAILED = "failed"
+STATUS_PAUSED = "paused"
+
+# Log formats
+LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
+LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+# File names
+CONFIG_FILE = "config.json"
+STATE_FILE = "pipeline_state.json"
+HISTORY_FILE = "copy_history.txt"
+LOG_FILE = "pipeline.log"
+
+# SMB settings
+SMB_POLLING_INTERVAL = 5  # detik, untuk fallback
+SMB_CHANGE_TIMEOUT = 30   # detik
+
+# UI settings
+REFRESH_INTERVAL = 1000  # ms (1 detik) untuk refresh GUI
+
+src/models/file_job.py :
+
+# -*- coding: utf-8 -*-
+"""
+Model untuk merepresentasikan satu file yang akan diproses
+"""
+
+import os
+from datetime import datetime
+from dataclasses import dataclass, field
+from typing import Optional, List
+from ..constants.settings import STATUS_WAITING
+
+@dataclass
+class FileJob:
+    """
+    Kelas untuk merepresentasikan satu file dalam pipeline
+    """
+    # Identitas file
+    name: str
+    source_path: str
+    dest_path: str
+    size_bytes: int
+    
+    # Status dan progress
+    status: str = STATUS_WAITING
+    progress: float = 0.0  # 0-100
+    copied_bytes: int = 0
+    
+    # Timestamps
+    detected_time: datetime = field(default_factory=datetime.now)
+    start_time: Optional[datetime] = None
+    end_time: Optional[datetime] = None
+    
+    # Queue info
+    queue_position: Optional[int] = None
+    priority: int = 2  # Default priority (1 tertinggi, 3 terendah) - tapi tidak dipakai
+    
+    # Retry
+    retry_count: int = 0
+    max_retry: int = 3
+    last_error: Optional[str] = None
+    
+    # Resume
+    last_checkpoint: int = 0  # bytes yang sudah di-copy saat checkpoint terakhir
+    checkpoints: List[int] = field(default_factory=list)  # daftar checkpoint yang sudah dicapai
+    
+    def __post_init__(self):
+        """Validasi setelah inisialisasi"""
+        if not self.name:
+            self.name = os.path.basename(self.source_path)
+    
+    @property
+    def size_gb(self) -> float:
+        """Ukuran file dalam GB"""
+        return self.size_bytes / (1024**3)
+    
+    @property
+    def copied_gb(self) -> float:
+        """Jumlah yang sudah di-copy dalam GB"""
+        return self.copied_bytes / (1024**3)
+    
+    @property
+    def progress_percent(self) -> float:
+        """Progress dalam persen (0-100)"""
+        if self.size_bytes == 0:
+            return 0
+        return (self.copied_bytes / self.size_bytes) * 100
+    
+    @property
+    def elapsed_seconds(self) -> float:
+        """Detik yang sudah berlalu sejak mulai"""
+        if not self.start_time:
+            return 0
+        
+        # Konversi ke datetime jika masih berupa float
+        if isinstance(self.start_time, (int, float)):
+            start = datetime.fromtimestamp(self.start_time)
+        else:
+            start = self.start_time
+        
+        # Konversi end_time jika ada
+        if self.end_time:
+            if isinstance(self.end_time, (int, float)):
+                end = datetime.fromtimestamp(self.end_time)
+            else:
+                end = self.end_time
+        else:
+            end = datetime.now()
+        
+        return (end - start).total_seconds()
+    
+    
+    @property
+    def speed_mbps(self) -> float:
+        """Kecepatan transfer dalam MB/s"""
+        if self.elapsed_seconds == 0 or self.copied_bytes == 0:
+            return 0
+        return (self.copied_bytes / (1024*1024)) / self.elapsed_seconds
+    
+    @property
+    def eta_seconds(self) -> float:
+        """Estimasi waktu selesai dalam detik"""
+        if self.speed_mbps == 0 or self.progress_percent >= 100:
+            return 0
+        remaining_bytes = self.size_bytes - self.copied_bytes
+        return (remaining_bytes / (1024*1024)) / self.speed_mbps
+    
+    @property
+    def eta_formatted(self) -> str:
+        """Estimasi waktu selesai dalam format HH:MM:SS"""
+        eta = self.eta_seconds
+        if eta <= 0:
+            return "-"
+        hours = int(eta // 3600)
+        minutes = int((eta % 3600) // 60)
+        seconds = int(eta % 60)
+        if hours > 0:
+            return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+        else:
+            return f"{minutes:02d}:{seconds:02d}"
+    
+    def update_progress(self, copied_bytes: int):
+        """Update progress dan cek checkpoint"""
+        self.copied_bytes = copied_bytes
+        self.progress = self.progress_percent
+        
+        # Cek checkpoint (setiap 10%)
+        checkpoint = int(self.progress // 10) * 10
+        if checkpoint > self.last_checkpoint and checkpoint not in self.checkpoints:
+            self.checkpoints.append(checkpoint)
+            self.last_checkpoint = checkpoint
+            return True  # Ada checkpoint baru
+        return False
+    
+
+    def to_dict(self) -> dict:
+        """Konversi ke dictionary untuk disimpan ke JSON"""
+        return {
+            'name': self.name,
+            'source_path': self.source_path,
+            'dest_path': self.dest_path,
+            'size_bytes': self.size_bytes,
+            'status': self.status,
+            'progress': self.progress,
+            'copied_bytes': self.copied_bytes,
+            'detected_time': self.detected_time.isoformat() if self.detected_time else None,
+            'start_time': self.start_time.isoformat() if isinstance(self.start_time, datetime) else self.start_time,
+            'end_time': self.end_time.isoformat() if isinstance(self.end_time, datetime) else self.end_time,
+            'queue_position': self.queue_position,
+            'priority': self.priority,
+            'retry_count': self.retry_count,
+            'max_retry': self.max_retry,
+            'last_error': self.last_error,
+            'last_checkpoint': self.last_checkpoint,
+            'checkpoints': self.checkpoints
+        }
+
+
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'FileJob':
+        """Buat FileJob dari dictionary"""
+        # Parse datetime dengan handle untuk float/int
+        detected_time = None
+        if data.get('detected_time'):
+            try:
+                if isinstance(data['detected_time'], (int, float)):
+                    detected_time = datetime.fromtimestamp(data['detected_time'])
+                else:
+                    detected_time = datetime.fromisoformat(data['detected_time'])
+            except:
+                detected_time = datetime.now()
+        
+        start_time = None
+        if data.get('start_time'):
+            try:
+                if isinstance(data['start_time'], (int, float)):
+                    start_time = datetime.fromtimestamp(data['start_time'])
+                else:
+                    start_time = datetime.fromisoformat(data['start_time'])
+            except:
+                pass
+        
+        end_time = None
+        if data.get('end_time'):
+            try:
+                if isinstance(data['end_time'], (int, float)):
+                    end_time = datetime.fromtimestamp(data['end_time'])
+                else:
+                    end_time = datetime.fromisoformat(data['end_time'])
+            except:
+                pass
+        
+        return cls(
+            name=data['name'],
+            source_path=data['source_path'],
+            dest_path=data['dest_path'],
+            size_bytes=data['size_bytes'],
+            status=data.get('status', STATUS_WAITING),
+            progress=data.get('progress', 0),
+            copied_bytes=data.get('copied_bytes', 0),
+            detected_time=detected_time,
+            start_time=start_time,
+            end_time=end_time,
+            queue_position=data.get('queue_position'),
+            priority=data.get('priority', 2),
+            retry_count=data.get('retry_count', 0),
+            max_retry=data.get('max_retry', 3),
+            last_error=data.get('last_error'),
+            last_checkpoint=data.get('last_checkpoint', 0),
+            checkpoints=data.get('checkpoints', [])
+        )
+
+src/models/settings.py : 
+# -*- coding: utf-8 -*-
+"""
+Model untuk menyimpan konfigurasi aplikasi
+"""
+
+from dataclasses import dataclass, field
+from typing import List
+from ..constants.settings import DEFAULT_MAX_DOWNLOAD, DEFAULT_MAX_RETRY, DEFAULT_EXTENSIONS
+
+@dataclass
+class Settings:
+    """
+    Kelas untuk menyimpan semua konfigurasi aplikasi
+    """
+    # Source folders (12)
+    source_folders: List[str] = field(default_factory=list)
+    
+    # Destination folder (70)
+    destination_folder: str = ""
+    
+    # File extensions yang diproses
+    extensions: List[str] = field(default_factory=lambda: DEFAULT_EXTENSIONS.copy())
+    
+    # Concurrency settings
+    max_download: int = DEFAULT_MAX_DOWNLOAD
+    max_retry: int = DEFAULT_MAX_RETRY
+    
+    def validate(self) -> tuple[bool, str]:
+        """
+        Validasi settings
+        Returns: (is_valid, error_message)
+        """
+        # Cek source folders
+        if not self.source_folders:
+            return False, "Minimal satu source folder harus diisi"
+        
+        # Cek destination folder
+        if not self.destination_folder:
+            return False, "Destination folder harus diisi"
+        
+        # Cek extensions
+        if not self.extensions:
+            return False, "Minimal satu ekstensi file harus dipilih"
+        
+        # Cek max_download (1-10)
+        if self.max_download < 1 or self.max_download > 10:
+            return False, "Max download harus antara 1-10"
+        
+        # Cek max_retry (0-5)
+        if self.max_retry < 0 or self.max_retry > 5:
+            return False, "Max retry harus antara 0-5"
+        
+        return True, "Settings valid"
+    
+    def to_dict(self) -> dict:
+        """Konversi ke dictionary untuk disimpan ke JSON"""
+        return {
+            'source_folders': self.source_folders,
+            'destination_folder': self.destination_folder,
+            'extensions': self.extensions,
+            'max_download': self.max_download,
+            'max_retry': self.max_retry
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Settings':
+        """Buat Settings dari dictionary"""
+        return cls(
+            source_folders=data.get('source_folders', []),
+            destination_folder=data.get('destination_folder', ''),
+            extensions=data.get('extensions', DEFAULT_EXTENSIONS.copy()),
+            max_download=data.get('max_download', DEFAULT_MAX_DOWNLOAD),
+            max_retry=data.get('max_retry', DEFAULT_MAX_RETRY)
+        )
+    
+    def add_source_folder(self, folder: str) -> bool:
+        """Tambah source folder baru"""
+        if folder and folder not in self.source_folders:
+            self.source_folders.append(folder)
+            return True
+        return False
+    
+    def remove_source_folder(self, folder: str) -> bool:
+        """Hapus source folder"""
+        if folder in self.source_folders:
+            self.source_folders.remove(folder)
+            return True
+        return False
+    
+    def add_extension(self, ext: str) -> bool:
+        """Tambah ekstensi file"""
+        ext = ext.lower().strip()
+        if not ext.startswith('.'):
+            ext = '.' + ext
+        if ext not in self.extensions:
+            self.extensions.append(ext)
+            return True
+        return False
+    
+    def remove_extension(self, ext: str) -> bool:
+        """Hapus ekstensi file"""
+        ext = ext.lower().strip()
+        if ext in self.extensions:
+            self.extensions.remove(ext)
+            return True
+        return False
+
+src/utils/logger.py :
+# -*- coding: utf-8 -*-
+"""
+Setup logging untuk aplikasi
+"""
+
+import logging
+import sys
+import os
+from datetime import datetime
+from ..constants.settings import LOG_FILE, LOG_FORMAT, LOG_DATE_FORMAT
+
+def setup_logging():
+    """
+    Setup logging ke file dan console
+    """
+    # Root logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    
+    # Hapus handler yang sudah ada (kalau ada)
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+    
+    # Formatter
+    formatter = logging.Formatter(LOG_FORMAT, LOG_DATE_FORMAT)
+    
+    # File handler (DEBUG level)
+    log_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), LOG_FILE)
+    file_handler = logging.FileHandler(log_path, encoding='utf-8')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    
+    # Console handler (INFO level)
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+    
+    return logger
+
+def get_logger(name):
+    """
+    Dapatkan logger dengan nama tertentu
+    """
+    return logging.getLogger(name)
+
+# Test sederhana kalau dijalankan langsung
+if __name__ == "__main__":
+    setup_logging()
+    logger = get_logger(__name__)
+    logger.debug("Ini debug message")
+    logger.info("Ini info message")
+    logger.warning("Ini warning message")
+    logger.error("Ini error message")
+
+src/utils/config_manager.py :
+# -*- coding: utf-8 -*-
+"""
+Manager untuk load/save konfigurasi
+"""
+
+import json
+import os
+import logging
+from typing import Optional
+from ..models.settings import Settings
+from ..constants.settings import CONFIG_FILE
+
+logger = logging.getLogger(__name__)
+
+class ConfigManager:
+    """
+    Kelas untuk mengelola konfigurasi aplikasi
+    """
+    
+    def __init__(self, config_path: Optional[str] = None):
+        """
+        Inisialisasi ConfigManager
+        
+        Args:
+            config_path: Path ke file konfigurasi (optional)
+        """
+        if config_path:
+            self.config_path = config_path
+        else:
+            # Default: config.json di folder utama
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            self.config_path = os.path.join(root_dir, CONFIG_FILE)
+        
+        self.settings = Settings()
+        logger.debug(f"ConfigManager initialized with path: {self.config_path}")
+    
+    def load(self) -> Settings:
+        """
+        Load konfigurasi dari file
+        
+        Returns:
+            Settings object
+        """
+        if not os.path.exists(self.config_path):
+            logger.info(f"Config file not found: {self.config_path}, using defaults")
+            return self.settings
+        
+        try:
+            with open(self.config_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            self.settings = Settings.from_dict(data)
+            logger.info(f"Config loaded from: {self.config_path}")
+            return self.settings
+            
+        except Exception as e:
+            logger.error(f"Error loading config: {e}")
+            return self.settings
+    
+    def save(self, settings: Optional[Settings] = None) -> bool:
+        """
+        Save konfigurasi ke file
+        
+        Args:
+            settings: Settings object (optional, jika None pakai self.settings)
+            
+        Returns:
+            True jika berhasil, False jika gagal
+        """
+        if settings:
+            self.settings = settings
+        
+        try:
+            # Buat folder jika belum ada
+            os.makedirs(os.path.dirname(self.config_path), exist_ok=True)
+            
+            with open(self.config_path, 'w', encoding='utf-8') as f:
+                json.dump(self.settings.to_dict(), f, indent=4, ensure_ascii=False)
+            
+            logger.info(f"Config saved to: {self.config_path}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error saving config: {e}")
+            return False
+    
+    def get_settings(self) -> Settings:
+        """Dapatkan settings object"""
+        return self.settings
+    
+    def update_settings(self, **kwargs):
+        """
+        Update settings dengan keyword arguments
+        
+        Args:
+            **kwargs: Field yang akan diupdate
+        """
+        for key, value in kwargs.items():
+            if hasattr(self.settings, key):
+                setattr(self.settings, key, value)
+                logger.debug(f"Settings updated: {key} = {value}")
+            else:
+                logger.warning(f"Unknown settings field: {key}")
+        
+        return self.settings
+    
+    def reset_to_defaults(self):
+        """Reset settings ke default"""
+        self.settings = Settings()
+        logger.info("Settings reset to defaults")
+        return self.settings
+
+
+# Test sederhana kalau dijalankan langsung
+if __name__ == "__main__":
+    # Setup logging dulu
+    from .logger import setup_logging
+    setup_logging()
+    
+    # Test ConfigManager
+    mgr = ConfigManager()
+    
+    # Load config
+    settings = mgr.load()
+    print(f"Loaded settings: {settings.to_dict()}")
+    
+    # Update settings
+    mgr.update_settings(max_download=5, max_retry=2)
+    
+    # Save config
+    mgr.save()
+    print(f"Saved settings to {mgr.config_path}")
+
+src/utils/state_manager.py
+# -*- coding: utf-8 -*-
+"""
+Manager untuk menyimpan state aplikasi (resume capability)
+"""
+
+import json
+import os
+import logging
+from typing import Dict, List, Optional
+from datetime import datetime
+from ..models.file_job import FileJob
+from ..constants.settings import STATE_FILE
+
+logger = logging.getLogger(__name__)
+
+class StateManager:
+    """
+    Kelas untuk mengelola state aplikasi agar bisa resume setelah restart
+    """
+    
+    def __init__(self, state_path: Optional[str] = None):
+        """
+        Inisialisasi StateManager
+        
+        Args:
+            state_path: Path ke file state (optional)
+        """
+        if state_path:
+            self.state_path = state_path
+        else:
+            # Default: pipeline_state.json di folder utama
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            self.state_path = os.path.join(root_dir, STATE_FILE)
+        
+        self.state = {
+            'version': '1.0',
+            'last_update': None,
+            'jobs': {},
+            'active_downloads': [],
+            'queue': []
+        }
+        logger.debug(f"StateManager initialized with path: {self.state_path}")
+    
+    def load(self) -> Dict:
+        """
+        Load state dari file
+        
+        Returns:
+            Dictionary state
+        """
+        if not os.path.exists(self.state_path):
+            logger.info(f"State file not found: {self.state_path}, using empty state")
+            return self.state
+        
+        try:
+            with open(self.state_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            # Update state dengan data yang diload
+            self.state.update(data)
+            logger.info(f"State loaded from: {self.state_path}")
+            return self.state
+            
+        except Exception as e:
+            logger.error(f"Error loading state: {e}")
+            return self.state
+    
+    def save(self, jobs: List[FileJob] = None) -> bool:
+        """
+        Save state ke file
+        
+        Args:
+            jobs: List of FileJob objects (optional)
+            
+        Returns:
+            True jika berhasil, False jika gagal
+        """
+        try:
+            # Update timestamp
+            self.state['last_update'] = datetime.now().isoformat()
+            
+            # Update jobs jika diberikan
+            if jobs is not None:
+                jobs_dict = {}
+                active = []
+                queue = []
+                
+                for i, job in enumerate(jobs):
+                    jobs_dict[job.name] = job.to_dict()
+                    if job.status in ['downloading', 'waiting']:
+                        if job.status == 'downloading':
+                            active.append(job.name)
+                        else:
+                            queue.append(job.name)
+                
+                self.state['jobs'] = jobs_dict
+                self.state['active_downloads'] = active
+                self.state['queue'] = queue
+            
+            # Buat folder jika belum ada
+            os.makedirs(os.path.dirname(self.state_path), exist_ok=True)
+            
+            # Simpan ke file
+            with open(self.state_path, 'w', encoding='utf-8') as f:
+                json.dump(self.state, f, indent=4, ensure_ascii=False)
+            
+            logger.info(f"State saved to: {self.state_path}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error saving state: {e}")
+            return False
+    
+    def update_job(self, job: FileJob) -> bool:
+        """
+        Update satu job dalam state
+        
+        Args:
+            job: FileJob object
+            
+        Returns:
+            True jika berhasil
+        """
+        try:
+            # Update jobs dictionary
+            self.state['jobs'][job.name] = job.to_dict()
+            
+            # Update active_downloads jika status berubah
+            if job.status == 'downloading':
+                if job.name not in self.state['active_downloads']:
+                    self.state['active_downloads'].append(job.name)
+            else:
+                if job.name in self.state['active_downloads']:
+                    self.state['active_downloads'].remove(job.name)
+            
+            # Update queue
+            if job.status == 'waiting':
+                if job.name not in self.state['queue']:
+                    self.state['queue'].append(job.name)
+            else:
+                if job.name in self.state['queue']:
+                    self.state['queue'].remove(job.name)
+            
+            self.state['last_update'] = datetime.now().isoformat()
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error updating job in state: {e}")
+            return False
+    
+    def remove_job(self, job_name: str) -> bool:
+        """
+        Hapus job dari state (misal sudah selesai)
+        
+        Args:
+            job_name: Nama file
+            
+        Returns:
+            True jika berhasil
+        """
+        try:
+            if job_name in self.state['jobs']:
+                del self.state['jobs'][job_name]
+            
+            if job_name in self.state['active_downloads']:
+                self.state['active_downloads'].remove(job_name)
+            
+            if job_name in self.state['queue']:
+                self.state['queue'].remove(job_name)
+            
+            self.state['last_update'] = datetime.now().isoformat()
+            logger.debug(f"Job removed from state: {job_name}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error removing job from state: {e}")
+            return False
+    
+    def get_resumable_jobs(self) -> List[Dict]:
+        """
+        Dapatkan daftar job yang bisa di-resume (belum selesai)
+        
+        Returns:
+            List of job dictionaries
+        """
+        resumable = []
+        for job_name, job_data in self.state['jobs'].items():
+            if job_data.get('status') in ['downloading', 'waiting']:
+                resumable.append(job_data)
+        return resumable
+    
+    def clear_completed(self) -> int:
+        """
+        Hapus job yang sudah completed/failed dari state
+        
+        Returns:
+            Jumlah job yang dihapus
+        """
+        to_remove = []
+        for job_name, job_data in self.state['jobs'].items():
+            if job_data.get('status') in ['completed', 'failed']:
+                to_remove.append(job_name)
+        
+        for job_name in to_remove:
+            self.remove_job(job_name)
+        
+        if to_remove:
+            logger.info(f"Cleared {len(to_remove)} completed/failed jobs from state")
+        
+        return len(to_remove)
+
+
+# Test sederhana kalau dijalankan langsung
+if __name__ == "__main__":
+    # Setup logging dulu
+    from .logger import setup_logging
+    setup_logging()
+    
+    # Test StateManager
+    mgr = StateManager()
+    
+    # Load state
+    state = mgr.load()
+    print(f"Loaded state: {state['version']}")
+    
+    # Buat dummy job untuk test
+    from ..models.file_job import FileJob
+    job = FileJob(
+        name="test.mxf",
+        source_path=r"\\server\path\test.mxf",
+        dest_path=r"C:\local\test.mxf",
+        size_bytes=10737418240
+    )
+    
+    # Update job
+    mgr.update_job(job)
+    print(f"Job added to state")
+    
+    # Save state
+    mgr.save([job])
+    print(f"State saved to {mgr.state_path}")
+
+src/utils/history.py :
+# -*- coding: utf-8 -*-
+"""
+History logger untuk mencatat semua file yang pernah diproses
+"""
+
+import os
+import logging
+from datetime import datetime
+from typing import Optional
+from ..constants.settings import HISTORY_FILE
+
+logger = logging.getLogger(__name__)
+
+class HistoryLogger:
+    """
+    Kelas untuk mencatat history copy file
+    """
+    
+    def __init__(self, history_path: Optional[str] = None):
+        """
+        Inisialisasi HistoryLogger
+        
+        Args:
+            history_path: Path ke file history (optional)
+        """
+        if history_path:
+            self.history_path = history_path
+        else:
+            # Default: copy_history.txt di folder utama
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            self.history_path = os.path.join(root_dir, HISTORY_FILE)
+        
+        # Buat header jika file belum ada
+        if not os.path.exists(self.history_path):
+            self._write_header()
+        
+        logger.debug(f"HistoryLogger initialized with path: {self.history_path}")
+    
+    def _write_header(self):
+        """Tulis header ke file history"""
+        try:
+            with open(self.history_path, 'w', encoding='utf-8') as f:
+                f.write("="*100 + "\n")
+                f.write("HISTORY COPY FILE - watch_folder_hires_70\n")
+                f.write(f"Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write("="*100 + "\n")
+                f.write(f"{'Timestamp':<20} {'Filename':<40} {'Size':>12} {'Status':<10} {'Duration':<10} {'Retry':<5}\n")
+                f.write("-"*100 + "\n")
+        except Exception as e:
+            logger.error(f"Error writing history header: {e}")
+    
+    def log_success(self, filename: str, size_bytes: int, duration_seconds: float, retry_count: int = 0):
+        """
+        Catat file yang sukses di-copy
+        
+        Args:
+            filename: Nama file
+            size_bytes: Ukuran file dalam bytes
+            duration_seconds: Durasi copy dalam detik
+            retry_count: Jumlah retry
+        """
+        self._log_entry(filename, size_bytes, "SUCCESS", duration_seconds, retry_count)
+    
+    def log_failed(self, filename: str, size_bytes: int, error_msg: str, retry_count: int = 3):
+        """
+        Catat file yang gagal di-copy
+        
+        Args:
+            filename: Nama file
+            size_bytes: Ukuran file dalam bytes
+            error_msg: Pesan error
+            retry_count: Jumlah retry
+        """
+        self._log_entry(filename, size_bytes, f"FAILED", 0, retry_count, error_msg)
+    
+    def _log_entry(self, filename: str, size_bytes: int, status: str, 
+                   duration_seconds: float = 0, retry_count: int = 0, 
+                   error_msg: Optional[str] = None):
+        """
+        Internal method untuk menulis entry ke history
+        """
+        try:
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            size_gb = size_bytes / (1024**3)
+            
+            # Format durasi
+            if duration_seconds > 0:
+                hours = int(duration_seconds // 3600)
+                minutes = int((duration_seconds % 3600) // 60)
+                seconds = int(duration_seconds % 60)
+                duration_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+            else:
+                duration_str = "-"
+            
+            # Potong filename jika terlalu panjang
+            display_filename = filename if len(filename) <= 38 else filename[:35] + "..."
+            
+            # Format line
+            line = f"{timestamp:<20} {display_filename:<40} {size_gb:>11.2f} GB {status:<10} {duration_str:<10} {retry_count:<5}\n"
+            
+            # Tambah error message jika ada
+            if error_msg:
+                line += f"{' ':<20} {'ERROR:':<40} {error_msg}\n"
+            
+            # Tulis ke file
+            with open(self.history_path, 'a', encoding='utf-8') as f:
+                f.write(line)
+            
+            logger.debug(f"History logged: {filename} - {status}")
+            
+        except Exception as e:
+            logger.error(f"Error writing to history: {e}")
+    
+    def get_recent(self, limit: int = 10) -> list:
+        """
+        Ambil history terbaru
+        
+        Args:
+            limit: Jumlah entry terakhir yang diambil
+            
+        Returns:
+            List of history entries
+        """
+        entries = []
+        try:
+            if not os.path.exists(self.history_path):
+                return entries
+            
+            with open(self.history_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Skip header (5 baris pertama)
+            data_lines = lines[5:]
+            
+            # Ambil limit terakhir
+            for line in data_lines[-limit:]:
+                if line.strip() and not line.startswith(' '):
+                    entries.append(line.strip())
+            
+        except Exception as e:
+            logger.error(f"Error reading history: {e}")
+        
+        return entries
+    
+    def get_stats(self) -> dict:
+        """
+        Dapatkan statistik dari history
+        
+        Returns:
+            Dictionary statistik
+        """
+        stats = {
+            'total_files': 0,
+            'total_size_gb': 0,
+            'success_count': 0,
+            'failed_count': 0,
+            'total_duration_seconds': 0
+        }
+        
+        try:
+            if not os.path.exists(self.history_path):
+                return stats
+            
+            with open(self.history_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Skip header (5 baris pertama)
+            data_lines = lines[5:]
+            
+            for line in data_lines:
+                if line.strip() and not line.startswith(' '):
+                    parts = line.split()
+                    if len(parts) >= 6:
+                        stats['total_files'] += 1
+                        
+                        # Parse size (kolom ke-4 dan 5: "XX.XX GB")
+                        try:
+                            size = float(parts[3])
+                            stats['total_size_gb'] += size
+                        except:
+                            pass
+                        
+                        # Parse status (kolom ke-6)
+                        status = parts[5]
+                        if status == 'SUCCESS':
+                            stats['success_count'] += 1
+                        elif status == 'FAILED':
+                            stats['failed_count'] += 1
+                        
+                        # Parse duration (kolom ke-7)
+                        if len(parts) > 6 and parts[6] != '-':
+                            try:
+                                time_parts = parts[6].split(':')
+                                if len(time_parts) == 3:
+                                    hours = int(time_parts[0])
+                                    minutes = int(time_parts[1])
+                                    seconds = int(time_parts[2])
+                                    stats['total_duration_seconds'] += hours*3600 + minutes*60 + seconds
+                            except:
+                                pass
+            
+        except Exception as e:
+            logger.error(f"Error calculating history stats: {e}")
+        
+        return stats
+
+
+# Test sederhana kalau dijalankan langsung
+if __name__ == "__main__":
+    # Setup logging dulu
+    from .logger import setup_logging
+    setup_logging()
+    
+    # Test HistoryLogger
+    history = HistoryLogger()
+    
+    # Log beberapa entry
+    history.log_success("movie1.mxf", 21474836480, 3600, 0)  # 20GB, 1 jam
+    history.log_success("movie2.mp4", 32212254720, 5400, 1)  # 30GB, 1.5 jam
+    history.log_failed("corrupt.mov", 10737418240, "Connection timeout", 3)  # 10GB
+    
+    # Tampilkan recent
+    print("\nRecent history:")
+    for entry in history.get_recent(5):
+        print(f"  {entry}")
+    
+    # Tampilkan stats
+    stats = history.get_stats()
+    print(f"\nStats: {stats}")
+
+src/utils/validators.py :
+# -*- coding: utf-8 -*-
+"""
+Fungsi-fungsi validasi untuk path, file, extensions, dll
+"""
+
+import os
+import re
+import logging
+from typing import List, Optional, Tuple
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+def validate_path(path: str, must_exist: bool = True) -> Tuple[bool, str]:
+    """
+    Validasi path folder
+    
+    Args:
+        path: Path folder yang divalidasi
+        must_exist: True jika folder harus ada, False jika boleh tidak ada
+        
+    Returns:
+        (is_valid, error_message)
+    """
+    if not path or not path.strip():
+        return False, "Path tidak boleh kosong"
+    
+    # Clean path
+    path = path.strip()
+    
+    # Cek karakter invalid di Windows
+    invalid_chars = '<>:"|?*'
+    for char in invalid_chars:
+        if char in path:
+            return False, f"Path mengandung karakter invalid: {char}"
+    
+    # Cek apakah path adalah network path (\\server\share)
+    is_network = path.startswith('\\\\')
+    
+    # Cek apakah path adalah drive letter (X:)
+    is_drive = re.match(r'^[a-zA-Z]:\\?$', path) is not None
+    
+    # Cek apakah path relatif
+    is_relative = not (is_network or is_drive or path.startswith('/') or path.startswith('\\'))
+    
+    if must_exist:
+        try:
+            # Coba cek apakah folder ada
+            if not os.path.exists(path):
+                return False, f"Path tidak ditemukan: {path}"
+            
+            if not os.path.isdir(path):
+                return False, f"Path bukan folder: {path}"
+                
+        except PermissionError:
+            return False, f"Tidak punya akses ke path: {path}"
+        except Exception as e:
+            return False, f"Error accessing path: {e}"
+    
+    return True, "Path valid"
+
+def validate_file_path(path: str, must_exist: bool = True) -> Tuple[bool, str]:
+    """
+    Validasi path file (bukan folder)
+    
+    Args:
+        path: Path file yang divalidasi
+        must_exist: True jika file harus ada
+        
+    Returns:
+        (is_valid, error_message)
+    """
+    if not path or not path.strip():
+        return False, "Path tidak boleh kosong"
+    
+    path = path.strip()
+    
+    if must_exist:
+        try:
+            if not os.path.exists(path):
+                return False, f"File tidak ditemukan: {path}"
+            
+            if not os.path.isfile(path):
+                return False, f"Path bukan file: {path}"
+                
+        except PermissionError:
+            return False, f"Tidak punya akses ke file: {path}"
+        except Exception as e:
+            return False, f"Error accessing file: {e}"
+    
+    return True, "Path valid"
+
+def validate_extension(ext: str) -> Tuple[bool, str]:
+    """
+    Validasi format ekstensi file
+    
+    Args:
+        ext: Ekstensi (bisa dengan atau tanpa titik)
+        
+    Returns:
+        (is_valid, error_message)
+    """
+    if not ext or not ext.strip():
+        return False, "Ekstensi tidak boleh kosong"
+    
+    ext = ext.strip().lower()
+    
+    # Tambah titik jika belum ada
+    if not ext.startswith('.'):
+        ext = '.' + ext
+    
+    # Cek format (hanya huruf dan angka setelah titik)
+    if not re.match(r'^\.[a-z0-9]+$', ext):
+        return False, f"Format ekstensi tidak valid: {ext}"
+    
+    # Cek panjang (max 10 karakter setelah titik)
+    if len(ext) > 11:  # titik + max 10 chars
+        return False, f"Ekstensi terlalu panjang: {ext}"
+    
+    return True, ext  # Return normalized extension
+
+def validate_size(size_bytes: int, max_size_gb: Optional[float] = None) -> Tuple[bool, str]:
+    """
+    Validasi ukuran file
+    
+    Args:
+        size_bytes: Ukuran dalam bytes
+        max_size_gb: Maksimum ukuran dalam GB (optional)
+        
+    Returns:
+        (is_valid, error_message)
+    """
+    if size_bytes < 0:
+        return False, "Ukuran file tidak boleh negatif"
+    
+    if max_size_gb is not None:
+        max_bytes = max_size_gb * 1024**3
+        if size_bytes > max_bytes:
+            size_gb = size_bytes / 1024**3
+            return False, f"Ukuran file terlalu besar: {size_gb:.2f}GB > {max_size_gb}GB"
+    
+    return True, "Ukuran valid"
+
+def is_video_file(filename: str, extensions: List[str]) -> bool:
+    """
+    Cek apakah file termasuk video berdasarkan ekstensi
+    
+    Args:
+        filename: Nama file
+        extensions: Daftar ekstensi yang diizinkan
+        
+    Returns:
+        True jika file video
+    """
+    ext = os.path.splitext(filename)[1].lower()
+    return ext in extensions
+
+def sanitize_filename(filename: str) -> str:
+    """
+    Bersihkan nama file dari karakter invalid
+    
+    Args:
+        filename: Nama file asli
+        
+    Returns:
+        Nama file yang sudah dibersihkan
+    """
+    # Ganti karakter invalid dengan underscore
+    invalid_chars = '<>:"/\\|?*'
+    for char in invalid_chars:
+        filename = filename.replace(char, '_')
+    
+    # Hapus karakter kontrol
+    filename = ''.join(char for char in filename if ord(char) >= 32)
+    
+    # Trim
+    filename = filename.strip()
+    
+    # Cegah nama file kosong
+    if not filename:
+        filename = "unnamed_file"
+    
+    return filename
+
+def get_unique_filename(dest_dir: str, filename: str) -> str:
+    """
+    Dapatkan nama file unik (tambah nomor jika sudah ada)
+    
+    Args:
+        dest_dir: Folder tujuan
+        filename: Nama file yang diinginkan
+        
+    Returns:
+        Nama file unik
+    """
+    base, ext = os.path.splitext(filename)
+    counter = 1
+    new_filename = filename
+    
+    while os.path.exists(os.path.join(dest_dir, new_filename)):
+        new_filename = f"{base}_{counter}{ext}"
+        counter += 1
+    
+    return new_filename
+
+def is_path_writable(path: str) -> Tuple[bool, str]:
+    """
+    Cek apakah path bisa ditulisi
+    
+    Args:
+        path: Path folder yang dicek
+        
+    Returns:
+        (is_writable, error_message)
+    """
+    try:
+        # Buat folder jika belum ada
+        os.makedirs(path, exist_ok=True)
+        
+        # Coba buat file test
+        test_file = os.path.join(path, '.write_test')
+        with open(test_file, 'w') as f:
+            f.write('test')
+        os.remove(test_file)
+        
+        return True, "Path dapat ditulisi"
+        
+    except PermissionError:
+        return False, f"Tidak punya akses write ke: {path}"
+    except Exception as e:
+        return False, f"Error writing to path: {e}"
+
+def normalize_path(path: str) -> str:
+    """
+    Normalisasi path (ubah ke format standar)
+    
+    Args:
+        path: Path yang akan dinormalisasi
+        
+    Returns:
+        Path yang sudah dinormalisasi
+    """
+    if not path:
+        return ""
+    
+    # Gunakan Path object dari pathlib
+    try:
+        p = Path(path)
+        # Resolve kalau path relatif, tapi hati-hati dengan network path
+        if not str(path).startswith('\\\\'):
+            try:
+                p = p.resolve()
+            except:
+                pass
+        return str(p)
+    except:
+        # Fallback ke metode manual
+        path = os.path.normpath(path)
+        return path
+
+
+# Test sederhana kalau dijalankan langsung
+if __name__ == "__main__":
+    # Test validators
+    print("Testing validators...")
+    
+    # Test validate_path
+    valid, msg = validate_path("C:\\Windows", must_exist=True)
+    print(f"validate_path C:\\Windows: {valid} - {msg}")
+    
+    # Test validate_extension
+    valid, msg = validate_extension("mp4")
+    print(f"validate_extension mp4: {valid} - {msg}")
+    
+    # Test is_video_file
+    is_video = is_video_file("movie.mxf", ['.mxf', '.mp4'])
+    print(f"is_video_file movie.mxf: {is_video}")
+    
+    # Test get_unique_filename
+    # (butuh folder test, skip dulu)
+    
+    print("Validators test done")
+
+src/core/file_handler.py :
+# -*- coding: utf-8 -*-
+"""
+File handler untuk operasi copy file dengan progress, delete, retry, dan auto-rename
+"""
+
+import os
+import time
+import logging
+from typing import Callable, Optional
+from ..models.file_job import FileJob
+from ..constants.settings import CHUNK_SIZE, CHECKPOINT_PERCENT
+
+logger = logging.getLogger(__name__)
+
+class FileHandler:
+    """
+    Kelas untuk menangani operasi file (copy, delete, retry) dengan auto-rename untuk duplikat
+    """
+    
+    def __init__(self, chunk_size: int = CHUNK_SIZE):
+        """
+        Inisialisasi FileHandler
+        
+        Args:
+            chunk_size: Ukuran chunk untuk copy (default 256MB)
+        """
+        self.chunk_size = chunk_size
+        logger.debug(f"FileHandler initialized with chunk_size={chunk_size/(1024**2):.0f}MB")
+    
+    def get_unique_dest_path(self, dest_folder: str, filename: str) -> str:
+        """
+        Dapatkan path destination unik dengan menambahkan nomor jika file sudah ada
+        
+        Args:
+            dest_folder: Folder tujuan
+            filename: Nama file asli
+            
+        Returns:
+            Path destination yang unik
+        """
+        # Split nama file dan ekstensi
+        base, ext = os.path.splitext(filename)
+        
+        # Path lengkap
+        dest_path = os.path.join(dest_folder, filename)
+        
+        # Jika file belum ada, return path asli
+        if not os.path.exists(dest_path):
+            return dest_path
+        
+        # File sudah ada, cari nomor yang tersedia
+        counter = 1
+        while True:
+            # Format: nama (1).ext, nama (2).ext, dst
+            new_filename = f"{base} ({counter}){ext}"
+            new_path = os.path.join(dest_folder, new_filename)
+            
+            if not os.path.exists(new_path):
+                logger.info(f"File already exists, using: {new_filename}")
+                return new_path
+            
+            counter += 1
+    
+    def copy_with_progress(self, job: FileJob, 
+                           progress_callback: Optional[Callable[[int, float], None]] = None,
+                           checkpoint_callback: Optional[Callable[[FileJob], None]] = None) -> bool:
+        """
+        Copy file dengan progress monitoring dan retry untuk permission denied
+        
+        Args:
+            job: FileJob object
+            progress_callback: Callback untuk update progress (bytes_copied, percent)
+            checkpoint_callback: Callback untuk checkpoint (setiap 10%)
+            
+        Returns:
+            True jika sukses, False jika gagal
+        """
+        start_time = time.time()
+        max_retries = 5  # Maksimal 5 kali percobaan untuk permission denied
+        base_delay = 1   # Delay awal 1 detik
+        
+        for attempt in range(max_retries):
+            try:
+                # Buat folder tujuan jika belum ada
+                os.makedirs(os.path.dirname(job.dest_path), exist_ok=True)
+                
+                logger.info(f"Copying to: {job.dest_path}")
+                
+                # Buka file sumber dan tujuan
+                with open(job.source_path, 'rb') as src_file:
+                    with open(job.dest_path, 'wb') as dst_file:
+                        
+                        # Jika resume, seek ke posisi terakhir
+                        if job.copied_bytes > 0:
+                            src_file.seek(job.copied_bytes)
+                            dst_file.seek(job.copied_bytes)
+                            logger.info(f"Resuming {job.name} from {job.copied_bytes/(1024**2):.2f}MB")
+                        
+                        total_bytes = job.size_bytes
+                        copied_bytes = job.copied_bytes
+                        last_checkpoint = job.last_checkpoint
+                        last_log_percent = 0
+                        
+                        while copied_bytes < total_bytes:
+                            # Baca chunk
+                            chunk = src_file.read(self.chunk_size)
+                            if not chunk:
+                                break
+                            
+                            # Tulis chunk
+                            dst_file.write(chunk)
+                            copied_bytes += len(chunk)
+                            
+                            # Update progress
+                            percent = (copied_bytes / total_bytes) * 100
+                            
+                            if progress_callback:
+                                progress_callback(copied_bytes, percent)
+                            
+                            # Log progress setiap 10%
+                            if int(percent) >= last_log_percent + 10:
+                                last_log_percent = int(percent)
+                                logger.info(f"{job.name}: {percent:.1f}% ({copied_bytes/(1024**3):.2f}GB/{job.size_gb:.2f}GB)")
+                            
+                            # Cek checkpoint (setiap 10%)
+                            current_checkpoint = int(percent // CHECKPOINT_PERCENT) * CHECKPOINT_PERCENT
+                            if current_checkpoint > last_checkpoint and checkpoint_callback:
+                                job.copied_bytes = copied_bytes
+                                job.progress = percent
+                                job.last_checkpoint = current_checkpoint
+                                checkpoint_callback(job)
+                                last_checkpoint = current_checkpoint
+                                logger.debug(f"Checkpoint {job.name}: {current_checkpoint}%")
+                
+                # Jika sampai sini, copy berhasil
+                duration = time.time() - start_time
+                actual_filename = os.path.basename(job.dest_path)
+                logger.info(f"Copy completed: {actual_filename} ({job.size_gb:.2f}GB) in {duration:.2f}s")
+                
+                # Update job
+                job.copied_bytes = total_bytes
+                job.progress = 100
+                job.end_time = time.time()
+                
+                return True
+                
+            except PermissionError as e:
+                if attempt < max_retries - 1:
+                    delay = base_delay * (2 ** attempt)  # Exponential backoff: 1, 2, 4, 8, 16 detik
+                    logger.warning(f"Permission denied for {job.name}, file mungkin masih digunakan. "
+                                 f"Retry dalam {delay} detik... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(delay)
+                else:
+                    logger.error(f"Permission denied for {job.name} after {max_retries} attempts: {e}")
+                    job.last_error = f"Permission denied after {max_retries} attempts"
+                    return False
+                    
+            except FileNotFoundError as e:
+                logger.error(f"File not found: {job.source_path} - {e}")
+                job.last_error = f"Source file not found: {job.source_path}"
+                return False
+                
+            except IOError as e:
+                if attempt < max_retries - 1:
+                    delay = base_delay * (2 ** attempt)
+                    logger.warning(f"IO Error for {job.name}: {e}. Retry dalam {delay} detik...")
+                    time.sleep(delay)
+                else:
+                    logger.error(f"IO Error for {job.name} after {max_retries} attempts: {e}")
+                    job.last_error = f"IO Error: {e}"
+                    return False
+                    
+            except Exception as e:
+                logger.error(f"Unexpected error copying {job.name}: {e}")
+                job.last_error = str(e)
+                return False
+        
+        return False
+    
+    def safe_copy(self, job: FileJob, 
+                  progress_callback: Optional[Callable] = None,
+                  checkpoint_callback: Optional[Callable] = None) -> bool:
+        """
+        Safe copy dengan verifikasi ukuran file dan auto-rename untuk duplikat
+        
+        Args:
+            job: FileJob object
+            progress_callback: Callback progress
+            checkpoint_callback: Callback checkpoint
+            
+        Returns:
+            True jika sukses
+        """
+        # Validasi awal
+        if not os.path.exists(job.source_path):
+            logger.error(f"Source file does not exist: {job.source_path}")
+            job.last_error = "Source file does not exist"
+            return False
+        
+        # Cek ukuran file sumber
+        actual_size = os.path.getsize(job.source_path)
+        if actual_size != job.size_bytes:
+            logger.warning(f"Source file size changed: expected {job.size_bytes}, got {actual_size}")
+            job.size_bytes = actual_size  # Update ukuran
+        
+        # ===== AUTO-RENAME UNTUK FILE DUPLIKAT =====
+        dest_folder = os.path.dirname(job.dest_path)
+        original_filename = os.path.basename(job.dest_path)
+        
+        # Dapatkan path unik (dengan nomor jika sudah ada)
+        unique_dest_path = self.get_unique_dest_path(dest_folder, original_filename)
+        
+        # Jika berbeda dengan path asli, update job
+        renamed = False
+        if unique_dest_path != job.dest_path:
+            old_filename = os.path.basename(job.dest_path)
+            new_filename = os.path.basename(unique_dest_path)
+            job.dest_path = unique_dest_path
+            renamed = True
+            logger.info(f"Destination renamed to avoid conflict: {old_filename} → {new_filename}")
+        
+        # Copy dengan progress
+        success = self.copy_with_progress(job, progress_callback, checkpoint_callback)
+        
+        if not success:
+            return False
+        
+        # Verifikasi ukuran file hasil copy
+        if os.path.exists(job.dest_path):
+            dest_size = os.path.getsize(job.dest_path)
+            if dest_size != job.size_bytes:
+                logger.error(f"Verification failed: {job.name} - destination size {dest_size} != source size {job.size_bytes}")
+                job.last_error = "Size mismatch after copy"
+                return False
+            else:
+                # Gunakan nama file yang sebenarnya (mungkin sudah di-rename)
+                actual_filename = os.path.basename(job.dest_path)
+                logger.info(f"Verification passed: {actual_filename} ({job.size_gb:.2f}GB)")
+                if renamed:
+                    logger.info(f"File saved as: {actual_filename}")
+        else:
+            logger.error(f"Destination file not found after copy: {job.dest_path}")
+            job.last_error = "Destination file missing after copy"
+            return False
+        
+        return True
+    
+    def delete_file(self, path: str, max_retries: int = 3) -> bool:
+        """
+        Hapus file dengan retry
+        
+        Args:
+            path: Path file yang akan dihapus
+            max_retries: Maksimal percobaan
+            
+        Returns:
+            True jika sukses, False jika gagal
+        """
+        if not os.path.exists(path):
+            logger.warning(f"File not found for deletion: {path}")
+            return True
+        
+        for attempt in range(max_retries):
+            try:
+                os.remove(path)
+                logger.info(f"Deleted: {path}")
+                return True
+                
+            except PermissionError:
+                logger.warning(f"Permission error deleting {path}, file mungkin masih digunakan. "
+                             f"Attempt {attempt+1}/{max_retries}")
+                time.sleep(2 ** attempt)  # Exponential backoff
+                
+            except Exception as e:
+                logger.error(f"Error deleting {path}: {e}")
+                time.sleep(1)
+        
+        logger.error(f"Failed to delete {path} after {max_retries} attempts")
+        return False
+    
+    def verify_file(self, job: FileJob) -> bool:
+        """
+        Verifikasi file setelah copy
+        
+        Args:
+            job: FileJob object
+            
+        Returns:
+            True jika valid
+        """
+        try:
+            # Cek apakah file tujuan ada
+            if not os.path.exists(job.dest_path):
+                logger.error(f"Destination file not found: {job.dest_path}")
+                return False
+            
+            # Cek ukuran
+            actual_size = os.path.getsize(job.dest_path)
+            if actual_size != job.size_bytes:
+                logger.error(f"Size mismatch: {job.name} - expected {job.size_bytes}, got {actual_size}")
+                return False
+            
+            actual_filename = os.path.basename(job.dest_path)
+            logger.debug(f"File verified: {actual_filename}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error verifying {job.name}: {e}")
+            return False
+    
+    def get_file_info(self, path: str) -> Optional[dict]:
+        """
+        Dapatkan informasi file
+        
+        Args:
+            path: Path file
+            
+        Returns:
+            Dictionary info file atau None jika error
+        """
+        try:
+            if not os.path.exists(path):
+                return None
+            
+            stat = os.stat(path)
+            return {
+                'size': stat.st_size,
+                'modified': stat.st_mtime,
+                'created': stat.st_ctime,
+                'is_file': os.path.isfile(path),
+                'is_dir': os.path.isdir(path)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting file info for {path}: {e}")
+            return None
+
+
+# Test sederhana
+if __name__ == "__main__":
+    # Setup logging
+    from ..utils.logger import setup_logging
+    setup_logging()
+    
+    # Test FileHandler
+    handler = FileHandler()
+    print(f"FileHandler created with chunk_size={handler.chunk_size/(1024**2):.0f}MB")
+    
+    # Test auto-rename function
+    test_folder = "C:/test"
+    test_file = "test.mxf"
+    
+    unique_path = handler.get_unique_dest_path(test_folder, test_file)
+    print(f"Auto-rename test: {unique_path}")
+    
+    print("FileHandler ready with auto-rename feature")
+
+src/core/queue_manager.py : 
+# -*- coding: utf-8 -*-
+"""
+Queue manager untuk antrian FIFO
+"""
+
+import queue
+import threading
+import logging
+from typing import List, Optional, Callable
+from datetime import datetime
+from ..models.file_job import FileJob
+from ..constants.settings import STATUS_WAITING, STATUS_DOWNLOADING, STATUS_COMPLETED, STATUS_FAILED
+
+logger = logging.getLogger(__name__)
+
+class QueueManager:
+    """
+    Kelas untuk mengelola antrian FIFO
+    """
+    
+    def __init__(self):
+        """Inisialisasi QueueManager"""
+        self.queue = queue.Queue()  # FIFO queue
+        self.jobs = {}  # Dictionary semua jobs: {filename: FileJob}
+        self.active_jobs = []  # List jobs yang sedang diproses
+        self.waiting_jobs = []  # List jobs yang menunggu
+        self.completed_jobs = []  # List jobs yang selesai
+        self.failed_jobs = []  # List jobs yang gagal
+        
+        self.lock = threading.Lock()
+        self.callbacks = []  # Untuk notifikasi perubahan
+        
+        logger.info("QueueManager initialized")
+    
+    def add_job(self, job: FileJob) -> int:
+        """
+        Tambah job ke antrian
+        
+        Args:
+            job: FileJob object
+            
+        Returns:
+            Posisi dalam antrian
+        """
+        with self.lock:
+            # Cek apakah sudah ada
+            if job.name in self.jobs:
+                logger.warning(f"Job {job.name} already exists in queue")
+                return self.get_position(job.name)
+            
+            # Set status dan timestamp
+            job.status = STATUS_WAITING
+            job.detected_time = job.detected_time or datetime.now()
+            
+            # Simpan job
+            self.jobs[job.name] = job
+            self.waiting_jobs.append(job.name)
+            
+            # Masukkan ke queue
+            self.queue.put(job)
+            
+            # Update posisi
+            self._update_positions()
+            
+            logger.info(f"Job added to queue: {job.name} (size: {job.size_gb:.2f}GB)")
+            self._notify_callbacks('added', job)
+            
+            return self.get_position(job.name)
+    
+    def get_next_job(self) -> Optional[FileJob]:
+        """
+        Ambil job berikutnya dari antrian (blocking)
+        
+        Returns:
+            FileJob object atau None jika queue kosong
+        """
+        try:
+            job = self.queue.get(timeout=1)
+            
+            with self.lock:
+                if job.name in self.jobs:
+                    job.status = STATUS_DOWNLOADING
+                    self.active_jobs.append(job.name)
+                    if job.name in self.waiting_jobs:
+                        self.waiting_jobs.remove(job.name)
+                    
+                    logger.info(f"Job started: {job.name}")
+                    self._notify_callbacks('started', job)
+                    
+                    return job
+                else:
+                    logger.warning(f"Job {job.name} not found in jobs dict")
+                    return None
+                    
+        except queue.Empty:
+            return None
+    
+    def complete_job(self, job: FileJob, success: bool = True):
+        """
+        Tandai job sebagai selesai
+        
+        Args:
+            job: FileJob object
+            success: True jika sukses, False jika gagal
+        """
+        with self.lock:
+            if job.name not in self.jobs:
+                logger.warning(f"Job {job.name} not found")
+                return
+            
+            # Update status
+            if success:
+                job.status = STATUS_COMPLETED
+                self.completed_jobs.append(job.name)
+                logger.info(f"Job completed: {job.name}")
+            else:
+                job.status = STATUS_FAILED
+                self.failed_jobs.append(job.name)
+                logger.warning(f"Job failed: {job.name}")
+            
+            # Hapus dari active
+            if job.name in self.active_jobs:
+                self.active_jobs.remove(job.name)
+            
+            # Update posisi
+            self._update_positions()
+            
+            # Mark as done di queue
+            self.queue.task_done()
+            
+            self._notify_callbacks('completed' if success else 'failed', job)
+    
+    def fail_job(self, job: FileJob, error: str, retry: bool = True):
+        """
+        Tandai job sebagai gagal (dengan opsi retry)
+        
+        Args:
+            job: FileJob object
+            error: Pesan error
+            retry: True jika boleh retry
+        """
+        with self.lock:
+            job.retry_count += 1
+            job.last_error = error
+            
+            if retry and job.retry_count < job.max_retry:
+                # Kembalikan ke antrian untuk retry
+                job.status = STATUS_WAITING
+                self.waiting_jobs.append(job.name)
+                self.queue.put(job)
+                logger.warning(f"Job {job.name} will retry ({job.retry_count}/{job.max_retry})")
+            else:
+                # Gagal permanen
+                job.status = STATUS_FAILED
+                self.failed_jobs.append(job.name)
+                logger.error(f"Job failed permanently: {job.name} - {error}")
+            
+            # Hapus dari active
+            if job.name in self.active_jobs:
+                self.active_jobs.remove(job.name)
+            
+            self._update_positions()
+            self._notify_callbacks('failed', job)
+    
+    def get_job(self, filename: str) -> Optional[FileJob]:
+        """Dapatkan job berdasarkan nama file"""
+        return self.jobs.get(filename)
+    
+    def get_all_jobs(self) -> List[FileJob]:
+        """Dapatkan semua jobs"""
+        with self.lock:
+            return list(self.jobs.values())
+    
+    def get_active_jobs(self) -> List[FileJob]:
+        """Dapatkan jobs yang sedang aktif"""
+        with self.lock:
+            return [self.jobs[name] for name in self.active_jobs if name in self.jobs]
+    
+    def get_waiting_jobs(self) -> List[FileJob]:
+        """Dapatkan jobs yang menunggu"""
+        with self.lock:
+            return [self.jobs[name] for name in self.waiting_jobs if name in self.jobs]
+    
+    def get_position(self, filename: str) -> int:
+        """Dapatkan posisi job dalam antrian (tanpa lock)"""
+        # Tanpa lock dulu untuk testing
+        if filename in self.waiting_jobs:
+            return self.waiting_jobs.index(filename) + 1
+        return 0
+        
+    def queue_size(self) -> int:
+        """Jumlah job dalam antrian (waiting)"""
+        return len(self.waiting_jobs)
+    
+    def active_count(self) -> int:
+        """Jumlah job aktif"""
+        return len(self.active_jobs)
+    
+    def _update_positions(self):
+        """Update posisi semua job dalam antrian"""
+        for i, name in enumerate(self.waiting_jobs):
+            if name in self.jobs:
+                self.jobs[name].queue_position = i + 1
+    
+    def register_callback(self, callback: Callable):
+        """Register callback untuk notifikasi perubahan"""
+        self.callbacks.append(callback)
+    
+    def _notify_callbacks(self, event: str, job: FileJob):
+        """Notifikasi ke semua callback"""
+        for callback in self.callbacks:
+            try:
+                callback(event, job)
+            except Exception as e:
+                logger.error(f"Error in callback: {e}")
+    
+    def clear_completed(self):
+        """Hapus jobs yang sudah completed/failed dari memory"""
+        with self.lock:
+            # Hapus dari jobs dict
+            for name in self.completed_jobs + self.failed_jobs:
+                if name in self.jobs:
+                    del self.jobs[name]
+            
+            # Clear lists
+            self.completed_jobs.clear()
+            self.failed_jobs.clear()
+            
+            logger.info("Cleared completed/failed jobs from memory")
+    
+    def get_stats(self) -> dict:
+        """Dapatkan statistik queue"""
+        with self.lock:
+            return {
+                'waiting': len(self.waiting_jobs),
+                'active': len(self.active_jobs),
+                'completed': len(self.completed_jobs),
+                'failed': len(self.failed_jobs),
+                'total': len(self.jobs)
+            }
+
+src/core/download_manager.py :
+# -*- coding: utf-8 -*-
+"""
+Manager untuk mengatur download workers
+"""
+
+import threading
+import time
+import logging
+from typing import List, Optional, Dict
+from ..models.file_job import FileJob
+from ..core.download_worker import DownloadWorker
+from ..core.file_handler import FileHandler
+from ..core.queue_manager import QueueManager
+from ..utils.state_manager import StateManager
+from ..utils.history import HistoryLogger
+from ..constants.settings import DEFAULT_MAX_DOWNLOAD, DEFAULT_MAX_RETRY
+
+logger = logging.getLogger(__name__)
+
+class DownloadManager:
+    """
+    Kelas untuk mengelola download workers
+    """
+    
+    def __init__(self, 
+                 max_parallel: int = DEFAULT_MAX_DOWNLOAD,
+                 max_retry: int = DEFAULT_MAX_RETRY,
+                 queue_manager: Optional[QueueManager] = None,
+                 file_handler: Optional[FileHandler] = None,
+                 state_manager: Optional[StateManager] = None,
+                 history_logger: Optional[HistoryLogger] = None):
+        """
+        Inisialisasi DownloadManager
+        
+        Args:
+            max_parallel: Maksimal worker paralel
+            max_retry: Maksimal retry per file
+            queue_manager: QueueManager instance
+            file_handler: FileHandler instance
+            state_manager: StateManager instance
+            history_logger: HistoryLogger instance
+        """
+        self.max_parallel = max_parallel
+        self.max_retry = max_retry
+        
+        # Managers
+        self.queue_manager = queue_manager or QueueManager()
+        self.file_handler = file_handler or FileHandler()
+        self.state_manager = state_manager or StateManager()
+        self.history_logger = history_logger or HistoryLogger()
+        
+        # Workers
+        self.workers: List[DownloadWorker] = []
+        self.worker_status: Dict[int, dict] = {}
+        
+        # Control
+        self.running = False
+        self.lock = threading.Lock()
+        
+        # Callbacks
+        self.progress_callbacks = []
+        
+        logger.info(f"DownloadManager initialized with max_parallel={max_parallel}")
+    
+    def start(self):
+        """Start semua workers"""
+        if self.running:
+            logger.warning("DownloadManager already running")
+            return
+        
+        self.running = True
+        
+        # Load state untuk resume
+        self._load_resume_state()
+        
+        # Start workers
+        for i in range(self.max_parallel):
+            worker = DownloadWorker(
+                worker_id=i + 1,
+                queue_manager=self.queue_manager,
+                download_manager=self,
+                file_handler=self.file_handler,
+                state_manager=self.state_manager,
+                history_logger=self.history_logger
+            )
+            worker.start()
+            self.workers.append(worker)
+            
+            # Status awal
+            self.worker_status[i + 1] = {
+                'busy': False,
+                'current_job': None,
+                'start_time': None
+            }
+        
+        logger.info(f"Started {len(self.workers)} download workers")
+    
+    def stop(self):
+        """Stop semua workers"""
+        logger.info("Stopping all workers...")
+        self.running = False
+        
+        for worker in self.workers:
+            worker.stop()
+        
+        # Tunggu workers selesai
+        for worker in self.workers:
+            worker.join(timeout=5)
+        
+        # Save state terakhir
+        self._save_state()
+        
+        logger.info("All workers stopped")
+    
+    def _load_resume_state(self):
+        """Load state untuk resume file yang belum selesai"""
+        try:
+            state = self.state_manager.load()
+            resumable_jobs = self.state_manager.get_resumable_jobs()
+            
+            if resumable_jobs:
+                logger.info(f"Found {len(resumable_jobs)} resumable jobs")
+                
+                for job_data in resumable_jobs:
+                    # Buat FileJob dari data
+                    job = FileJob.from_dict(job_data)
+                    
+                    # Tambah ke queue
+                    self.queue_manager.add_job(job)
+                    
+                    logger.info(f"Resumed job: {job.name} ({job.progress:.1f}%)")
+            
+            # Clear completed dari state
+            self.state_manager.clear_completed()
+            
+        except Exception as e:
+            logger.error(f"Error loading resume state: {e}")
+    
+    def _save_state(self):
+        """Save state semua jobs"""
+        try:
+            jobs = self.queue_manager.get_all_jobs()
+            self.state_manager.save(jobs)
+            logger.debug("State saved")
+        except Exception as e:
+            logger.error(f"Error saving state: {e}")
+    
+    def update_progress(self, job: FileJob):
+        """
+        Update progress job
+        
+        Args:
+            job: FileJob object
+        """
+        # Update worker status
+        for worker in self.workers:
+            if worker.get_current_job() == job:
+                self.worker_status[worker.worker_id] = {
+                    'busy': True,
+                    'current_job': job,
+                    'progress': job.progress,
+                    'speed': job.speed_mbps,
+                    'eta': job.eta_formatted
+                }
+                break
+        
+        # Notifikasi callbacks
+        self._notify_progress(job)
+        
+        # Save state setiap update (bisa di-throttle kalau perlu)
+        if int(job.progress) % 10 == 0:  # Setiap 10%
+            self._save_state()
+    
+    def _notify_progress(self, job: FileJob):
+        """Notifikasi progress ke semua callback"""
+        for callback in self.progress_callbacks:
+            try:
+                callback(job)
+            except Exception as e:
+                logger.error(f"Error in progress callback: {e}")
+    
+    def register_progress_callback(self, callback):
+        """Register callback untuk update progress"""
+        self.progress_callbacks.append(callback)
+    
+    def get_stats(self) -> dict:
+        """Dapatkan statistik download"""
+        with self.lock:
+            queue_stats = self.queue_manager.get_stats()
+            
+            # Hitung worker stats
+            busy_workers = sum(1 for w in self.workers if w.is_busy())
+            total_speed = 0
+            for worker in self.workers:
+                job = worker.get_current_job()
+                if job:
+                    total_speed += job.speed_mbps
+            
+            return {
+                'queue': queue_stats,
+                'workers': {
+                    'total': len(self.workers),
+                    'busy': busy_workers,
+                    'idle': len(self.workers) - busy_workers,
+                    'total_speed_mbps': total_speed
+                },
+                'max_parallel': self.max_parallel,
+                'running': self.running
+            }
+    
+    def get_active_downloads(self) -> List[FileJob]:
+        """Dapatkan semua file yang sedang di-download"""
+        active = []
+        for worker in self.workers:
+            job = worker.get_current_job()
+            if job:
+                active.append(job)
+        return active
+    
+    def set_max_parallel(self, new_max: int):
+        """
+        Ubah jumlah maksimal worker paralel
+        
+        Args:
+            new_max: Jumlah worker baru
+        """
+        if new_max == self.max_parallel:
+            return
+        
+        if new_max > self.max_parallel:
+            # Tambah worker
+            for i in range(self.max_parallel, new_max):
+                worker = DownloadWorker(
+                    worker_id=i + 1,
+                    queue_manager=self.queue_manager,
+                    download_manager=self
+                )
+                worker.start()
+                self.workers.append(worker)
+                
+            logger.info(f"Added {new_max - self.max_parallel} workers")
+            
+        else:
+            # Kurangi worker (stop yang idle)
+            to_stop = []
+            for worker in self.workers[new_max:]:
+                if not worker.is_busy():
+                    worker.stop()
+                    to_stop.append(worker)
+            
+            # Hapus dari list
+            for worker in to_stop:
+                self.workers.remove(worker)
+            
+            logger.info(f"Removed {len(to_stop)} idle workers")
+        
+        self.max_parallel = new_max
+        logger.info(f"Max parallel changed to {new_max}")
+
+
+# Test sederhana
+if __name__ == "__main__":
+    from ..utils.logger import setup_logging
+    setup_logging()
+    
+    # Buat download manager
+    dm = DownloadManager(max_parallel=2)
+    
+    # Start
+    dm.start()
+    
+    # Jalankan sebentar
+    time.sleep(2)
+    
+    # Stop
+    dm.stop()
+    
+    print("DownloadManager test done")
+
+src/core/file_monitor.py:
+# -*- coding: utf-8 -*-
+"""
+File monitor untuk mendeteksi file baru di folder 12 menggunakan SMB
+"""
+
+import os
+import time
+import threading
+import logging
+from typing import List, Optional, Callable, Dict
+from datetime import datetime
+from ..models.file_job import FileJob
+from ..core.queue_manager import QueueManager
+from ..utils.validators import is_video_file
+from ..constants.settings import SMB_POLLING_INTERVAL
+
+logger = logging.getLogger(__name__)
+
+class FileMonitor:
+    """
+    Kelas untuk memonitor folder 12 dan mendeteksi file baru
+    """
+    
+    def __init__(self, 
+                 source_folders: List[str],
+                 extensions: List[str],
+                 queue_manager: QueueManager,
+                 polling_interval: int = SMB_POLLING_INTERVAL):
+        """
+        Inisialisasi FileMonitor
+        
+        Args:
+            source_folders: Daftar folder sumber (12) yang dimonitor
+            extensions: Daftar ekstensi file yang diproses
+            queue_manager: QueueManager instance
+            polling_interval: Interval polling dalam detik (fallback)
+        """
+        self.source_folders = source_folders
+        self.extensions = extensions
+        self.queue_manager = queue_manager
+        self.polling_interval = polling_interval
+        
+        # State
+        self.seen_files: Dict[str, set] = {}  # {folder: set of files}
+        self.stable_files: Dict[str, dict] = {}  # {file_path: info}
+        self.running = False
+        self.monitor_thread = None
+        
+        # Callbacks
+        self.detection_callbacks = []
+        
+        logger.info(f"FileMonitor initialized with {len(source_folders)} folders")
+        for folder in source_folders:
+            logger.info(f"  - Monitoring: {folder}")
+        logger.info(f"  - Extensions: {extensions}")
+    
+    def start(self):
+        """Start monitoring"""
+        if self.running:
+            logger.warning("FileMonitor already running")
+            return
+        
+        self.running = True
+        
+        # Initialize seen files
+        for folder in self.source_folders:
+            self.seen_files[folder] = set()
+            self._scan_folder(folder, initial=True)
+        
+        # Start monitoring thread
+        self.monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
+        self.monitor_thread.start()
+        
+        logger.info("FileMonitor started")
+    
+    def stop(self):
+        """Stop monitoring"""
+        self.running = False
+        if self.monitor_thread:
+            self.monitor_thread.join(timeout=5)
+        logger.info("FileMonitor stopped")
+    
+    def _monitor_loop(self):
+        """Main monitoring loop"""
+        logger.info(f"Monitor loop started (interval: {self.polling_interval}s)")
+        
+        while self.running:
+            try:
+                for folder in self.source_folders:
+                    self._scan_folder(folder)
+                    
+                # Cek kestabilan file
+                self._check_stable_files()
+                
+            except Exception as e:
+                logger.error(f"Error in monitor loop: {e}")
+            
+            # Sleep
+            for _ in range(self.polling_interval):
+                if not self.running:
+                    break
+                time.sleep(1)
+    
+    def _scan_folder(self, folder: str, initial: bool = False):
+        """
+        Scan folder untuk mencari file baru
+        
+        Args:
+            folder: Path folder
+            initial: True jika scan pertama kali
+        """
+        try:
+            if not os.path.exists(folder):
+                logger.warning(f"Folder not found: {folder}")
+                return
+            
+            # Dapatkan semua file
+            try:
+                all_items = os.listdir(folder)
+            except PermissionError:
+                logger.error(f"Permission denied accessing folder: {folder}")
+                return
+            except Exception as e:
+                logger.error(f"Error listing folder {folder}: {e}")
+                return
+            
+            current_files = set()
+            
+            for item in all_items:
+                item_path = os.path.join(folder, item)
+                
+                # Skip folder
+                if os.path.isdir(item_path):
+                    continue
+                
+                # Cek ekstensi
+                if not is_video_file(item, self.extensions):
+                    continue
+                
+                current_files.add(item)
+                
+                # Cek file baru (belum pernah dilihat)
+                if folder not in self.seen_files:
+                    self.seen_files[folder] = set()
+                
+                if not initial and item not in self.seen_files[folder]:
+                    # File baru terdeteksi
+                    try:
+                        file_size = os.path.getsize(item_path)
+                        logger.info(f"New file detected: {item} ({file_size/(1024**3):.2f}GB) in {folder}")
+                        
+                        # Masukkan ke daftar file yang perlu dicek kestabilannya
+                        self.stable_files[item_path] = {
+                            'first_seen': time.time(),
+                            'last_size': file_size,
+                            'folder': folder,
+                            'filename': item,
+                            'checked_count': 0
+                        }
+                    except Exception as e:
+                        logger.error(f"Error getting size for new file {item}: {e}")
+            
+            # Update seen files
+            self.seen_files[folder] = current_files
+            
+        except Exception as e:
+            logger.error(f"Error scanning folder {folder}: {e}")
+    
+    def _check_stable_files(self):
+        """
+        Cek file yang sudah stabil (tidak berubah ukurannya)
+        """
+        to_remove = []
+        
+        for file_path, info in self.stable_files.items():
+            try:
+                if not os.path.exists(file_path):
+                    # File sudah dihapus
+                    logger.debug(f"File removed before stabilization: {info['filename']}")
+                    to_remove.append(file_path)
+                    continue
+                
+                current_size = os.path.getsize(file_path)
+                time_since_first = time.time() - info['first_seen']
+                info['checked_count'] = info.get('checked_count', 0) + 1
+                
+                logger.debug(f"Checking {info['filename']}: size={current_size}, last_size={info['last_size']}, time={time_since_first:.1f}s")
+                
+                if current_size == info['last_size'] and time_since_first >= 5:
+                    # File stabil (ukuran tidak berubah selama 3 detik)
+                    logger.info(f"File stable: {info['filename']} ({current_size/(1024**3):.2f}GB) after {time_since_first:.1f}s")
+                    
+                    # Buat job (dest_path akan diisi kosong dulu)
+                    job = FileJob(
+                        name=info['filename'],
+                        source_path=file_path,
+                        dest_path="",  # Akan diisi oleh settings/download_worker
+                        size_bytes=current_size
+                    )
+                    
+                    logger.info(f"Created job for {info['filename']} with source: {file_path}")
+                    
+                    # Tambah ke queue
+                    position = self.queue_manager.add_job(job)
+                    logger.info(f"Job added to queue at position {position}")
+                    
+                    # Notifikasi
+                    self._notify_callbacks(job)
+                    
+                    to_remove.append(file_path)
+                    
+                elif current_size != info['last_size']:
+                    # Ukuran berubah, update
+                    logger.debug(f"File {info['filename']} still changing: {info['last_size']} -> {current_size}")
+                    info['last_size'] = current_size
+                    
+                elif time_since_first > 30:
+                    # Sudah 30 detik tapi masih berubah? mungkin file besar
+                    logger.info(f"File {info['filename']} still changing after 30s, current size: {current_size/(1024**3):.2f}GB")
+                    # Tetap pertahankan, jangan hapus
+                    
+            except Exception as e:
+                logger.error(f"Error checking stable file {file_path}: {e}")
+                to_remove.append(file_path)
+        
+        # Hapus yang sudah diproses
+        for file_path in to_remove:
+            if file_path in self.stable_files:
+                del self.stable_files[file_path]
+        
+        if to_remove:
+            logger.debug(f"Removed {len(to_remove)} files from stabilization queue")
+    
+    def add_source_folder(self, folder: str):
+        """Tambah folder sumber baru"""
+        if folder not in self.source_folders:
+            self.source_folders.append(folder)
+            self.seen_files[folder] = set()
+            logger.info(f"Added source folder: {folder}")
+    
+    def remove_source_folder(self, folder: str):
+        """Hapus folder sumber"""
+        if folder in self.source_folders:
+            self.source_folders.remove(folder)
+            if folder in self.seen_files:
+                del self.seen_files[folder]
+            logger.info(f"Removed source folder: {folder}")
+    
+    def update_extensions(self, extensions: List[str]):
+        """Update daftar ekstensi"""
+        self.extensions = extensions
+        logger.info(f"Extensions updated: {extensions}")
+    
+    def register_callback(self, callback: Callable):
+        """Register callback untuk notifikasi file baru"""
+        self.detection_callbacks.append(callback)
+    
+    def _notify_callbacks(self, job: FileJob):
+        """Notifikasi ke semua callback"""
+        for callback in self.detection_callbacks:
+            try:
+                callback(job)
+            except Exception as e:
+                logger.error(f"Error in detection callback: {e}")
+    
+    def get_stats(self) -> dict:
+        """Dapatkan statistik monitoring"""
+        total_files_seen = 0
+        for files in self.seen_files.values():
+            total_files_seen += len(files)
+            
+        return {
+            'folders_monitored': len(self.source_folders),
+            'files_seen': total_files_seen,
+            'files_stabilizing': len(self.stable_files),
+            'extensions': self.extensions,
+            'running': self.running
+        }
+    
+    def force_scan(self):
+        """Force scan semua folder"""
+        logger.info("Forcing scan...")
+        for folder in self.source_folders:
+            self._scan_folder(folder)
+        self._check_stable_files()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    from ..utils.logger import setup_logging
+    setup_logging()
+    
+    # Buat queue manager dummy
+    class DummyQueue:
+        def add_job(self, job):
+            print(f"Job added: {job.name}")
+            return 1
+    
+    # Buat file monitor
+    monitor = FileMonitor(
+        source_folders=["D:/Test watch folder/source"],
+        extensions=['.mp4', '.mxf', '.mov'],
+        queue_manager=DummyQueue()
+    )
+    
+    print("FileMonitor class ready with full debug")
+    print(f"Monitoring: {monitor.source_folders}")
+    print(f"Extensions: {monitor.extensions}")
+
+src/gui/settings_panel.py
+# -*- coding: utf-8 -*-
+"""
+Settings panel untuk konfigurasi aplikasi
+"""
+
+import tkinter as tk
+from tkinter import ttk, messagebox, filedialog
+from typing import Callable, Optional, List
+from ..models.settings import Settings
+from ..utils.config_manager import ConfigManager
+from ..utils.validators import validate_path, validate_extension
+from ..constants.settings import DEFAULT_EXTENSIONS
+
+class SettingsPanel(ttk.LabelFrame):
+    """
+    Panel untuk mengatur konfigurasi aplikasi
+    """
+    
+    def __init__(self, parent, config_manager: ConfigManager, 
+                 on_settings_changed: Optional[Callable] = None):
+        """
+        Inisialisasi SettingsPanel
+        
+        Args:
+            parent: Parent widget
+            config_manager: ConfigManager instance
+            on_settings_changed: Callback saat settings berubah
+        """
+        super().__init__(parent, text="⚙️ Settings", padding=10)
+        
+        self.config_manager = config_manager
+        self.settings = config_manager.get_settings()
+        self.on_settings_changed = on_settings_changed
+        
+        # Variables
+        self.max_download_var = tk.IntVar(value=self.settings.max_download)
+        self.max_retry_var = tk.IntVar(value=self.settings.max_retry)
+        
+        self._create_widgets()
+        self._load_settings()
+    
+    def _create_widgets(self):
+        """Buat semua widget"""
+        
+        # === SOURCE FOLDERS ===
+        source_frame = ttk.LabelFrame(self, text="📂 Source Folders (12)", padding=5)
+        source_frame.pack(fill='x', pady=5)
+        
+        # Listbox dengan scrollbar
+        list_frame = ttk.Frame(source_frame)
+        list_frame.pack(fill='both', expand=True)
+        
+        self.source_listbox = tk.Listbox(list_frame, height=4, selectmode=tk.SINGLE)
+        self.source_listbox.pack(side='left', fill='both', expand=True)
+        
+        scrollbar = ttk.Scrollbar(list_frame, orient='vertical', command=self.source_listbox.yview)
+        scrollbar.pack(side='right', fill='y')
+        self.source_listbox.config(yscrollcommand=scrollbar.set)
+        
+        # Buttons
+        btn_frame = ttk.Frame(source_frame)
+        btn_frame.pack(fill='x', pady=5)
+        
+        ttk.Button(btn_frame, text="➕ Add", command=self._add_source_folder).pack(side='left', padx=2)
+        ttk.Button(btn_frame, text="➖ Remove", command=self._remove_source_folder).pack(side='left', padx=2)
+        ttk.Button(btn_frame, text="📁 Browse", command=self._browse_source_folder).pack(side='left', padx=2)
+        
+        # === DESTINATION FOLDER ===
+        dest_frame = ttk.LabelFrame(self, text="💾 Destination Folder (70)", padding=5)
+        dest_frame.pack(fill='x', pady=5)
+        
+        dest_entry_frame = ttk.Frame(dest_frame)
+        dest_entry_frame.pack(fill='x')
+        
+        self.dest_var = tk.StringVar()
+        self.dest_entry = ttk.Entry(dest_entry_frame, textvariable=self.dest_var)
+        self.dest_entry.pack(side='left', fill='x', expand=True, padx=2)
+        
+        ttk.Button(dest_entry_frame, text="📁 Browse", command=self._browse_dest_folder).pack(side='right', padx=2)
+        
+        # === EXTENSIONS ===
+        ext_frame = ttk.LabelFrame(self, text="🎬 File Extensions", padding=5)
+        ext_frame.pack(fill='x', pady=5)
+        
+        # Listbox dengan scrollbar
+        ext_list_frame = ttk.Frame(ext_frame)
+        ext_list_frame.pack(fill='both', expand=True)
+        
+        self.ext_listbox = tk.Listbox(ext_list_frame, height=5, selectmode=tk.SINGLE)
+        self.ext_listbox.pack(side='left', fill='both', expand=True)
+        
+        ext_scrollbar = ttk.Scrollbar(ext_list_frame, orient='vertical', command=self.ext_listbox.yview)
+        ext_scrollbar.pack(side='right', fill='y')
+        self.ext_listbox.config(yscrollcommand=ext_scrollbar.set)
+        
+        # Buttons
+        ext_btn_frame = ttk.Frame(ext_frame)
+        ext_btn_frame.pack(fill='x', pady=5)
+        
+        ttk.Button(ext_btn_frame, text="➕ Add", command=self._add_extension).pack(side='left', padx=2)
+        ttk.Button(ext_btn_frame, text="➖ Remove", command=self._remove_extension).pack(side='left', padx=2)
+        ttk.Button(ext_btn_frame, text="🔄 Reset Default", command=self._reset_extensions).pack(side='left', padx=2)
+        
+        # === CONCURRENCY SETTINGS ===
+        concurrent_frame = ttk.LabelFrame(self, text="⚡ Concurrency Settings", padding=5)
+        concurrent_frame.pack(fill='x', pady=5)
+        
+        # Max Download
+        dl_frame = ttk.Frame(concurrent_frame)
+        dl_frame.pack(fill='x', pady=2)
+        
+        ttk.Label(dl_frame, text="Max Download Paralel:").pack(side='left')
+        ttk.Scale(dl_frame, from_=1, to=10, orient='horizontal', 
+                 variable=self.max_download_var, command=self._on_max_download_change).pack(side='left', fill='x', expand=True, padx=5)
+        self.dl_label = ttk.Label(dl_frame, text=str(self.max_download_var.get()))
+        self.dl_label.pack(side='right', padx=5)
+        
+        # Max Retry
+        retry_frame = ttk.Frame(concurrent_frame)
+        retry_frame.pack(fill='x', pady=2)
+        
+        ttk.Label(retry_frame, text="Max Retry:").pack(side='left')
+        ttk.Scale(retry_frame, from_=0, to=5, orient='horizontal',
+                 variable=self.max_retry_var, command=self._on_max_retry_change).pack(side='left', fill='x', expand=True, padx=5)
+        self.retry_label = ttk.Label(retry_frame, text=str(self.max_retry_var.get()))
+        self.retry_label.pack(side='right', padx=5)
+        
+        # === BUTTONS ===
+        button_frame = ttk.Frame(self)
+        button_frame.pack(fill='x', pady=10)
+        
+        ttk.Button(button_frame, text="💾 Save Settings", command=self._save_settings).pack(side='left', padx=5)
+        ttk.Button(button_frame, text="🔄 Load Settings", command=self._load_settings).pack(side='left', padx=5)
+        ttk.Button(button_frame, text="📋 Validate", command=self._validate_settings).pack(side='left', padx=5)
+    
+    def _load_settings(self):
+        """Load settings dari config manager"""
+        self.settings = self.config_manager.load()
+        
+        # Update UI
+        self._update_source_listbox()
+        self.dest_var.set(self.settings.destination_folder)
+        self._update_ext_listbox()
+        self.max_download_var.set(self.settings.max_download)
+        self.max_retry_var.set(self.settings.max_retry)
+        
+        self.dl_label.config(text=str(self.settings.max_download))
+        self.retry_label.config(text=str(self.settings.max_retry))
+    
+    def _save_settings(self):
+        """Save settings ke config manager"""
+        # Update settings dari UI
+        self.settings.source_folders = list(self.source_listbox.get(0, tk.END))
+        self.settings.destination_folder = self.dest_var.get().strip()
+        self.settings.extensions = list(self.ext_listbox.get(0, tk.END))
+        self.settings.max_download = self.max_download_var.get()
+        self.settings.max_retry = self.max_retry_var.get()
+        
+        # Validasi
+        valid, msg = self.settings.validate()
+        if not valid:
+            messagebox.showerror("Invalid Settings", msg)
+            return
+        
+        # Save
+        if self.config_manager.save(self.settings):
+            messagebox.showinfo("Success", "Settings saved successfully")
+            if self.on_settings_changed:
+                self.on_settings_changed()
+        else:
+            messagebox.showerror("Error", "Failed to save settings")
+    
+    def _validate_settings(self):
+        """Validasi settings"""
+        valid, msg = self.settings.validate()
+        if valid:
+            messagebox.showinfo("Validation", "✅ Settings are valid")
+        else:
+            messagebox.showerror("Validation", f"❌ {msg}")
+    
+    def _update_source_listbox(self):
+        """Update source listbox dari settings"""
+        self.source_listbox.delete(0, tk.END)
+        for folder in self.settings.source_folders:
+            self.source_listbox.insert(tk.END, folder)
+    
+    def _update_ext_listbox(self):
+        """Update extension listbox dari settings"""
+        self.ext_listbox.delete(0, tk.END)
+        for ext in self.settings.extensions:
+            self.ext_listbox.insert(tk.END, ext)
+    
+    def _add_source_folder(self):
+        """Tambah source folder manual"""
+        dialog = tk.Toplevel(self)
+        dialog.title("Add Source Folder")
+        dialog.geometry("400x120")
+        dialog.transient(self)
+        dialog.grab_set()
+        
+        ttk.Label(dialog, text="Enter folder path:").pack(pady=5)
+        
+        var = tk.StringVar()
+        entry = ttk.Entry(dialog, textvariable=var, width=50)
+        entry.pack(pady=5)
+        
+        def on_ok():
+            folder = var.get().strip()
+            if folder:
+                valid, msg = validate_path(folder, must_exist=False)
+                if valid:
+                    self.source_listbox.insert(tk.END, folder)
+                    dialog.destroy()
+                else:
+                    messagebox.showerror("Invalid Path", msg)
+            else:
+                dialog.destroy()
+        
+        ttk.Button(dialog, text="OK", command=on_ok).pack(pady=5)
+        entry.focus()
+    
+    def _remove_source_folder(self):
+        """Hapus source folder terpilih"""
+        selection = self.source_listbox.curselection()
+        if selection:
+            self.source_listbox.delete(selection[0])
+    
+    def _browse_source_folder(self):
+        """Browse dan tambah source folder"""
+        folder = filedialog.askdirectory(title="Select Source Folder")
+        if folder:
+            self.source_listbox.insert(tk.END, folder)
+    
+    def _browse_dest_folder(self):
+        """Browse destination folder"""
+        folder = filedialog.askdirectory(title="Select Destination Folder")
+        if folder:
+            self.dest_var.set(folder)
+    
+    def _add_extension(self):
+        """Tambah ekstensi baru"""
+        dialog = tk.Toplevel(self)
+        dialog.title("Add Extension")
+        dialog.geometry("300x120")
+        dialog.transient(self)
+        dialog.grab_set()
+        
+        ttk.Label(dialog, text="Enter extension (e.g., .mp4 or mp4):").pack(pady=5)
+        
+        var = tk.StringVar()
+        entry = ttk.Entry(dialog, textvariable=var, width=30)
+        entry.pack(pady=5)
+        
+        def on_ok():
+            ext = var.get().strip()
+            if ext:
+                valid, normalized = validate_extension(ext)
+                if valid:
+                    self.ext_listbox.insert(tk.END, normalized)
+                    dialog.destroy()
+                else:
+                    messagebox.showerror("Invalid Extension", normalized)
+            else:
+                dialog.destroy()
+        
+        ttk.Button(dialog, text="OK", command=on_ok).pack(pady=5)
+        entry.focus()
+    
+    def _remove_extension(self):
+        """Hapus ekstensi terpilih"""
+        selection = self.ext_listbox.curselection()
+        if selection:
+            self.ext_listbox.delete(selection[0])
+    
+    def _reset_extensions(self):
+        """Reset extensions ke default"""
+        self.ext_listbox.delete(0, tk.END)
+        for ext in DEFAULT_EXTENSIONS:
+            self.ext_listbox.insert(tk.END, ext)
+    
+    def _on_max_download_change(self, value):
+        """Handler saat max download berubah"""
+        self.dl_label.config(text=str(int(float(value))))
+    
+    def _on_max_retry_change(self, value):
+        """Handler saat max retry berubah"""
+        self.retry_label.config(text=str(int(float(value))))
+    
+    def get_settings(self) -> Settings:
+        """Dapatkan settings terbaru dari UI"""
+        return Settings(
+            source_folders=list(self.source_listbox.get(0, tk.END)),
+            destination_folder=self.dest_var.get().strip(),
+            extensions=list(self.ext_listbox.get(0, tk.END)),
+            max_download=self.max_download_var.get(),
+            max_retry=self.max_retry_var.get()
+        )
+
+src/gui/queue_panel.py :
+# -*- coding: utf-8 -*-
+"""
+Queue panel untuk menampilkan antrian download
+"""
+
+import tkinter as tk
+from tkinter import ttk
+from typing import Optional
+from ..models.file_job import FileJob
+from ..core.queue_manager import QueueManager
+from ..constants.settings import REFRESH_INTERVAL
+
+class QueuePanel(ttk.LabelFrame):
+    """
+    Panel untuk menampilkan antrian download
+    """
+    
+    def __init__(self, parent, queue_manager: QueueManager):
+        """
+        Inisialisasi QueuePanel
+        
+        Args:
+            parent: Parent widget
+            queue_manager: QueueManager instance
+        """
+        super().__init__(parent, text="📋 Download Queue", padding=5)
+        
+        self.queue_manager = queue_manager
+        self.after_id = None
+        
+        self._create_widgets()
+        self._refresh_display()
+    
+    def _create_widgets(self):
+        """Buat semua widget"""
+        
+        # Treeview untuk menampilkan queue
+        columns = ('priority', 'filename', 'size', 'status', 'progress', 'eta')
+        self.tree = ttk.Treeview(self, columns=columns, show='headings', height=8)
+        
+        # Define headings
+        self.tree.heading('priority', text='#')
+        self.tree.heading('filename', text='Filename')
+        self.tree.heading('size', text='Size')
+        self.tree.heading('status', text='Status')
+        self.tree.heading('progress', text='Progress')
+        self.tree.heading('eta', text='ETA')
+        
+        # Define columns
+        self.tree.column('priority', width=40, anchor='center')
+        self.tree.column('filename', width=300, anchor='w')
+        self.tree.column('size', width=80, anchor='center')
+        self.tree.column('status', width=100, anchor='center')
+        self.tree.column('progress', width=100, anchor='center')
+        self.tree.column('eta', width=80, anchor='center')
+        
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.tree.yview)
+        self.tree.configure(yscrollcommand=scrollbar.set)
+        
+        # Pack
+        self.tree.pack(side='left', fill='both', expand=True)
+        scrollbar.pack(side='right', fill='y')
+        
+        # Info bar
+        info_frame = ttk.Frame(self)
+        info_frame.pack(fill='x', pady=5)
+        
+        self.info_label = ttk.Label(info_frame, text="", font=('Arial', 9, 'italic'))
+        self.info_label.pack(side='left')
+        
+        # Bind double-click untuk detail
+        self.tree.bind('<Double-Button-1>', self._show_job_details)
+    
+    def _refresh_display(self):
+        """Refresh tampilan queue"""
+        # Clear tree
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        # Get jobs dari queue manager
+        waiting_jobs = self.queue_manager.get_waiting_jobs()
+        active_jobs = self.queue_manager.get_active_jobs()
+        
+        # Hitung statistik
+        total_waiting = len(waiting_jobs)
+        total_active = len(active_jobs)
+        total_size = sum(job.size_gb for job in waiting_jobs + active_jobs)
+        
+        # Update info label
+        self.info_label.config(
+            text=f"📊 Active: {total_active} | Waiting: {total_waiting} | Total: {total_size:.1f} GB"
+        )
+        
+        # Tampilkan active jobs dulu (dengan warna hijau)
+        for job in active_jobs:
+            self._insert_job_row(job, 'active')
+        
+        # Tampilkan waiting jobs
+        for job in waiting_jobs:
+            self._insert_job_row(job, 'waiting')
+        
+        # Schedule refresh berikutnya
+        self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
+    
+    def _insert_job_row(self, job: FileJob, status_type: str):
+        """
+        Insert satu row ke treeview
+        
+        Args:
+            job: FileJob object
+            status_type: 'active' atau 'waiting'
+        """
+        # Format size
+        size_str = f"{job.size_gb:.1f} GB"
+        
+        # Format progress
+        if status_type == 'active':
+            progress_str = f"{job.progress:.1f}%"
+            eta_str = job.eta_formatted
+        else:
+            progress_str = "-"
+            eta_str = "-"
+        
+        # Status text
+        status_text = "⬇️ Downloading" if status_type == 'active' else "⏳ Waiting"
+        
+        # Priority/position
+        if status_type == 'active':
+            priority = "▶"
+        else:
+            pos = job.queue_position or 0
+            priority = str(pos)
+        
+        # Insert row
+        item_id = self.tree.insert('', 'end', values=(
+            priority,
+            job.name,
+            size_str,
+            status_text,
+            progress_str,
+            eta_str
+        ))
+        
+        # Warna untuk active jobs
+        if status_type == 'active':
+            self.tree.tag_configure('active', background='#e8f5e9')  # Hijau muda
+            self.tree.item(item_id, tags=('active',))
+    
+    def _show_job_details(self, event):
+        """Show detail job saat double-click"""
+        selection = self.tree.selection()
+        if not selection:
+            return
+        
+        item = selection[0]
+        values = self.tree.item(item, 'values')
+        if not values:
+            return
+        
+        filename = values[1]  # Kolom filename
+        
+        # Cari job
+        job = self.queue_manager.get_job(filename)
+        if not job:
+            return
+        
+        # Show detail dialog
+        self._show_detail_dialog(job)
+    
+    def _show_detail_dialog(self, job: FileJob):
+        """
+        Tampilkan dialog detail job
+        
+        Args:
+            job: FileJob object
+        """
+        dialog = tk.Toplevel(self)
+        dialog.title(f"Job Details: {job.name}")
+        dialog.geometry("500x400")
+        dialog.transient(self)
+        dialog.grab_set()
+        
+        # Frame untuk details
+        main_frame = ttk.Frame(dialog, padding=10)
+        main_frame.pack(fill='both', expand=True)
+        
+        # Details
+        details = [
+            ("Filename:", job.name),
+            ("Source:", job.source_path),
+            ("Destination:", job.dest_path),
+            ("Size:", f"{job.size_gb:.2f} GB ({job.size_bytes} bytes)"),
+            ("Status:", job.status),
+            ("Progress:", f"{job.progress:.1f}%"),
+            ("Copied:", f"{job.copied_gb:.2f} GB"),
+            ("Speed:", f"{job.speed_mbps:.2f} MB/s" if job.speed_mbps > 0 else "-"),
+            ("ETA:", job.eta_formatted),
+            ("Retry:", f"{job.retry_count}/{job.max_retry}"),
+            ("Detected:", job.detected_time.strftime("%Y-%m-%d %H:%M:%S") if job.detected_time else "-"),
+            ("Started:", job.start_time.strftime("%Y-%m-%d %H:%M:%S") if job.start_time else "-"),
+            ("Last Error:", job.last_error or "-")
+        ]
+        
+        for i, (label, value) in enumerate(details):
+            ttk.Label(main_frame, text=label, font=('Arial', 9, 'bold')).grid(row=i, column=0, sticky='w', pady=2)
+            ttk.Label(main_frame, text=str(value), font=('Arial', 9)).grid(row=i, column=1, sticky='w', pady=2, padx=5)
+        
+        # Close button
+        ttk.Button(main_frame, text="Close", command=dialog.destroy).grid(row=len(details), column=0, columnspan=2, pady=10)
+    
+    def destroy(self):
+        """Cleanup saat panel di-destroy"""
+        if self.after_id:
+            self.after_cancel(self.after_id)
+        super().destroy()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    from ..utils.logger import setup_logging
+    setup_logging()
+    
+    print("QueuePanel class ready")
+
+src/gui/progress_panel.py
+# -*- coding: utf-8 -*-
+"""
+Progress panel untuk menampilkan progress download aktif
+"""
+
+import tkinter as tk
+from tkinter import ttk
+from typing import Optional, List
+from ..models.file_job import FileJob
+from ..core.download_manager import DownloadManager
+from ..constants.settings import REFRESH_INTERVAL
+
+class ProgressPanel(ttk.LabelFrame):
+    """
+    Panel untuk menampilkan progress download aktif
+    """
+    
+    def __init__(self, parent, download_manager: DownloadManager):
+        """
+        Inisialisasi ProgressPanel
+        
+        Args:
+            parent: Parent widget
+            download_manager: DownloadManager instance
+        """
+        super().__init__(parent, text="⬇️ Active Downloads", padding=5)
+        
+        self.download_manager = download_manager
+        self.after_id = None
+        self.progress_bars = {}  # Dictionary untuk menyimpan widget per job
+        
+        self._create_widgets()
+        self._refresh_display()
+    
+    def _create_widgets(self):
+        """Buat container untuk progress bars"""
+        # Canvas dengan scrollbar untuk mengakomodasi banyak progress
+        self.canvas = tk.Canvas(self, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas)
+        
+        self.scrollable_frame.bind(
+            "<Configure>",
+            lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        )
+        
+        self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+        self.canvas.configure(yscrollcommand=scrollbar.set)
+        
+        self.canvas.pack(side='left', fill='both', expand=True)
+        scrollbar.pack(side='right', fill='y')
+        
+        # Bind mousewheel untuk scroll
+        self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
+    
+    def _on_mousewheel(self, event):
+        """Handler untuk mousewheel scrolling"""
+        self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+    
+    def _refresh_display(self):
+        """Refresh tampilan progress"""
+        # Dapatkan active downloads
+        active_jobs = self.download_manager.get_active_downloads()
+        active_names = [job.name for job in active_jobs]
+        
+        # Hapus progress bar untuk job yang sudah selesai
+        to_remove = []
+        for name, widgets in self.progress_bars.items():
+            if name not in active_names:
+                self._destroy_job_widgets(name)
+                to_remove.append(name)
+        
+        for name in to_remove:
+            del self.progress_bars[name]
+        
+        # Update atau buat progress bar untuk active jobs
+        for job in active_jobs:
+            if job.name in self.progress_bars:
+                # Update yang sudah ada
+                self._update_job_progress(job)
+            else:
+                # Buat yang baru
+                self._create_job_progress(job)
+        
+        # Schedule refresh berikutnya
+        self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
+    
+    def _create_job_progress(self, job: FileJob):
+        """
+        Buat widget progress untuk job baru
+        
+        Args:
+            job: FileJob object
+        """
+        # Frame untuk satu job
+        frame = ttk.Frame(self.scrollable_frame)
+        frame.pack(fill='x', pady=2, padx=5)
+        
+        # Header dengan filename
+        header_frame = ttk.Frame(frame)
+        header_frame.pack(fill='x')
+        
+        name_label = ttk.Label(header_frame, text=job.name, font=('Arial', 9, 'bold'))
+        name_label.pack(side='left')
+        
+        speed_label = ttk.Label(header_frame, text="", font=('Arial', 8))
+        speed_label.pack(side='right', padx=5)
+        
+        # Progress bar
+        progress_var = tk.DoubleVar(value=job.progress)
+        progress_bar = ttk.Progressbar(
+            frame, 
+            variable=progress_var,
+            maximum=100,
+            length=400,
+            mode='determinate'
+        )
+        progress_bar.pack(fill='x', pady=2)
+        
+        # Info frame (size, progress, eta)
+        info_frame = ttk.Frame(frame)
+        info_frame.pack(fill='x')
+        
+        size_label = ttk.Label(info_frame, text="", font=('Arial', 8))
+        size_label.pack(side='left')
+        
+        eta_label = ttk.Label(info_frame, text="", font=('Arial', 8))
+        eta_label.pack(side='right')
+        
+        # Separator
+        separator = ttk.Separator(self.scrollable_frame, orient='horizontal')
+        separator.pack(fill='x', pady=5)
+        
+        # Simpan semua widget
+        self.progress_bars[job.name] = {
+            'frame': frame,
+            'progress_var': progress_var,
+            'speed_label': speed_label,
+            'size_label': size_label,
+            'eta_label': eta_label,
+            'separator': separator
+        }
+        
+        # Initial update
+        self._update_job_progress(job)
+    
+    def _update_job_progress(self, job: FileJob):
+        """
+        Update widget progress untuk job
+        
+        Args:
+            job: FileJob object
+        """
+        widgets = self.progress_bars.get(job.name)
+        if not widgets:
+            return
+        
+        # Update progress bar
+        widgets['progress_var'].set(job.progress)
+        
+        # Update speed
+        if job.speed_mbps > 0:
+            widgets['speed_label'].config(text=f"{job.speed_mbps:.1f} MB/s")
+        else:
+            widgets['speed_label'].config(text="")
+        
+        # Update size info
+        size_text = f"{job.copied_gb:.2f} GB / {job.size_gb:.2f} GB ({job.progress:.1f}%)"
+        widgets['size_label'].config(text=size_text)
+        
+        # Update ETA
+        if job.eta_seconds > 0:
+            widgets['eta_label'].config(text=f"ETA: {job.eta_formatted}")
+        else:
+            widgets['eta_label'].config(text="")
+    
+    def _destroy_job_widgets(self, job_name: str):
+        """
+        Hapus widget untuk job yang selesai
+        
+        Args:
+            job_name: Nama job
+        """
+        widgets = self.progress_bars.get(job_name)
+        if widgets:
+            widgets['frame'].destroy()
+            widgets['separator'].destroy()
+    
+    def destroy(self):
+        """Cleanup saat panel di-destroy"""
+        if self.after_id:
+            self.after_cancel(self.after_id)
+        self.canvas.unbind_all("<MouseWheel>")
+        super().destroy()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    from ..utils.logger import setup_logging
+    setup_logging()
+    
+    print("ProgressPanel class ready")
+
+src/gui/log_panel.py:
+# -*- coding: utf-8 -*-
+"""
+Log panel untuk menampilkan activity log
+"""
+
+import tkinter as tk
+from tkinter import ttk
+import logging
+import os
+from ..utils.logger import get_logger
+from ..constants.settings import REFRESH_INTERVAL, LOG_FILE
+
+logger = get_logger(__name__)
+
+class LogPanel(ttk.LabelFrame):
+    """
+    Panel untuk menampilkan activity log
+    """
+    
+    def __init__(self, parent):
+        """
+        Inisialisasi LogPanel
+        
+        Args:
+            parent: Parent widget
+        """
+        super().__init__(parent, text="📝 Activity Log", padding=5)
+        
+        self.after_id = None
+        self.log_lines = []
+        self.max_lines = 1000  # Maksimal baris yang ditampilkan
+        self.auto_scroll = True  # Auto scroll ke bawah
+        
+        self._create_widgets()
+        self._refresh_display()
+    
+    def _create_widgets(self):
+        """Buat semua widget"""
+        
+        # Toolbar
+        toolbar = ttk.Frame(self)
+        toolbar.pack(fill='x', pady=(0, 5))
+        
+        ttk.Button(toolbar, text="🔄 Refresh", command=self._force_refresh, width=10).pack(side='left', padx=2)
+        ttk.Button(toolbar, text="🧹 Clear", command=self._clear_log, width=8).pack(side='left', padx=2)
+        ttk.Button(toolbar, text="📂 Open Log File", command=self._open_log_file, width=12).pack(side='left', padx=2)
+        
+        self.auto_scroll_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(toolbar, text="Auto-scroll", variable=self.auto_scroll_var).pack(side='left', padx=10)
+        
+        self.status_label = ttk.Label(toolbar, text="", font=('Arial', 8))
+        self.status_label.pack(side='right', padx=5)
+        
+        # Frame untuk text dan scrollbar
+        text_frame = ttk.Frame(self)
+        text_frame.pack(fill='both', expand=True)
+        
+        # Text widget untuk menampilkan log
+        self.text_widget = tk.Text(
+            text_frame,
+            wrap='word',
+            height=12,
+            font=('Consolas', 9),
+            bg='#1e1e1e',
+            fg='#d4d4d4',
+            insertbackground='white'
+        )
+        self.text_widget.pack(side='left', fill='both', expand=True)
+        
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(text_frame, orient='vertical', command=self._on_scroll)
+        scrollbar.pack(side='right', fill='y')
+        self.text_widget.config(yscrollcommand=scrollbar.set)
+        
+        # Disable editing
+        self.text_widget.config(state='disabled')
+        
+        # Configure tags untuk warna
+        self.text_widget.tag_configure('INFO', foreground='#6a9955')
+        self.text_widget.tag_configure('WARNING', foreground='#dcdcaa')
+        self.text_widget.tag_configure('ERROR', foreground='#f48771', font=('Consolas', 9, 'bold'))
+        self.text_widget.tag_configure('DEBUG', foreground='#569cd6')
+        self.text_widget.tag_configure('CRITICAL', foreground='#f44747', background='#2d2d2d')
+        self.text_widget.tag_configure('TIMESTAMP', foreground='#808080')
+        self.text_widget.tag_configure('DEFAULT', foreground='#d4d4d4')
+    
+    def _on_scroll(self, *args):
+        """Handler saat scroll"""
+        self.text_widget.yview(*args)
+        # Cek apakah user scroll ke bawah
+        if self.text_widget.yview()[1] >= 0.99:
+            self.auto_scroll_var.set(True)
+        else:
+            self.auto_scroll_var.set(False)
+    
+    def _refresh_display(self):
+        """Refresh tampilan log"""
+        try:
+            # Baca file log
+            new_lines = self._read_log_file()
+            
+            if new_lines != self.log_lines:
+                self.log_lines = new_lines
+                self._update_display()
+            
+            # Update status
+            self.status_label.config(text=f"Lines: {len(self.log_lines)}")
+            
+        except Exception as e:
+            logger.error(f"Error refreshing log: {e}")
+        
+        # Schedule refresh berikutnya
+        self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
+    
+    def _force_refresh(self):
+        """Force refresh log"""
+        self._refresh_display()
+    
+    def _read_log_file(self) -> list:
+        """
+        Baca file log
+        
+        Returns:
+            List of log lines
+        """
+        try:
+            # Cari file log di root folder
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            log_path = os.path.join(root_dir, LOG_FILE)
+            
+            if not os.path.exists(log_path):
+                return ["Log file not found. Waiting for logs..."]
+            
+            with open(log_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Ambil max_lines terakhir
+            if len(lines) > self.max_lines:
+                lines = lines[-self.max_lines:]
+            
+            # Bersihkan newline
+            return [line.strip() for line in lines]
+            
+        except Exception as e:
+            return [f"Error reading log: {e}"]
+    
+    def _update_display(self):
+        """Update text widget dengan log terbaru"""
+        # Enable editing
+        self.text_widget.config(state='normal')
+        
+        # Clear
+        self.text_widget.delete('1.0', tk.END)
+        
+        # Insert lines with colors
+        for line in self.log_lines:
+            self._insert_colored_line(line)
+        
+        # Auto-scroll ke bawah jika diaktifkan
+        if self.auto_scroll_var.get():
+            self.text_widget.see(tk.END)
+        
+        # Disable editing
+        self.text_widget.config(state='disabled')
+    
+    def _insert_colored_line(self, line: str):
+        """
+        Insert satu line dengan warna berdasarkan level
+        
+        Args:
+            line: Log line
+        """
+        if not line:
+            return
+        
+        # Parse timestamp (format: YYYY-MM-DD HH:MM:SS)
+        import re
+        timestamp_match = re.match(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
+        
+        if timestamp_match:
+            timestamp = timestamp_match.group(1)
+            rest = line[len(timestamp):].strip()
+            
+            # Insert timestamp
+            self.text_widget.insert(tk.END, timestamp + ' ', 'TIMESTAMP')
+            
+            # Cari level log
+            level_match = re.search(r'\[(INFO|WARNING|ERROR|DEBUG|CRITICAL)\]', rest)
+            if level_match:
+                level = level_match.group(1)
+                level_part = f"[{level}]"
+                
+                # Insert level dengan warna
+                self.text_widget.insert(tk.END, f"[{level}] ", level)
+                
+                # Insert sisanya (setelah level)
+                rest_after_level = rest[len(level_part):].strip()
+                self.text_widget.insert(tk.END, rest_after_level + '\n', 'DEFAULT')
+            else:
+                self.text_widget.insert(tk.END, rest + '\n', 'DEFAULT')
+        else:
+            self.text_widget.insert(tk.END, line + '\n', 'DEFAULT')
+    
+    def _clear_log(self):
+        """Clear tampilan log (tidak menghapus file)"""
+        self.text_widget.config(state='normal')
+        self.text_widget.delete('1.0', tk.END)
+        self.text_widget.config(state='disabled')
+        self.log_lines = []
+        self.status_label.config(text="Lines: 0")
+    
+    def _open_log_file(self):
+        """Buka file log dengan default editor"""
+        try:
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            log_path = os.path.join(root_dir, LOG_FILE)
+            
+            if os.path.exists(log_path):
+                if os.name == 'nt':  # Windows
+                    os.startfile(log_path)
+                else:  # Linux/Mac
+                    import subprocess
+                    subprocess.call(['xdg-open', log_path])
+            else:
+                logger.error(f"Log file not found: {log_path}")
+                
+        except Exception as e:
+            logger.error(f"Error opening log file: {e}")
+    
+    def add_message(self, message: str, level: str = 'INFO'):
+        """
+        Tambah message ke log secara manual
+        
+        Args:
+            message: Pesan
+            level: Level log (INFO, WARNING, ERROR)
+        """
+        import datetime
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_line = f"{timestamp} [{level}] {message}"
+        
+        self.log_lines.append(log_line)
+        if len(self.log_lines) > self.max_lines:
+            self.log_lines = self.log_lines[-self.max_lines:]
+        
+        self._update_display()
+    
+    def destroy(self):
+        """Cleanup saat panel di-destroy"""
+        if self.after_id:
+            self.after_cancel(self.after_id)
+        super().destroy()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    print("LogPanel class ready with fixes")
+
+src/gui/main_window.py :
+# -*- coding: utf-8 -*-
+"""
+Main window aplikasi watch_folder_hires_70
+"""
+
+import tkinter as tk
+from tkinter import ttk, messagebox
+import logging
+from ..utils.logger import get_logger
+from ..utils.config_manager import ConfigManager
+from ..utils.state_manager import StateManager
+from ..utils.history import HistoryLogger
+from ..core.queue_manager import QueueManager
+from ..core.download_manager import DownloadManager
+from ..core.file_monitor import FileMonitor
+from ..gui.queue_panel import QueuePanel
+from ..gui.progress_panel import ProgressPanel
+from ..gui.log_panel import LogPanel
+from ..gui.settings_window import SettingsWindow
+from ..constants.settings import REFRESH_INTERVAL
+
+logger = get_logger(__name__)
+
+class MainWindow:
+    """
+    Main window aplikasi
+    """
+    
+    def __init__(self, root, config_mgr: ConfigManager, state_mgr: StateManager,
+                 queue_mgr: QueueManager, download_mgr: DownloadManager,
+                 monitor: FileMonitor):
+        """
+        Inisialisasi MainWindow
+        
+        Args:
+            root: Tk root window
+            config_mgr: ConfigManager instance
+            state_mgr: StateManager instance
+            queue_mgr: QueueManager instance
+            download_mgr: DownloadManager instance
+            monitor: FileMonitor instance
+        """
+        self.root = root
+        self.config_mgr = config_mgr
+        self.state_mgr = state_mgr
+        self.queue_mgr = queue_mgr
+        self.download_mgr = download_mgr
+        self.monitor = monitor
+        self.history_logger = HistoryLogger()  # Tambahkan history logger
+        
+        # Window properties
+        self.root.title("🎬 Watch Folder Hires 70 - Pipeline Copy (Fase 1: 12→70)")
+        self.root.geometry("1300x800")
+        self.root.minsize(1100, 600)
+        
+        # Variables
+        self.status_var = tk.StringVar(value="Initializing...")
+        self.stats_var = tk.StringVar(value="")
+        self.after_id = None
+        
+        # Setup closing protocol
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        
+        # Create GUI
+        self._create_menu()
+        self._create_widgets()
+        self._create_statusbar()
+        
+        # Bind keyboard shortcuts
+        self._bind_shortcuts()
+        
+        logger.info("Main window initialized")
+    
+    def _create_menu(self):
+        """Buat menu bar"""
+        menubar = tk.Menu(self.root)
+        self.root.config(menu=menubar)
+        
+        # File menu
+        file_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="Settings", command=self._open_settings, accelerator="Ctrl+,")
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.on_closing, accelerator="Ctrl+Q")
+        
+        # Settings menu
+        settings_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_command(label="Open Settings", command=self._open_settings)
+        settings_menu.add_separator()
+        settings_menu.add_command(label="Save Settings", command=self._save_settings)
+        settings_menu.add_command(label="Load Settings", command=self._load_settings)
+        settings_menu.add_command(label="Reset to Defaults", command=self._reset_settings)
+        
+        # View menu
+        view_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="View", menu=view_menu)
+        view_menu.add_command(label="Refresh All", command=self._refresh_all, accelerator="F5")
+        view_menu.add_separator()
+        view_menu.add_command(label="Clear Log", command=self._clear_log)
+        view_menu.add_command(label="Clear History", command=self._clear_history)
+        
+        # Tools menu
+        tools_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Tools", menu=tools_menu)
+        tools_menu.add_command(label="Open Log File", command=self._open_log_file)
+        tools_menu.add_command(label="Open History File", command=self._open_history_file)
+        tools_menu.add_separator()
+        tools_menu.add_command(label="Show Statistics", command=self._show_statistics)
+        
+        # Help menu
+        help_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(label="About", command=self._show_about)
+    
+    def _create_widgets(self):
+        """Buat semua widget utama"""
+        
+        # Main container
+        main_container = ttk.Frame(self.root, padding=5)
+        main_container.pack(fill='both', expand=True)
+        
+        # Notebook untuk panels
+        notebook = ttk.Notebook(main_container)
+        notebook.pack(fill='both', expand=True, pady=5)
+        
+        # Queue panel (Tab 1)
+        queue_frame = ttk.Frame(notebook)
+        notebook.add(queue_frame, text="📋 Queue")
+        self.queue_panel = QueuePanel(queue_frame, self.queue_mgr)
+        self.queue_panel.pack(fill='both', expand=True, padx=5, pady=5)
+        
+        # Progress panel (Tab 2)
+        progress_frame = ttk.Frame(notebook)
+        notebook.add(progress_frame, text="⬇️ Active Downloads")
+        self.progress_panel = ProgressPanel(progress_frame, self.download_mgr)
+        self.progress_panel.pack(fill='both', expand=True, padx=5, pady=5)
+        
+        # History panel (Tab 3 - BARU!)
+        try:
+            from ..gui.history_panel import HistoryPanel
+            history_frame = ttk.Frame(notebook)
+            notebook.add(history_frame, text="📜 History")
+            self.history_panel = HistoryPanel(history_frame, self.history_logger)
+            self.history_panel.pack(fill='both', expand=True, padx=5, pady=5)
+        except Exception as e:
+            logger.error(f"Could not load HistoryPanel: {e}")
+            # Buat placeholder jika gagal
+            history_frame = ttk.Frame(notebook)
+            notebook.add(history_frame, text="📜 History")
+            ttk.Label(history_frame, text=f"History panel failed to load: {e}").pack(pady=20)
+        
+        # Log panel (Tab 4)
+        log_frame = ttk.Frame(notebook)
+        notebook.add(log_frame, text="📝 Activity Log")
+        self.log_panel = LogPanel(log_frame)
+        self.log_panel.pack(fill='both', expand=True, padx=5, pady=5)
+    
+    def _create_statusbar(self):
+        """Buat status bar"""
+        status_frame = ttk.Frame(self.root, relief='sunken', padding=2)
+        status_frame.pack(side='bottom', fill='x')
+        
+        status_label = ttk.Label(status_frame, textvariable=self.status_var, anchor='w', width=30)
+        status_label.pack(side='left', padx=5)
+        
+        stats_label = ttk.Label(status_frame, textvariable=self.stats_var, anchor='e')
+        stats_label.pack(side='right', padx=5)
+        
+        # Progress bar kecil untuk aktivitas
+        self.activity_bar = ttk.Progressbar(status_frame, mode='indeterminate', length=100)
+        self.activity_bar.pack(side='right', padx=5)
+        
+        self._update_status()
+    
+    def _bind_shortcuts(self):
+        """Bind keyboard shortcuts"""
+        self.root.bind('<Control-comma>', lambda e: self._open_settings())
+        self.root.bind('<Control-q>', lambda e: self.on_closing())
+        self.root.bind('<F5>', lambda e: self._refresh_all())
+    
+    def _open_settings(self):
+        """Buka settings window"""
+        try:
+            SettingsWindow(self.root, self.config_mgr, on_settings_saved=self._on_settings_changed)
+        except Exception as e:
+            logger.error(f"Error opening settings window: {e}")
+            messagebox.showerror("Error", f"Could not open settings window: {e}")
+    
+    def _save_settings(self):
+        """Save settings"""
+        if self.config_mgr.save():
+            self.log_panel.add_message("Settings saved successfully", "INFO")
+            messagebox.showinfo("Success", "Settings saved successfully")
+        else:
+            messagebox.showerror("Error", "Failed to save settings")
+    
+    def _load_settings(self):
+        """Load settings"""
+        self.config_mgr.load()
+        self.log_panel.add_message("Settings loaded from file", "INFO")
+        messagebox.showinfo("Success", "Settings loaded successfully")
+    
+    def _reset_settings(self):
+        """Reset settings to defaults"""
+        if messagebox.askyesno("Confirm Reset", "Reset all settings to defaults?"):
+            self.config_mgr.reset_to_defaults()
+            self.log_panel.add_message("Settings reset to defaults", "WARNING")
+            messagebox.showinfo("Success", "Settings reset to defaults")
+    
+    def _refresh_all(self):
+        """Refresh semua panel"""
+        if hasattr(self, 'queue_panel'):
+            self.queue_panel._refresh_display()
+        if hasattr(self, 'progress_panel'):
+            self.progress_panel._refresh_display()
+        if hasattr(self, 'history_panel'):
+            self.history_panel._refresh_display()
+        self.log_panel.add_message("Manual refresh requested", "DEBUG")
+    
+    def _clear_log(self):
+        """Clear log panel"""
+        if hasattr(self, 'log_panel'):
+            self.log_panel._clear_log()
+    
+    def _clear_history(self):
+        """Clear history display (not the file)"""
+        if hasattr(self, 'history_panel'):
+            if messagebox.askyesno("Confirm", "Clear history display? (File will not be deleted)"):
+                # History panel clear functionality
+                pass
+    
+    def _open_log_file(self):
+        """Open log file"""
+        if hasattr(self, 'log_panel'):
+            self.log_panel._open_log_file()
+    
+    def _open_history_file(self):
+        """Open history file"""
+        try:
+            import os
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            history_path = os.path.join(root_dir, 'copy_history.txt')
+            if os.path.exists(history_path):
+                os.startfile(history_path)
+        except Exception as e:
+            logger.error(f"Error opening history file: {e}")
+    
+    def _show_statistics(self):
+        """Show statistics dialog"""
+        if hasattr(self, 'history_panel'):
+            self.history_panel._show_stats()
+    
+    def _update_status(self):
+        """Update status bar"""
+        try:
+            # Get stats
+            download_stats = self.download_mgr.get_stats()
+            
+            # Update status
+            if self.monitor.running:
+                status = "🟢 Monitoring"
+            else:
+                status = "🔴 Monitoring stopped"
+            
+            self.status_var.set(status)
+            
+            # Update stats
+            stats = f"Active: {download_stats['workers']['busy']}/{download_stats['max_parallel']} | "
+            stats += f"Queue: {download_stats['queue']['waiting']} | "
+            stats += f"Speed: {download_stats['workers']['total_speed_mbps']:.1f} MB/s"
+            self.stats_var.set(stats)
+            
+            # Activity bar
+            if download_stats['workers']['busy'] > 0:
+                self.activity_bar.start(10)
+            else:
+                self.activity_bar.stop()
+            
+        except Exception as e:
+            logger.error(f"Error updating status: {e}")
+        
+        # Schedule next update
+        self.after_id = self.root.after(REFRESH_INTERVAL, self._update_status)
+    
+    def _on_settings_changed(self):
+        """Handler saat settings berubah"""
+        logger.info("Settings changed, updating components...")
+        settings = self.config_mgr.get_settings()
+        
+        # Update monitor
+        self.monitor.source_folders = settings.source_folders
+        self.monitor.extensions = settings.extensions
+        
+        # Update download manager
+        self.download_mgr.set_max_parallel(settings.max_download)
+        
+        self.log_panel.add_message("Settings applied", "INFO")
+    
+    def _show_about(self):
+        """Show about dialog"""
+        about_text = """
+🎬 Watch Folder Hires 70
+Pipeline Copy - Fase 1 (12 → 70)
+
+Version: 1.0.0
+Created: 2026
+
+Fitur:
+✅ Monitor folder 12 via SMB
+✅ FIFO queue tanpa prioritas
+✅ Resume capability (checkpoint 10%)
+✅ Max parallel download configurable
+✅ Filter file extensions
+✅ Real-time progress
+✅ Copy history dengan detail
+✅ Settings window terpisah
+
+Untuk file video besar (20-60GB)
+        """
+        messagebox.showinfo("About", about_text)
+    
+    def on_closing(self):
+        """Handler saat window ditutup"""
+        logger.info("Closing application...")
+        
+        # Stop components
+        self.monitor.stop()
+        self.download_mgr.stop()
+        
+        # Cancel pending after events
+        if self.after_id:
+            self.root.after_cancel(self.after_id)
+        
+        # Save state
+        self.state_mgr.save(self.queue_mgr.get_all_jobs())
+        
+        # Destroy window
+        self.root.quit()
+        self.root.destroy()
+    
+    def run(self):
+        """Run the application"""
+        logger.info("Starting main loop")
+        self.root.mainloop()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    print("MainWindow class ready with History Panel")
+
+main.py:
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+watch_folder_hires_70 - Aplikasi pipeline copy file dari 12 ke 70
+Fase 1: Download 12 → 70 dengan monitoring SMB, queue FIFO, resume capability.
+"""
+
+import sys
+import os
+import traceback
+
+# Tambahkan path src ke sys.path agar bisa import modul
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+
+def main():
+    """Main entry point aplikasi"""
+    try:
+        from src.utils.logger import setup_logging
+        from src.utils.config_manager import ConfigManager
+        from src.utils.state_manager import StateManager
+        from src.core.file_monitor import FileMonitor
+        from src.core.download_manager import DownloadManager
+        from src.core.queue_manager import QueueManager
+        from src.gui.main_window import MainWindow
+        import tkinter as tk
+        import threading
+        
+        # Setup logging
+        setup_logging()
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info("="*50)
+        logger.info("Memulai aplikasi watch_folder_hires_70")
+        logger.info("="*50)
+
+        # Load konfigurasi
+        config_mgr = ConfigManager()
+        config = config_mgr.load()
+        logger.info(f"Config loaded: max_download={config.max_download}")
+
+        # Load state untuk resume
+        state_mgr = StateManager()
+        state = state_mgr.load()
+        logger.info(f"State loaded: {len(state.get('jobs', {}))} jobs in state")
+
+        # Inisialisasi queue manager (FIFO)
+        queue_mgr = QueueManager()
+
+        # Inisialisasi download manager
+        download_mgr = DownloadManager(
+            max_parallel=config.max_download,
+            max_retry=config.max_retry,
+            queue_manager=queue_mgr,
+            state_manager=state_mgr
+        )
+
+        # Inisialisasi file monitor (SMB)
+        monitor = FileMonitor(
+            source_folders=config.source_folders,
+            extensions=config.extensions,
+            queue_manager=queue_mgr
+        )
+
+        # Inisialisasi GUI
+        root = tk.Tk()
+        app = MainWindow(
+            root,
+            config_mgr=config_mgr,
+            state_mgr=state_mgr,
+            queue_mgr=queue_mgr,
+            download_mgr=download_mgr,
+            monitor=monitor
+        )
+
+        # Start monitor di thread terpisah
+        monitor_thread = threading.Thread(target=monitor.start, daemon=True)
+        monitor_thread.start()
+        logger.info("File monitor started")
+
+        # Start download manager
+        download_mgr.start()
+        logger.info("Download manager started")
+
+        # Jalankan GUI (blocking)
+        logger.info("Starting GUI main loop")
+        app.run()
+
+    except KeyboardInterrupt:
+        print("\n\nApplication stopped by user")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\nFatal error: {e}")
+        traceback.print_exc()
+        input("Press Enter to exit...")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
+
+src/gui/log_panel.py
+# -*- coding: utf-8 -*-
+"""
+Log panel untuk menampilkan activity log
+"""
+
+import tkinter as tk
+from tkinter import ttk
+import logging
+import os
+from ..utils.logger import get_logger
+from ..constants.settings import REFRESH_INTERVAL, LOG_FILE
+
+logger = get_logger(__name__)
+
+class LogPanel(ttk.LabelFrame):
+    """
+    Panel untuk menampilkan activity log
+    """
+    
+    def __init__(self, parent):
+        """
+        Inisialisasi LogPanel
+        
+        Args:
+            parent: Parent widget
+        """
+        super().__init__(parent, text="📝 Activity Log", padding=5)
+        
+        self.after_id = None
+        self.log_lines = []
+        self.max_lines = 1000  # Maksimal baris yang ditampilkan
+        self.auto_scroll = True  # Auto scroll ke bawah
+        
+        self._create_widgets()
+        self._refresh_display()
+    
+    def _create_widgets(self):
+        """Buat semua widget"""
+        
+        # Toolbar
+        toolbar = ttk.Frame(self)
+        toolbar.pack(fill='x', pady=(0, 5))
+        
+        ttk.Button(toolbar, text="🔄 Refresh", command=self._force_refresh, width=10).pack(side='left', padx=2)
+        ttk.Button(toolbar, text="🧹 Clear", command=self._clear_log, width=8).pack(side='left', padx=2)
+        ttk.Button(toolbar, text="📂 Open Log File", command=self._open_log_file, width=12).pack(side='left', padx=2)
+        
+        self.auto_scroll_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(toolbar, text="Auto-scroll", variable=self.auto_scroll_var).pack(side='left', padx=10)
+        
+        self.status_label = ttk.Label(toolbar, text="", font=('Arial', 8))
+        self.status_label.pack(side='right', padx=5)
+        
+        # Frame untuk text dan scrollbar
+        text_frame = ttk.Frame(self)
+        text_frame.pack(fill='both', expand=True)
+        
+        # Text widget untuk menampilkan log
+        self.text_widget = tk.Text(
+            text_frame,
+            wrap='word',
+            height=12,
+            font=('Consolas', 9),
+            bg='#1e1e1e',
+            fg='#d4d4d4',
+            insertbackground='white'
+        )
+        self.text_widget.pack(side='left', fill='both', expand=True)
+        
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(text_frame, orient='vertical', command=self._on_scroll)
+        scrollbar.pack(side='right', fill='y')
+        self.text_widget.config(yscrollcommand=scrollbar.set)
+        
+        # Disable editing
+        self.text_widget.config(state='disabled')
+        
+        # Configure tags untuk warna
+        self.text_widget.tag_configure('INFO', foreground='#6a9955')
+        self.text_widget.tag_configure('WARNING', foreground='#dcdcaa')
+        self.text_widget.tag_configure('ERROR', foreground='#f48771', font=('Consolas', 9, 'bold'))
+        self.text_widget.tag_configure('DEBUG', foreground='#569cd6')
+        self.text_widget.tag_configure('CRITICAL', foreground='#f44747', background='#2d2d2d')
+        self.text_widget.tag_configure('TIMESTAMP', foreground='#808080')
+        self.text_widget.tag_configure('DEFAULT', foreground='#d4d4d4')
+    
+    def _on_scroll(self, *args):
+        """Handler saat scroll"""
+        self.text_widget.yview(*args)
+        # Cek apakah user scroll ke bawah
+        if self.text_widget.yview()[1] >= 0.99:
+            self.auto_scroll_var.set(True)
+        else:
+            self.auto_scroll_var.set(False)
+    
+    def _refresh_display(self):
+        """Refresh tampilan log"""
+        try:
+            # Baca file log
+            new_lines = self._read_log_file()
+            
+            if new_lines != self.log_lines:
+                self.log_lines = new_lines
+                self._update_display()
+            
+            # Update status
+            self.status_label.config(text=f"Lines: {len(self.log_lines)}")
+            
+        except Exception as e:
+            logger.error(f"Error refreshing log: {e}")
+        
+        # Schedule refresh berikutnya
+        self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
+    
+    def _force_refresh(self):
+        """Force refresh log"""
+        self._refresh_display()
+    
+    def _read_log_file(self) -> list:
+        """
+        Baca file log
+        
+        Returns:
+            List of log lines
+        """
+        try:
+            # Cari file log di root folder
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            log_path = os.path.join(root_dir, LOG_FILE)
+            
+            if not os.path.exists(log_path):
+                return ["Log file not found. Waiting for logs..."]
+            
+            with open(log_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Ambil max_lines terakhir
+            if len(lines) > self.max_lines:
+                lines = lines[-self.max_lines:]
+            
+            # Bersihkan newline
+            return [line.strip() for line in lines]
+            
+        except Exception as e:
+            return [f"Error reading log: {e}"]
+    
+    def _update_display(self):
+        """Update text widget dengan log terbaru"""
+        # Enable editing
+        self.text_widget.config(state='normal')
+        
+        # Clear
+        self.text_widget.delete('1.0', tk.END)
+        
+        # Insert lines with colors
+        for line in self.log_lines:
+            self._insert_colored_line(line)
+        
+        # Auto-scroll ke bawah jika diaktifkan
+        if self.auto_scroll_var.get():
+            self.text_widget.see(tk.END)
+        
+        # Disable editing
+        self.text_widget.config(state='disabled')
+    
+    def _insert_colored_line(self, line: str):
+        """
+        Insert satu line dengan warna berdasarkan level
+        
+        Args:
+            line: Log line
+        """
+        if not line:
+            return
+        
+        # Parse timestamp (format: YYYY-MM-DD HH:MM:SS)
+        import re
+        timestamp_match = re.match(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
+        
+        if timestamp_match:
+            timestamp = timestamp_match.group(1)
+            rest = line[len(timestamp):].strip()
+            
+            # Insert timestamp
+            self.text_widget.insert(tk.END, timestamp + ' ', 'TIMESTAMP')
+            
+            # Cari level log
+            level_match = re.search(r'\[(INFO|WARNING|ERROR|DEBUG|CRITICAL)\]', rest)
+            if level_match:
+                level = level_match.group(1)
+                level_part = f"[{level}]"
+                
+                # Insert level dengan warna
+                self.text_widget.insert(tk.END, f"[{level}] ", level)
+                
+                # Insert sisanya (setelah level)
+                rest_after_level = rest[len(level_part):].strip()
+                self.text_widget.insert(tk.END, rest_after_level + '\n', 'DEFAULT')
+            else:
+                self.text_widget.insert(tk.END, rest + '\n', 'DEFAULT')
+        else:
+            self.text_widget.insert(tk.END, line + '\n', 'DEFAULT')
+    
+    def _clear_log(self):
+        """Clear tampilan log (tidak menghapus file)"""
+        self.text_widget.config(state='normal')
+        self.text_widget.delete('1.0', tk.END)
+        self.text_widget.config(state='disabled')
+        self.log_lines = []
+        self.status_label.config(text="Lines: 0")
+    
+    def _open_log_file(self):
+        """Buka file log dengan default editor"""
+        try:
+            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+            log_path = os.path.join(root_dir, LOG_FILE)
+            
+            if os.path.exists(log_path):
+                if os.name == 'nt':  # Windows
+                    os.startfile(log_path)
+                else:  # Linux/Mac
+                    import subprocess
+                    subprocess.call(['xdg-open', log_path])
+            else:
+                logger.error(f"Log file not found: {log_path}")
+                
+        except Exception as e:
+            logger.error(f"Error opening log file: {e}")
+    
+    def add_message(self, message: str, level: str = 'INFO'):
+        """
+        Tambah message ke log secara manual
+        
+        Args:
+            message: Pesan
+            level: Level log (INFO, WARNING, ERROR)
+        """
+        import datetime
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_line = f"{timestamp} [{level}] {message}"
+        
+        self.log_lines.append(log_line)
+        if len(self.log_lines) > self.max_lines:
+            self.log_lines = self.log_lines[-self.max_lines:]
+        
+        self._update_display()
+    
+    def destroy(self):
+        """Cleanup saat panel di-destroy"""
+        if self.after_id:
+            self.after_cancel(self.after_id)
+        super().destroy()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    print("LogPanel class ready with fixes")
+
+run.bat
+@echo off
+echo ========================================
+echo Watch Folder Hires 70 - Pipeline Copy
+echo Fase 1: 12 → 70
+echo ========================================
+echo.
+
+:: Aktifkan virtual environment
+call .venv\Scripts\activate.bat
+
+:: Jalankan aplikasi
+python main.py
+
+:: Jika error, pause
+if errorlevel 1 (
+    echo.
+    echo Application exited with error.
+    pause
+)

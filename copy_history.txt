@@ -77,3 +77,16 @@ Timestamp            Filename                                         Size Statu
 2026-02-23 21:36:31  test 1.mxf                                      1.84 GB SUCCESS    00:00:45   1    
 2026-02-23 21:40:13  test 01.mxf                                     1.84 GB SUCCESS    00:00:26   0    
 2026-02-23 21:57:59  test 010.mxf                                    1.84 GB SUCCESS    00:00:18   0    
+2026-02-23 22:07:56  CSR MNC PEDULI 400 - Copy (2).mxf               1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 22:08:22  CSR MNC PEDULI 400 - Copy.mxf                   1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 22:08:37  CSR MNC PEDULI 400 - Copy.mxf                   1.84 GB FAILED     -          2    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 22:09:10  CSR MNC PEDULI 400.mxf                          1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 22:09:27  CSR MNC PEDULI 400.mxf                          1.84 GB FAILED     -          2    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-23 22:10:55  CSR MNC PEDULI 400 - Copy (2).mxf               1.84 GB SUCCESS    00:02:59   1    
+2026-02-23 22:11:12  CSR MNC PEDULI 400 - Copy.mxf                   1.84 GB SUCCESS    00:02:34   2    
+2026-02-23 22:11:15  CSR MNC PEDULI 400.mxf                          1.84 GB SUCCESS    00:01:47   2    

@@ -1465,3 +1465,666 @@
 2026-02-23 22:04:08 [INFO] Download manager started
 2026-02-23 22:04:08 [INFO] Starting GUI main loop
 2026-02-23 22:04:08 [INFO] Starting main loop
+2026-02-23 22:06:58 [INFO] ==================================================
+2026-02-23 22:06:58 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-23 22:06:58 [INFO] ==================================================
+2026-02-23 22:06:58 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:58 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:58 [INFO] Config loaded: max_download=5
+2026-02-23 22:06:58 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:06:58 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:06:58 [INFO] State loaded: 0 jobs in state
+2026-02-23 22:06:58 [INFO] QueueManager initialized
+2026-02-23 22:06:58 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-23 22:06:58 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-23 22:06:58 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-23 22:06:58 [INFO] FileMonitor initialized with 1 folders
+2026-02-23 22:06:58 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-23 22:06:58 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-23 22:06:59 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-23 22:06:59 [INFO] Main window initialized
+2026-02-23 22:06:59 [INFO] File monitor started
+2026-02-23 22:06:59 [INFO] Monitor loop started (interval: 5s)
+2026-02-23 22:06:59 [INFO] FileMonitor started
+2026-02-23 22:06:59 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:06:59 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:59 [INFO] DownloadWorker-1 initialized
+2026-02-23 22:06:59 [INFO] DownloadWorker-1 started
+2026-02-23 22:06:59 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:59 [INFO] DownloadWorker-2 initialized
+2026-02-23 22:06:59 [INFO] DownloadWorker-2 started
+2026-02-23 22:06:59 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:59 [INFO] DownloadWorker-3 initialized
+2026-02-23 22:06:59 [INFO] DownloadWorker-3 started
+2026-02-23 22:06:59 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:59 [INFO] DownloadWorker-4 initialized
+2026-02-23 22:06:59 [INFO] DownloadWorker-4 started
+2026-02-23 22:06:59 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-23 22:06:59 [INFO] DownloadWorker-5 initialized
+2026-02-23 22:06:59 [INFO] DownloadWorker-5 started
+2026-02-23 22:06:59 [INFO] Started 5 download workers
+2026-02-23 22:06:59 [INFO] Download manager started
+2026-02-23 22:06:59 [INFO] Starting GUI main loop
+2026-02-23 22:06:59 [INFO] Starting main loop
+2026-02-23 22:07:34 [INFO] New file detected: CSR MNC PEDULI 400 - Copy (2).mxf (1.84GB) in D:\Test watch folder\source
+2026-02-23 22:07:35 [DEBUG] Checking CSR MNC PEDULI 400 - Copy (2).mxf: size=1980634532, last_size=1980634532, time=0.2s
+2026-02-23 22:07:40 [DEBUG] Checking CSR MNC PEDULI 400 - Copy (2).mxf: size=1980634532, last_size=1980634532, time=5.5s
+2026-02-23 22:07:40 [INFO] File stable: CSR MNC PEDULI 400 - Copy (2).mxf (1.84GB) after 5.5s
+2026-02-23 22:07:40 [INFO] Created job for CSR MNC PEDULI 400 - Copy (2).mxf with source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] Job added to queue: CSR MNC PEDULI 400 - Copy (2).mxf (size: 1.84GB)
+2026-02-23 22:07:40 [INFO] Job added to queue at position 1
+2026-02-23 22:07:40 [INFO] Job started: CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [DEBUG] Removed 1 files from stabilization queue
+2026-02-23 22:07:40 [INFO] Worker-4 processing: CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] Dest path from job: 
+2026-02-23 22:07:40 [INFO] Size: 1980634532 bytes
+2026-02-23 22:07:40 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:07:40 [WARNING] Destination path is EMPTY for CSR MNC PEDULI 400 - Copy (2).mxf, trying to set from config
+2026-02-23 22:07:40 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-23 22:07:40 [INFO] Set destination path from config: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] All path checks passed for CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:40 [INFO] Starting copy for CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:41 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:41 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy (2).mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:07:42 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:42 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy (2).mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:07:44 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:44 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy (2).mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:07:48 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:48 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy (2).mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-02-23 22:07:56 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [ERROR] Permission denied for CSR MNC PEDULI 400 - Copy (2).mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\CSR MNC PEDULI 400 - Copy (2).mxf'
+2026-02-23 22:07:56 [ERROR] Worker-4 failed: CSR MNC PEDULI 400 - Copy (2).mxf - Copy failed (safe_copy returned False)
+2026-02-23 22:07:56 [DEBUG] History logged: CSR MNC PEDULI 400 - Copy (2).mxf - FAILED
+2026-02-23 22:07:56 [INFO] Worker-4 will retry CSR MNC PEDULI 400 - Copy (2).mxf (1/3)
+2026-02-23 22:07:56 [WARNING] Job CSR MNC PEDULI 400 - Copy (2).mxf will retry (1/3)
+2026-02-23 22:07:56 [INFO] Job started: CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Worker-2 processing: CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Dest path from job: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Size: 1980634532 bytes
+2026-02-23 22:07:56 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:07:56 [INFO] All path checks passed for CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Starting copy for CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:07:56 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy (2).mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:07:57 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:08:00 [INFO] New file detected: CSR MNC PEDULI 400 - Copy.mxf (1.84GB) in D:\Test watch folder\source
+2026-02-23 22:08:01 [DEBUG] Checking CSR MNC PEDULI 400 - Copy.mxf: size=1980634532, last_size=1980634532, time=0.2s
+2026-02-23 22:08:06 [DEBUG] Checking CSR MNC PEDULI 400 - Copy.mxf: size=1980634532, last_size=1980634532, time=5.5s
+2026-02-23 22:08:06 [INFO] File stable: CSR MNC PEDULI 400 - Copy.mxf (1.84GB) after 5.5s
+2026-02-23 22:08:06 [INFO] Created job for CSR MNC PEDULI 400 - Copy.mxf with source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] Job added to queue: CSR MNC PEDULI 400 - Copy.mxf (size: 1.84GB)
+2026-02-23 22:08:06 [INFO] Job added to queue at position 1
+2026-02-23 22:08:06 [INFO] Job started: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [DEBUG] Removed 1 files from stabilization queue
+2026-02-23 22:08:06 [INFO] Worker-1 processing: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] Dest path from job: 
+2026-02-23 22:08:06 [INFO] Size: 1980634532 bytes
+2026-02-23 22:08:06 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:08:06 [WARNING] Destination path is EMPTY for CSR MNC PEDULI 400 - Copy.mxf, trying to set from config
+2026-02-23 22:08:06 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-23 22:08:06 [INFO] Set destination path from config: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] All path checks passed for CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:06 [INFO] Starting copy for CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:07 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:07 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:08:08 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:08 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:08:10 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:10 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:08:14 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:14 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-02-23 22:08:22 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [ERROR] Permission denied for CSR MNC PEDULI 400 - Copy.mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\CSR MNC PEDULI 400 - Copy.mxf'
+2026-02-23 22:08:22 [ERROR] Worker-1 failed: CSR MNC PEDULI 400 - Copy.mxf - Copy failed (safe_copy returned False)
+2026-02-23 22:08:22 [DEBUG] History logged: CSR MNC PEDULI 400 - Copy.mxf - FAILED
+2026-02-23 22:08:22 [INFO] Worker-1 will retry CSR MNC PEDULI 400 - Copy.mxf (1/3)
+2026-02-23 22:08:22 [WARNING] Job CSR MNC PEDULI 400 - Copy.mxf will retry (1/3)
+2026-02-23 22:08:22 [INFO] Job started: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Worker-5 processing: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Dest path from job: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Size: 1980634532 bytes
+2026-02-23 22:08:22 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:08:22 [INFO] All path checks passed for CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Starting copy for CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:22 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:08:23 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:23 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:08:25 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:25 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:08:28 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 13.6% (0.25GB/1.84GB)
+2026-02-23 22:08:28 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 13.6%
+2026-02-23 22:08:28 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 10%
+2026-02-23 22:08:29 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:29 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-02-23 22:08:37 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [ERROR] Permission denied for CSR MNC PEDULI 400 - Copy.mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\CSR MNC PEDULI 400 - Copy.mxf'
+2026-02-23 22:08:37 [ERROR] Worker-5 failed: CSR MNC PEDULI 400 - Copy.mxf - Copy failed (safe_copy returned False)
+2026-02-23 22:08:37 [DEBUG] History logged: CSR MNC PEDULI 400 - Copy.mxf - FAILED
+2026-02-23 22:08:37 [INFO] Worker-5 will retry CSR MNC PEDULI 400 - Copy.mxf (2/3)
+2026-02-23 22:08:37 [WARNING] Job CSR MNC PEDULI 400 - Copy.mxf will retry (2/3)
+2026-02-23 22:08:37 [INFO] Job started: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Worker-5 processing: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Dest path from job: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Size: 1980634532 bytes
+2026-02-23 22:08:37 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:08:37 [INFO] All path checks passed for CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Starting copy for CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:37 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:08:38 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:38 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:08:40 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:40 [WARNING] Permission denied for CSR MNC PEDULI 400 - Copy.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:08:45 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:08:47 [INFO] New file detected: CSR MNC PEDULI 400.mxf (1.84GB) in D:\Test watch folder\source
+2026-02-23 22:08:48 [DEBUG] Checking CSR MNC PEDULI 400.mxf: size=1980634532, last_size=1980634532, time=0.2s
+2026-02-23 22:08:53 [DEBUG] Checking CSR MNC PEDULI 400.mxf: size=1980634532, last_size=1980634532, time=5.9s
+2026-02-23 22:08:53 [INFO] File stable: CSR MNC PEDULI 400.mxf (1.84GB) after 5.9s
+2026-02-23 22:08:53 [INFO] Created job for CSR MNC PEDULI 400.mxf with source: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:53 [INFO] Job added to queue: CSR MNC PEDULI 400.mxf (size: 1.84GB)
+2026-02-23 22:08:53 [INFO] Job added to queue at position 1
+2026-02-23 22:08:53 [DEBUG] Removed 1 files from stabilization queue
+2026-02-23 22:08:54 [INFO] Job started: CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Worker-1 processing: CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Dest path from job: 
+2026-02-23 22:08:54 [INFO] Size: 1980634532 bytes
+2026-02-23 22:08:54 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:08:54 [WARNING] Destination path is EMPTY for CSR MNC PEDULI 400.mxf, trying to set from config
+2026-02-23 22:08:54 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-23 22:08:54 [INFO] Set destination path from config: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] All path checks passed for CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Starting copy for CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:54 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:08:55 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:55 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:08:57 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:08:57 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:09:01 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:01 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-02-23 22:09:08 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 27.1% (0.50GB/1.84GB)
+2026-02-23 22:09:08 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 27.1%
+2026-02-23 22:09:08 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 20%
+2026-02-23 22:09:09 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:09 [ERROR] Permission denied for CSR MNC PEDULI 400.mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\CSR MNC PEDULI 400.mxf'
+2026-02-23 22:09:10 [ERROR] Worker-1 failed: CSR MNC PEDULI 400.mxf - Copy failed (safe_copy returned False)
+2026-02-23 22:09:10 [DEBUG] History logged: CSR MNC PEDULI 400.mxf - FAILED
+2026-02-23 22:09:11 [INFO] Worker-1 will retry CSR MNC PEDULI 400.mxf (1/3)
+2026-02-23 22:09:11 [WARNING] Job CSR MNC PEDULI 400.mxf will retry (1/3)
+2026-02-23 22:09:11 [INFO] Job started: CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Worker-4 processing: CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Dest path from job: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Size: 1980634532 bytes
+2026-02-23 22:09:11 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:09:11 [INFO] All path checks passed for CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:11 [INFO] Starting copy for CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:12 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:12 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:09:13 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:13 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:09:15 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:15 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:09:19 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:19 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-02-23 22:09:22 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 13.6% (0.25GB/1.84GB)
+2026-02-23 22:09:22 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 13.6%
+2026-02-23 22:09:22 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 10%
+2026-02-23 22:09:27 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:27 [ERROR] Permission denied for CSR MNC PEDULI 400.mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\CSR MNC PEDULI 400.mxf'
+2026-02-23 22:09:27 [ERROR] Worker-4 failed: CSR MNC PEDULI 400.mxf - Copy failed (safe_copy returned False)
+2026-02-23 22:09:28 [DEBUG] History logged: CSR MNC PEDULI 400.mxf - FAILED
+2026-02-23 22:09:28 [INFO] Worker-4 will retry CSR MNC PEDULI 400.mxf (2/3)
+2026-02-23 22:09:28 [WARNING] Job CSR MNC PEDULI 400.mxf will retry (2/3)
+2026-02-23 22:09:28 [INFO] Job started: CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Worker-1 processing: CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Dest path from job: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Size: 1980634532 bytes
+2026-02-23 22:09:28 [INFO] Source file exists, size: 1980634532 bytes
+2026-02-23 22:09:28 [INFO] All path checks passed for CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Final dest: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Starting copy for CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:28 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-02-23 22:09:29 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:29 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-02-23 22:09:31 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:31 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-02-23 22:09:35 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:35 [WARNING] Permission denied for CSR MNC PEDULI 400.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-02-23 22:09:37 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:09:37 [DEBUG] State saved
+2026-02-23 22:09:37 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 40.7% (0.75GB/1.84GB)
+2026-02-23 22:09:37 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 40.7%
+2026-02-23 22:09:37 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 40%
+2026-02-23 22:09:43 [INFO] Copying to: D:\Test watch folder\destination\CSR MNC PEDULI 400.mxf
+2026-02-23 22:09:49 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 27.1% (0.50GB/1.84GB)
+2026-02-23 22:09:49 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 27.1%
+2026-02-23 22:09:49 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 20%
+2026-02-23 22:09:56 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 54.2% (1.00GB/1.84GB)
+2026-02-23 22:09:56 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 54.2%
+2026-02-23 22:09:56 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 50%
+2026-02-23 22:09:59 [INFO] CSR MNC PEDULI 400.mxf: 13.6% (0.25GB/1.84GB)
+2026-02-23 22:09:59 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 13.6%
+2026-02-23 22:09:59 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 10%
+2026-02-23 22:10:09 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:10:09 [DEBUG] State saved
+2026-02-23 22:10:09 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 40.7% (0.75GB/1.84GB)
+2026-02-23 22:10:09 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 40.7%
+2026-02-23 22:10:09 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 40%
+2026-02-23 22:10:17 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 67.8% (1.25GB/1.84GB)
+2026-02-23 22:10:17 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 67.8%
+2026-02-23 22:10:17 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 60%
+2026-02-23 22:10:20 [INFO] CSR MNC PEDULI 400.mxf: 27.1% (0.50GB/1.84GB)
+2026-02-23 22:10:20 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 27.1%
+2026-02-23 22:10:20 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 20%
+2026-02-23 22:10:26 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 54.2% (1.00GB/1.84GB)
+2026-02-23 22:10:26 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 54.2%
+2026-02-23 22:10:26 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 50%
+2026-02-23 22:10:33 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 81.3% (1.50GB/1.84GB)
+2026-02-23 22:10:33 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 81.3%
+2026-02-23 22:10:33 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 80%
+2026-02-23 22:10:33 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:10:33 [DEBUG] State saved
+2026-02-23 22:10:33 [INFO] CSR MNC PEDULI 400.mxf: 40.7% (0.75GB/1.84GB)
+2026-02-23 22:10:33 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 40.7%
+2026-02-23 22:10:33 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 40%
+2026-02-23 22:10:43 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 67.8% (1.25GB/1.84GB)
+2026-02-23 22:10:43 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 67.8%
+2026-02-23 22:10:43 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 60%
+2026-02-23 22:10:46 [INFO] CSR MNC PEDULI 400.mxf: 54.2% (1.00GB/1.84GB)
+2026-02-23 22:10:46 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 54.2%
+2026-02-23 22:10:46 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 50%
+2026-02-23 22:10:51 [INFO] CSR MNC PEDULI 400 - Copy (2).mxf: 94.9% (1.75GB/1.84GB)
+2026-02-23 22:10:51 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 94.9%
+2026-02-23 22:10:51 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 90%
+2026-02-23 22:10:55 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:10:55 [DEBUG] State saved
+2026-02-23 22:10:55 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy (2).mxf: 100.0%
+2026-02-23 22:10:55 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy (2).mxf: 100%
+2026-02-23 22:10:55 [INFO] Copy completed: CSR MNC PEDULI 400 - Copy (2).mxf (1.84GB) in 178.95s
+2026-02-23 22:10:55 [INFO] Verification passed: CSR MNC PEDULI 400 - Copy (2).mxf (1.84GB)
+2026-02-23 22:10:55 [DEBUG] History logged: CSR MNC PEDULI 400 - Copy (2).mxf - SUCCESS
+2026-02-23 22:10:55 [INFO] Deleting source file: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:10:55 [INFO] Deleted: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:10:55 [INFO] Worker-2 completed: CSR MNC PEDULI 400 - Copy (2).mxf in 179.21s
+2026-02-23 22:10:55 [INFO] Job completed: CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-23 22:10:56 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 81.3% (1.50GB/1.84GB)
+2026-02-23 22:10:56 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 81.3%
+2026-02-23 22:10:56 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 80%
+2026-02-23 22:10:58 [INFO] CSR MNC PEDULI 400.mxf: 67.8% (1.25GB/1.84GB)
+2026-02-23 22:10:58 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 67.8%
+2026-02-23 22:10:58 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 60%
+2026-02-23 22:11:07 [INFO] CSR MNC PEDULI 400 - Copy.mxf: 94.9% (1.75GB/1.84GB)
+2026-02-23 22:11:07 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 94.9%
+2026-02-23 22:11:07 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 90%
+2026-02-23 22:11:08 [INFO] CSR MNC PEDULI 400.mxf: 81.3% (1.50GB/1.84GB)
+2026-02-23 22:11:08 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 81.3%
+2026-02-23 22:11:08 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 80%
+2026-02-23 22:11:12 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:11:12 [DEBUG] State saved
+2026-02-23 22:11:12 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400 - Copy.mxf: 100.0%
+2026-02-23 22:11:12 [DEBUG] Checkpoint CSR MNC PEDULI 400 - Copy.mxf: 100%
+2026-02-23 22:11:12 [INFO] Copy completed: CSR MNC PEDULI 400 - Copy.mxf (1.84GB) in 154.31s
+2026-02-23 22:11:12 [INFO] Verification passed: CSR MNC PEDULI 400 - Copy.mxf (1.84GB)
+2026-02-23 22:11:12 [DEBUG] History logged: CSR MNC PEDULI 400 - Copy.mxf - SUCCESS
+2026-02-23 22:11:12 [INFO] Deleting source file: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:11:12 [INFO] Deleted: D:\Test watch folder\source\CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:11:12 [INFO] Worker-5 completed: CSR MNC PEDULI 400 - Copy.mxf in 154.53s
+2026-02-23 22:11:12 [INFO] Job completed: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-23 22:11:13 [INFO] CSR MNC PEDULI 400.mxf: 94.9% (1.75GB/1.84GB)
+2026-02-23 22:11:13 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 94.9%
+2026-02-23 22:11:13 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 90%
+2026-02-23 22:11:15 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-23 22:11:15 [DEBUG] State saved
+2026-02-23 22:11:15 [DEBUG] Checkpoint saved for CSR MNC PEDULI 400.mxf: 100.0%
+2026-02-23 22:11:15 [DEBUG] Checkpoint CSR MNC PEDULI 400.mxf: 100%
+2026-02-23 22:11:15 [INFO] Copy completed: CSR MNC PEDULI 400.mxf (1.84GB) in 106.74s
+2026-02-23 22:11:15 [INFO] Verification passed: CSR MNC PEDULI 400.mxf (1.84GB)
+2026-02-23 22:11:15 [DEBUG] History logged: CSR MNC PEDULI 400.mxf - SUCCESS
+2026-02-23 22:11:15 [INFO] Deleting source file: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:11:15 [INFO] Deleted: D:\Test watch folder\source\CSR MNC PEDULI 400.mxf
+2026-02-23 22:11:15 [INFO] Worker-1 completed: CSR MNC PEDULI 400.mxf in 107.00s
+2026-02-23 22:11:15 [INFO] Job completed: CSR MNC PEDULI 400.mxf
+2026-02-24 15:10:43 [INFO] Closing application...
+2026-02-24 15:10:43 [INFO] FileMonitor stopped
+2026-02-24 15:10:43 [INFO] Stopping all workers...
+2026-02-24 15:10:43 [INFO] DownloadWorker-1 stopping...
+2026-02-24 15:10:43 [INFO] DownloadWorker-2 stopping...
+2026-02-24 15:10:43 [INFO] DownloadWorker-3 stopping...
+2026-02-24 15:10:43 [INFO] DownloadWorker-4 stopping...
+2026-02-24 15:10:43 [INFO] DownloadWorker-5 stopping...
+2026-02-24 15:10:43 [INFO] DownloadWorker-3 stopped
+2026-02-24 15:10:44 [INFO] DownloadWorker-1 stopped
+2026-02-24 15:10:44 [INFO] DownloadWorker-4 stopped
+2026-02-24 15:10:44 [INFO] DownloadWorker-2 stopped
+2026-02-24 15:10:44 [INFO] DownloadWorker-5 stopped
+2026-02-24 15:10:44 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:10:44 [DEBUG] State saved
+2026-02-24 15:10:44 [INFO] All workers stopped
+2026-02-24 15:10:44 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:11:28 [INFO] ==================================================
+2026-02-24 15:11:28 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-24 15:11:28 [INFO] ==================================================
+2026-02-24 15:11:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:28 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:28 [INFO] Config loaded: max_download=5
+2026-02-24 15:11:28 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:11:28 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:11:28 [INFO] State loaded: 3 jobs in state
+2026-02-24 15:11:28 [INFO] QueueManager initialized
+2026-02-24 15:11:28 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-24 15:11:28 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:11:28 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-24 15:11:28 [INFO] FileMonitor initialized with 1 folders
+2026-02-24 15:11:28 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-24 15:11:28 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-24 15:11:29 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:11:31 [INFO] Main window initialized
+2026-02-24 15:11:31 [INFO] File monitor started
+2026-02-24 15:11:31 [INFO] Monitor loop started (interval: 5s)
+2026-02-24 15:11:31 [INFO] FileMonitor started
+2026-02-24 15:11:31 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:11:31 [DEBUG] Job removed from state: CSR MNC PEDULI 400 - Copy (2).mxf
+2026-02-24 15:11:31 [DEBUG] Job removed from state: CSR MNC PEDULI 400 - Copy.mxf
+2026-02-24 15:11:31 [DEBUG] Job removed from state: CSR MNC PEDULI 400.mxf
+2026-02-24 15:11:31 [INFO] Cleared 3 completed/failed jobs from state
+2026-02-24 15:11:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:31 [INFO] DownloadWorker-1 initialized
+2026-02-24 15:11:31 [INFO] DownloadWorker-1 started
+2026-02-24 15:11:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:31 [INFO] DownloadWorker-2 initialized
+2026-02-24 15:11:31 [INFO] DownloadWorker-2 started
+2026-02-24 15:11:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:31 [INFO] DownloadWorker-3 initialized
+2026-02-24 15:11:31 [INFO] DownloadWorker-3 started
+2026-02-24 15:11:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:31 [INFO] DownloadWorker-4 initialized
+2026-02-24 15:11:31 [INFO] DownloadWorker-4 started
+2026-02-24 15:11:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:11:31 [INFO] DownloadWorker-5 initialized
+2026-02-24 15:11:31 [INFO] DownloadWorker-5 started
+2026-02-24 15:11:31 [INFO] Started 5 download workers
+2026-02-24 15:11:31 [INFO] Download manager started
+2026-02-24 15:11:31 [INFO] Starting GUI main loop
+2026-02-24 15:11:31 [INFO] Starting main loop
+2026-02-24 15:15:00 [INFO] Closing application...
+2026-02-24 15:15:01 [INFO] FileMonitor stopped
+2026-02-24 15:15:01 [INFO] Stopping all workers...
+2026-02-24 15:15:01 [INFO] DownloadWorker-1 stopping...
+2026-02-24 15:15:01 [INFO] DownloadWorker-2 stopping...
+2026-02-24 15:15:01 [INFO] DownloadWorker-3 stopping...
+2026-02-24 15:15:01 [INFO] DownloadWorker-4 stopping...
+2026-02-24 15:15:01 [INFO] DownloadWorker-5 stopping...
+2026-02-24 15:15:02 [INFO] DownloadWorker-1 stopped
+2026-02-24 15:15:02 [INFO] DownloadWorker-5 stopped
+2026-02-24 15:15:02 [INFO] DownloadWorker-4 stopped
+2026-02-24 15:15:02 [INFO] DownloadWorker-2 stopped
+2026-02-24 15:15:02 [INFO] DownloadWorker-3 stopped
+2026-02-24 15:15:02 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:02 [DEBUG] State saved
+2026-02-24 15:15:02 [INFO] All workers stopped
+2026-02-24 15:15:02 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:09 [INFO] ==================================================
+2026-02-24 15:15:09 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-24 15:15:09 [INFO] ==================================================
+2026-02-24 15:15:09 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:09 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:09 [INFO] Config loaded: max_download=5
+2026-02-24 15:15:09 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:09 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:09 [INFO] State loaded: 0 jobs in state
+2026-02-24 15:15:09 [INFO] QueueManager initialized
+2026-02-24 15:15:09 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-24 15:15:09 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:15:09 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-24 15:15:09 [INFO] FileMonitor initialized with 1 folders
+2026-02-24 15:15:09 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-24 15:15:09 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-24 15:15:09 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:15:10 [INFO] Main window initialized
+2026-02-24 15:15:10 [INFO] File monitor started
+2026-02-24 15:15:10 [INFO] Monitor loop started (interval: 5s)
+2026-02-24 15:15:10 [INFO] FileMonitor started
+2026-02-24 15:15:10 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:10 [INFO] DownloadWorker-1 initialized
+2026-02-24 15:15:10 [INFO] DownloadWorker-1 started
+2026-02-24 15:15:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:10 [INFO] DownloadWorker-2 initialized
+2026-02-24 15:15:10 [INFO] DownloadWorker-2 started
+2026-02-24 15:15:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:10 [INFO] DownloadWorker-3 initialized
+2026-02-24 15:15:10 [INFO] DownloadWorker-3 started
+2026-02-24 15:15:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:10 [INFO] DownloadWorker-4 initialized
+2026-02-24 15:15:10 [INFO] DownloadWorker-4 started
+2026-02-24 15:15:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:10 [INFO] DownloadWorker-5 initialized
+2026-02-24 15:15:10 [INFO] DownloadWorker-5 started
+2026-02-24 15:15:10 [INFO] Started 5 download workers
+2026-02-24 15:15:10 [INFO] Download manager started
+2026-02-24 15:15:10 [INFO] Starting GUI main loop
+2026-02-24 15:15:10 [INFO] Starting main loop
+2026-02-24 15:15:17 [INFO] Closing application...
+2026-02-24 15:15:17 [INFO] FileMonitor stopped
+2026-02-24 15:15:17 [INFO] Stopping all workers...
+2026-02-24 15:15:17 [INFO] DownloadWorker-1 stopping...
+2026-02-24 15:15:17 [INFO] DownloadWorker-2 stopping...
+2026-02-24 15:15:17 [INFO] DownloadWorker-3 stopping...
+2026-02-24 15:15:17 [INFO] DownloadWorker-4 stopping...
+2026-02-24 15:15:17 [INFO] DownloadWorker-5 stopping...
+2026-02-24 15:15:18 [INFO] DownloadWorker-5 stopped
+2026-02-24 15:15:18 [INFO] DownloadWorker-2 stopped
+2026-02-24 15:15:18 [INFO] DownloadWorker-4 stopped
+2026-02-24 15:15:18 [INFO] DownloadWorker-3 stopped
+2026-02-24 15:15:18 [INFO] DownloadWorker-1 stopped
+2026-02-24 15:15:18 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:18 [DEBUG] State saved
+2026-02-24 15:15:18 [INFO] All workers stopped
+2026-02-24 15:15:18 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:25 [INFO] ==================================================
+2026-02-24 15:15:25 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-24 15:15:25 [INFO] ==================================================
+2026-02-24 15:15:25 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:25 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:25 [INFO] Config loaded: max_download=5
+2026-02-24 15:15:25 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:25 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:25 [INFO] State loaded: 0 jobs in state
+2026-02-24 15:15:25 [INFO] QueueManager initialized
+2026-02-24 15:15:25 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-24 15:15:25 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:15:25 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-24 15:15:25 [INFO] FileMonitor initialized with 1 folders
+2026-02-24 15:15:25 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-24 15:15:25 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-24 15:15:25 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:15:26 [INFO] Main window initialized
+2026-02-24 15:15:26 [INFO] File monitor started
+2026-02-24 15:15:26 [INFO] Monitor loop started (interval: 5s)
+2026-02-24 15:15:26 [INFO] FileMonitor started
+2026-02-24 15:15:26 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:15:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:26 [INFO] DownloadWorker-1 initialized
+2026-02-24 15:15:26 [INFO] DownloadWorker-1 started
+2026-02-24 15:15:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:26 [INFO] DownloadWorker-2 initialized
+2026-02-24 15:15:26 [INFO] DownloadWorker-2 started
+2026-02-24 15:15:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:26 [INFO] DownloadWorker-3 initialized
+2026-02-24 15:15:26 [INFO] DownloadWorker-3 started
+2026-02-24 15:15:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:26 [INFO] DownloadWorker-4 initialized
+2026-02-24 15:15:26 [INFO] DownloadWorker-4 started
+2026-02-24 15:15:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:15:26 [INFO] DownloadWorker-5 initialized
+2026-02-24 15:15:26 [INFO] DownloadWorker-5 started
+2026-02-24 15:15:26 [INFO] Started 5 download workers
+2026-02-24 15:15:26 [INFO] Download manager started
+2026-02-24 15:15:26 [INFO] Starting GUI main loop
+2026-02-24 15:15:26 [INFO] Starting main loop
+2026-02-24 15:18:25 [INFO] ==================================================
+2026-02-24 15:18:25 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-24 15:18:25 [INFO] ==================================================
+2026-02-24 15:18:25 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:25 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:25 [INFO] Config loaded: max_download=5
+2026-02-24 15:18:25 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:18:25 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:18:25 [INFO] State loaded: 0 jobs in state
+2026-02-24 15:18:25 [INFO] QueueManager initialized
+2026-02-24 15:18:25 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-24 15:18:25 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:18:25 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-24 15:18:25 [INFO] FileMonitor initialized with 1 folders
+2026-02-24 15:18:25 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-24 15:18:25 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-24 15:18:25 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:18:26 [INFO] Main window initialized
+2026-02-24 15:18:26 [INFO] File monitor started
+2026-02-24 15:18:26 [INFO] Monitor loop started (interval: 5s)
+2026-02-24 15:18:26 [INFO] FileMonitor started
+2026-02-24 15:18:26 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:18:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:26 [INFO] DownloadWorker-1 initialized
+2026-02-24 15:18:26 [INFO] DownloadWorker-1 started
+2026-02-24 15:18:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:26 [INFO] DownloadWorker-2 initialized
+2026-02-24 15:18:26 [INFO] DownloadWorker-2 started
+2026-02-24 15:18:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:26 [INFO] DownloadWorker-3 initialized
+2026-02-24 15:18:26 [INFO] DownloadWorker-3 started
+2026-02-24 15:18:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:26 [INFO] DownloadWorker-4 initialized
+2026-02-24 15:18:26 [INFO] DownloadWorker-4 started
+2026-02-24 15:18:26 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:18:26 [INFO] DownloadWorker-5 initialized
+2026-02-24 15:18:26 [INFO] DownloadWorker-5 started
+2026-02-24 15:18:26 [INFO] Started 5 download workers
+2026-02-24 15:18:26 [INFO] Download manager started
+2026-02-24 15:18:26 [INFO] Starting GUI main loop
+2026-02-24 15:18:26 [INFO] Starting main loop
+2026-02-24 15:23:35 [INFO] ==================================================
+2026-02-24 15:23:35 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-24 15:23:35 [INFO] ==================================================
+2026-02-24 15:23:35 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:35 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:35 [INFO] Config loaded: max_download=5
+2026-02-24 15:23:35 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:23:35 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:23:35 [INFO] State loaded: 0 jobs in state
+2026-02-24 15:23:35 [INFO] QueueManager initialized
+2026-02-24 15:23:35 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-24 15:23:35 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:23:35 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-24 15:23:35 [INFO] FileMonitor initialized with 1 folders
+2026-02-24 15:23:35 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-24 15:23:35 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-24 15:23:35 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:23:36 [INFO] Main window initialized
+2026-02-24 15:23:36 [INFO] File monitor started
+2026-02-24 15:23:36 [INFO] Monitor loop started (interval: 5s)
+2026-02-24 15:23:36 [INFO] FileMonitor started
+2026-02-24 15:23:36 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:23:36 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:36 [INFO] DownloadWorker-1 initialized
+2026-02-24 15:23:36 [INFO] DownloadWorker-1 started
+2026-02-24 15:23:36 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:36 [INFO] DownloadWorker-2 initialized
+2026-02-24 15:23:36 [INFO] DownloadWorker-2 started
+2026-02-24 15:23:36 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:36 [INFO] DownloadWorker-3 initialized
+2026-02-24 15:23:36 [INFO] DownloadWorker-3 started
+2026-02-24 15:23:36 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:36 [INFO] DownloadWorker-4 initialized
+2026-02-24 15:23:36 [INFO] DownloadWorker-4 started
+2026-02-24 15:23:36 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:23:36 [INFO] DownloadWorker-5 initialized
+2026-02-24 15:23:36 [INFO] DownloadWorker-5 started
+2026-02-24 15:23:36 [INFO] Started 5 download workers
+2026-02-24 15:23:36 [INFO] Download manager started
+2026-02-24 15:23:36 [INFO] Starting GUI main loop
+2026-02-24 15:23:36 [INFO] Starting main loop
+2026-02-24 15:32:11 [INFO] Closing application...
+2026-02-24 15:32:11 [INFO] FileMonitor stopped
+2026-02-24 15:32:11 [INFO] Stopping all workers...
+2026-02-24 15:32:11 [INFO] DownloadWorker-1 stopping...
+2026-02-24 15:32:11 [INFO] DownloadWorker-2 stopping...
+2026-02-24 15:32:11 [INFO] DownloadWorker-3 stopping...
+2026-02-24 15:32:11 [INFO] DownloadWorker-4 stopping...
+2026-02-24 15:32:11 [INFO] DownloadWorker-5 stopping...
+2026-02-24 15:32:12 [INFO] DownloadWorker-3 stopped
+2026-02-24 15:32:12 [INFO] DownloadWorker-4 stopped
+2026-02-24 15:32:12 [INFO] DownloadWorker-2 stopped
+2026-02-24 15:32:12 [INFO] DownloadWorker-5 stopped
+2026-02-24 15:32:12 [INFO] DownloadWorker-1 stopped
+2026-02-24 15:32:12 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:32:12 [DEBUG] State saved
+2026-02-24 15:32:12 [INFO] All workers stopped
+2026-02-24 15:32:12 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:55:02 [INFO] ==================================================
+2026-02-24 15:55:02 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-02-24 15:55:02 [INFO] ==================================================
+2026-02-24 15:55:02 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:02 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:02 [INFO] Config loaded: max_download=5
+2026-02-24 15:55:02 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:55:02 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:55:02 [INFO] State loaded: 0 jobs in state
+2026-02-24 15:55:02 [INFO] QueueManager initialized
+2026-02-24 15:55:02 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-02-24 15:55:02 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:55:02 [INFO] DownloadManager initialized with max_parallel=5
+2026-02-24 15:55:02 [INFO] FileMonitor initialized with 1 folders
+2026-02-24 15:55:02 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-02-24 15:55:02 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-02-24 15:55:02 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-02-24 15:55:04 [INFO] Main window initialized
+2026-02-24 15:55:04 [INFO] File monitor started
+2026-02-24 15:55:04 [INFO] Monitor loop started (interval: 5s)
+2026-02-24 15:55:04 [INFO] FileMonitor started
+2026-02-24 15:55:04 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-02-24 15:55:04 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:04 [INFO] DownloadWorker-1 initialized
+2026-02-24 15:55:04 [INFO] DownloadWorker-1 started
+2026-02-24 15:55:04 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:04 [INFO] DownloadWorker-2 initialized
+2026-02-24 15:55:04 [INFO] DownloadWorker-2 started
+2026-02-24 15:55:04 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:04 [INFO] DownloadWorker-3 initialized
+2026-02-24 15:55:04 [INFO] DownloadWorker-3 started
+2026-02-24 15:55:04 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:04 [INFO] DownloadWorker-4 initialized
+2026-02-24 15:55:04 [INFO] DownloadWorker-4 started
+2026-02-24 15:55:04 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-02-24 15:55:04 [INFO] DownloadWorker-5 initialized
+2026-02-24 15:55:04 [INFO] DownloadWorker-5 started
+2026-02-24 15:55:04 [INFO] Started 5 download workers
+2026-02-24 15:55:04 [INFO] Download manager started
+2026-02-24 15:55:04 [INFO] Starting GUI main loop
+2026-02-24 15:55:04 [INFO] Starting main loop
