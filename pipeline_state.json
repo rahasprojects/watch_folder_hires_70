@@ -1,7 +1,46 @@
 {
     "version": "1.0",
-    "last_update": "2026-02-24T15:32:12.390298",
-    "jobs": {},
+    "last_update": "2026-02-24T20:24:49.644944",
+    "jobs": {
+        "CSR MNC PEDULI 400.mxf": {
+            "name": "CSR MNC PEDULI 400.mxf",
+            "source_path": "D:\\Test watch folder\\source\\CSR MNC PEDULI 400.mxf",
+            "dest_path": "D:\\Test watch folder\\destination\\CSR MNC PEDULI 400.mxf",
+            "size_bytes": 805306368,
+            "status": "completed",
+            "progress": 100,
+            "copied_bytes": 805306368,
+            "detected_time": "2026-02-24T20:23:52.783386",
+            "start_time": null,
+            "end_time": 1771939463.9736147,
+            "queue_position": 1,
+            "priority": 2,
+            "retry_count": 0,
+            "max_retry": 3,
+            "last_error": null,
+            "last_checkpoint": 100,
+            "checkpoints": []
+        },
+        "SEKOLAH PONDOK .mp4": {
+            "name": "SEKOLAH PONDOK .mp4",
+            "source_path": "D:\\Test watch folder\\source\\SEKOLAH PONDOK .mp4",
+            "dest_path": "D:\\Test watch folder\\destination\\SEKOLAH PONDOK .mp4",
+            "size_bytes": 381635035,
+            "status": "completed",
+            "progress": 100,
+            "copied_bytes": 381635035,
+            "detected_time": "2026-02-24T20:23:52.904401",
+            "start_time": null,
+            "end_time": 1771939457.467545,
+            "queue_position": 1,
+            "priority": 2,
+            "retry_count": 0,
+            "max_retry": 3,
+            "last_error": null,
+            "last_checkpoint": 100,
+            "checkpoints": []
+        }
+    },
     "active_downloads": [],
     "queue": []
 }

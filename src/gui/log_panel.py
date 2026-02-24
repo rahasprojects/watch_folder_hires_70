@@ -7,6 +7,9 @@ import tkinter as tk
 from tkinter import ttk
 import logging
 import os
+import time
+import re
+from datetime import datetime
 from ..utils.logger import get_logger
 from ..constants.settings import REFRESH_INTERVAL, LOG_FILE
 
@@ -29,7 +32,8 @@ class LogPanel(ttk.LabelFrame):
         self.after_id = None
         self.log_lines = []
         self.max_lines = 1000  # Maksimal baris yang ditampilkan
-        self.auto_scroll = True  # Auto scroll ke bawah
+        self.auto_scroll = True
+        self.last_clear_time = time.time()  # <-- INI KUNCINYA!
         
         self._create_widgets()
         self._refresh_display()
@@ -47,6 +51,10 @@ class LogPanel(ttk.LabelFrame):
         
         self.auto_scroll_var = tk.BooleanVar(value=True)
         ttk.Checkbutton(toolbar, text="Auto-scroll", variable=self.auto_scroll_var).pack(side='left', padx=10)
+        
+        # Info kapan terakhir clear
+        self.clear_info_label = ttk.Label(toolbar, text="", font=('Arial', 8, 'italic'))
+        self.clear_info_label.pack(side='right', padx=5)
         
         self.status_label = ttk.Label(toolbar, text="", font=('Arial', 8))
         self.status_label.pack(side='right', padx=5)
@@ -96,7 +104,7 @@ class LogPanel(ttk.LabelFrame):
     def _refresh_display(self):
         """Refresh tampilan log"""
         try:
-            # Baca file log
+            # Baca file log dengan filter waktu
             new_lines = self._read_log_file()
             
             if new_lines != self.log_lines:
@@ -105,6 +113,14 @@ class LogPanel(ttk.LabelFrame):
             
             # Update status
             self.status_label.config(text=f"Lines: {len(self.log_lines)}")
+            
+            # Update info clear
+            if self.last_clear_time > 0:
+                from datetime import datetime
+                clear_time_str = datetime.fromtimestamp(self.last_clear_time).strftime("%H:%M:%S")
+                self.clear_info_label.config(text=f"Clear sejak: {clear_time_str}")
+            else:
+                self.clear_info_label.config(text="")
             
         except Exception as e:
             logger.error(f"Error refreshing log: {e}")
@@ -118,7 +134,7 @@ class LogPanel(ttk.LabelFrame):
     
     def _read_log_file(self) -> list:
         """
-        Baca file log
+        Baca file log, hanya ambil log setelah last_clear_time
         
         Returns:
             List of log lines
@@ -134,12 +150,31 @@ class LogPanel(ttk.LabelFrame):
             with open(log_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
             
-            # Ambil max_lines terakhir
-            if len(lines) > self.max_lines:
-                lines = lines[-self.max_lines:]
+            # Filter hanya log setelah last_clear_time
+            filtered_lines = []
+            for line in lines[-self.max_lines:]:
+                line = line.strip()
+                if not line:
+                    continue
+                
+                # Parse timestamp (format: YYYY-MM-DD HH:MM:SS)
+                timestamp_match = re.match(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
+                if timestamp_match:
+                    try:
+                        log_time_str = timestamp_match.group(1)
+                        log_time = datetime.strptime(log_time_str, "%Y-%m-%d %H:%M:%S").timestamp()
+                        
+                        # Hanya tampilkan log yang lebih baru dari last_clear_time
+                        if log_time > self.last_clear_time:
+                            filtered_lines.append(line)
+                    except:
+                        # Jika gagal parse timestamp, tampilkan saja
+                        filtered_lines.append(line)
+                else:
+                    # Baris tanpa timestamp (mungkin header), tampilkan saja
+                    filtered_lines.append(line)
             
-            # Bersihkan newline
-            return [line.strip() for line in lines]
+            return filtered_lines
             
         except Exception as e:
             return [f"Error reading log: {e}"]
@@ -174,7 +209,6 @@ class LogPanel(ttk.LabelFrame):
             return
         
         # Parse timestamp (format: YYYY-MM-DD HH:MM:SS)
-        import re
         timestamp_match = re.match(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
         
         if timestamp_match:
@@ -202,12 +236,16 @@ class LogPanel(ttk.LabelFrame):
             self.text_widget.insert(tk.END, line + '\n', 'DEFAULT')
     
     def _clear_log(self):
-        """Clear tampilan log (tidak menghapus file)"""
-        self.text_widget.config(state='normal')
-        self.text_widget.delete('1.0', tk.END)
-        self.text_widget.config(state='disabled')
-        self.log_lines = []
-        self.status_label.config(text="Lines: 0")
+        """Clear tampilan log - log lama hilang, log baru tetap masuk"""
+        # Set waktu clear ke sekarang
+        self.last_clear_time = time.time()
+        
+        # Refresh display
+        self._refresh_display()
+        
+        # Tambah pesan clear di log (tapi tidak akan tampil karena disaring)
+        # Tapi kita bisa tambahkan secara manual
+        self.add_message("Log display cleared", "INFO")
     
     def _open_log_file(self):
         """Buka file log dengan default editor"""
@@ -235,8 +273,8 @@ class LogPanel(ttk.LabelFrame):
             message: Pesan
             level: Level log (INFO, WARNING, ERROR)
         """
-        import datetime
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_line = f"{timestamp} [{level}] {message}"
         
         self.log_lines.append(log_line)
@@ -250,8 +288,3 @@ class LogPanel(ttk.LabelFrame):
         if self.after_id:
             self.after_cancel(self.after_id)
         super().destroy()
-
-
-# Test sederhana
-if __name__ == "__main__":
-    print("LogPanel class ready with fixes")

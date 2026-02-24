@@ -141,7 +141,7 @@ class DownloadManager:
         try:
             jobs = self.queue_manager.get_all_jobs()
             self.state_manager.save(jobs)
-            logger.debug("State saved")
+            # logger.debug("State saved")
         except Exception as e:
             logger.error(f"Error saving state: {e}")
     
@@ -209,14 +209,15 @@ class DownloadManager:
             }
     
     def get_active_downloads(self) -> List[FileJob]:
-        """Dapatkan semua file yang sedang di-download"""
         active = []
         for worker in self.workers:
             job = worker.get_current_job()
             if job:
                 active.append(job)
+                # Optional: biarkan satu log saja kalau mau
+                # logger.debug(f"Active download: {job.name} - {job.progress:.1f}%")
         return active
-    
+        
     def set_max_parallel(self, new_max: int):
         """
         Ubah jumlah maksimal worker paralel

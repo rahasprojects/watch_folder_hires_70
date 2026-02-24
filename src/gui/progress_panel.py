@@ -5,12 +5,15 @@ Progress panel untuk menampilkan progress download aktif
 
 import tkinter as tk
 from tkinter import ttk
+import logging  # <-- TAMBAHKAN INI
 from typing import Optional, List
 from ..models.file_job import FileJob
 from ..core.download_manager import DownloadManager
 from ..constants.settings import REFRESH_INTERVAL
 
-class ProgressPanel(ttk.LabelFrame):
+logger = logging.getLogger(__name__)
+
+class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
     """
     Panel untuk menampilkan progress download aktif
     """
@@ -23,7 +26,7 @@ class ProgressPanel(ttk.LabelFrame):
             parent: Parent widget
             download_manager: DownloadManager instance
         """
-        super().__init__(parent, text="⬇️ Active Downloads", padding=5)
+        super().__init__(parent)
         
         self.download_manager = download_manager
         self.after_id = None
@@ -61,6 +64,8 @@ class ProgressPanel(ttk.LabelFrame):
         """Refresh tampilan progress"""
         # Dapatkan active downloads
         active_jobs = self.download_manager.get_active_downloads()
+        # logger.debug(f"Refreshing progress panel: {len(active_jobs)} active jobs")
+        
         active_names = [job.name for job in active_jobs]
         
         # Hapus progress bar untuk job yang sudah selesai
@@ -94,13 +99,13 @@ class ProgressPanel(ttk.LabelFrame):
         """
         # Frame untuk satu job
         frame = ttk.Frame(self.scrollable_frame)
-        frame.pack(fill='x', pady=2, padx=5)
+        frame.pack(fill='x', pady=5, padx=5)
         
         # Header dengan filename
         header_frame = ttk.Frame(frame)
         header_frame.pack(fill='x')
         
-        name_label = ttk.Label(header_frame, text=job.name, font=('Arial', 9, 'bold'))
+        name_label = ttk.Label(header_frame, text=f"🎬 {job.name}", font=('Arial', 9, 'bold'))
         name_label.pack(side='left')
         
         speed_label = ttk.Label(header_frame, text="", font=('Arial', 8))
@@ -127,18 +132,13 @@ class ProgressPanel(ttk.LabelFrame):
         eta_label = ttk.Label(info_frame, text="", font=('Arial', 8))
         eta_label.pack(side='right')
         
-        # Separator
-        separator = ttk.Separator(self.scrollable_frame, orient='horizontal')
-        separator.pack(fill='x', pady=5)
-        
         # Simpan semua widget
         self.progress_bars[job.name] = {
             'frame': frame,
             'progress_var': progress_var,
             'speed_label': speed_label,
             'size_label': size_label,
-            'eta_label': eta_label,
-            'separator': separator
+            'eta_label': eta_label
         }
         
         # Initial update
@@ -184,7 +184,6 @@ class ProgressPanel(ttk.LabelFrame):
         widgets = self.progress_bars.get(job_name)
         if widgets:
             widgets['frame'].destroy()
-            widgets['separator'].destroy()
     
     def destroy(self):
         """Cleanup saat panel di-destroy"""
@@ -192,11 +191,3 @@ class ProgressPanel(ttk.LabelFrame):
             self.after_cancel(self.after_id)
         self.canvas.unbind_all("<MouseWheel>")
         super().destroy()
-
-
-# Test sederhana
-if __name__ == "__main__":
-    from ..utils.logger import setup_logging
-    setup_logging()
-    
-    print("ProgressPanel class ready")

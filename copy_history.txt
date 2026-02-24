@@ -90,3 +90,45 @@ Timestamp            Filename                                         Size Statu
 2026-02-23 22:10:55  CSR MNC PEDULI 400 - Copy (2).mxf               1.84 GB SUCCESS    00:02:59   1    
 2026-02-23 22:11:12  CSR MNC PEDULI 400 - Copy.mxf                   1.84 GB SUCCESS    00:02:34   2    
 2026-02-23 22:11:15  CSR MNC PEDULI 400.mxf                          1.84 GB SUCCESS    00:01:47   2    
+2026-02-24 15:59:44  test 01.mxf                                     1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 16:00:29  test 01.mxf                                     1.84 GB SUCCESS    00:00:44   1    
+2026-02-24 16:18:13  test 01.mxf                                     1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 16:19:00  test 01.mxf                                     1.84 GB SUCCESS    00:00:46   1    
+2026-02-24 16:30:09  CSR MNC PEDULI 400.mxf                          1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 16:30:58  CSR MNC PEDULI 400.mxf                          1.84 GB SUCCESS    00:00:49   1    
+2026-02-24 16:32:02  CSR MNC PEDULI 400.mxf                          1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 16:32:46  CSR MNC PEDULI 400.mxf                          1.84 GB SUCCESS    00:00:43   1    
+2026-02-24 19:32:13  CSR MNC PEDULI 400.mxf                          1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 19:32:45  test .mxf                                       1.84 GB FAILED     -          1    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 19:33:01  test .mxf                                       1.84 GB FAILED     -          2    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 19:33:13  SEKOLAH PONDOK DOMBA KALIJODOH .mp4             0.36 GB SUCCESS    00:00:47   0    
+2026-02-24 19:33:17  test .mxf                                       1.84 GB FAILED     -          3    
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-02-24 19:33:47  CSR MNC PEDULI 400.mxf                          1.84 GB SUCCESS    00:01:33   1    
+2026-02-24 19:39:35  test.mxf                                        1.84 GB SUCCESS    00:00:31   0    
+2026-02-24 19:40:45  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:23   0    
+2026-02-24 19:41:55  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:21   0    
+2026-02-24 19:41:59  test.mxf                                        0.50 GB SUCCESS    00:00:25   0    
+2026-02-24 19:42:05  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:31   0    
+2026-02-24 19:59:57  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:21   0    
+2026-02-24 20:00:04  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:33   0    
+2026-02-24 20:00:04  test.mxf                                        0.50 GB SUCCESS    00:00:28   0    
+2026-02-24 20:02:40  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:27   0    
+2026-02-24 20:02:49  test.mxf                                        0.50 GB SUCCESS    00:00:30   0    
+2026-02-24 20:02:51  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:50   0    
+2026-02-24 20:08:19  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:31   0    
+2026-02-24 20:08:26  test.mxf                                        0.50 GB SUCCESS    00:00:32   0    
+2026-02-24 20:08:29  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:53   0    
+2026-02-24 20:13:51  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:34   0    
+2026-02-24 20:14:00  test.mxf                                        0.50 GB SUCCESS    00:00:31   0    
+2026-02-24 20:14:02  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:57   0    
+2026-02-24 20:18:00  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:10   0    
+2026-02-24 20:24:17  SEKOLAH PONDOK .mp4                             0.36 GB SUCCESS    00:00:24   0    
+2026-02-24 20:24:23  CSR MNC PEDULI 400.mxf                          0.75 GB SUCCESS    00:00:30   0    

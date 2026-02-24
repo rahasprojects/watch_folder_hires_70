@@ -44,9 +44,9 @@ class QueueManager:
         """
         with self.lock:
             # Cek apakah sudah ada
-            if job.name in self.jobs:
-                logger.warning(f"Job {job.name} already exists in queue")
-                return self.get_position(job.name)
+            # if job.name in self.jobs:
+            #     logger.warning(f"Job {job.name} already exists in queue")
+            #     return self.get_position(job.name)
             
             # Set status dan timestamp
             job.status = STATUS_WAITING

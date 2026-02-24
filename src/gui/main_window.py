@@ -131,36 +131,33 @@ class MainWindow:
         self._create_log_tab()
     
     def _create_queue_tab(self):
-        """Buat tab Queue dengan layout left-right (tanpa kotak luar)"""
+        """Buat tab Queue dengan layout left-right"""
         queue_tab = ttk.Frame(self.notebook)
         self.notebook.add(queue_tab, text="📋 QUEUE")
         
-        # Configure grid for left-right layout
-        queue_tab.grid_columnconfigure(0, weight=4)  # Left panel (40%)
-        queue_tab.grid_columnconfigure(1, weight=6)  # Right panel (60%)
+        # Configure grid
+        queue_tab.grid_columnconfigure(0, weight=4)
+        queue_tab.grid_columnconfigure(1, weight=6)
         queue_tab.grid_rowconfigure(0, weight=1)
         
-        # ===== LEFT PANEL: QUEUE TABLE =====
+        # LEFT PANEL: QUEUE TABLE
         left_frame = ttk.Frame(queue_tab)
         left_frame.grid(row=0, column=0, sticky='nsew', padx=(0, 4), pady=5)
         
-        # Title
         title_left = ttk.Label(left_frame, text="Download Queue", font=('Arial', 11, 'bold'))
         title_left.pack(anchor='w', pady=(0, 5))
         
-        # Queue Panel (tanpa LabelFrame)
         self.queue_panel = QueuePanel(left_frame, self.queue_mgr)
         self.queue_panel.pack(fill='both', expand=True)
         
-        # ===== RIGHT PANEL: ACTIVE DOWNLOADS =====
+        # RIGHT PANEL: ACTIVE DOWNLOADS
         right_frame = ttk.Frame(queue_tab)
         right_frame.grid(row=0, column=1, sticky='nsew', padx=(4, 0), pady=5)
         
-        # Title
         title_right = ttk.Label(right_frame, text="Active Downloads", font=('Arial', 11, 'bold'))
         title_right.pack(anchor='w', pady=(0, 5))
         
-        # Stats Frame (Active | Waiting | Total)
+        # Stats
         stats_frame = ttk.Frame(right_frame)
         stats_frame.pack(fill='x', pady=(0, 10))
         
@@ -173,7 +170,8 @@ class MainWindow:
         self.total_label = ttk.Label(stats_frame, text="Total: 0", font=('Arial', 10, 'bold'))
         self.total_label.pack(side='left', padx=10)
         
-        # Progress Panel (tanpa LabelFrame)
+        # Progress Panel - PASTIKAN INI
+        logger.info(f"Creating ProgressPanel with download_manager: {self.download_mgr}")
         self.progress_panel = ProgressPanel(right_frame, self.download_mgr)
         self.progress_panel.pack(fill='both', expand=True)
     
