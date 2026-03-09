@@ -12535,3 +12535,1242 @@
 2026-03-09 15:48:37 [INFO] UploadWorker51-2 stopped
 2026-03-09 15:48:37 [INFO] All upload workers stopped
 2026-03-09 15:48:37 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:53:50 [INFO] ==================================================
+2026-03-09 15:53:50 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 15:53:50 [INFO] ==================================================
+2026-03-09 15:53:50 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:50 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:50 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:53:50 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:53:50 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:53:50 [INFO]   max_upload_51: 2
+2026-03-09 15:53:50 [INFO]   max_upload_40: 3
+2026-03-09 15:53:50 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 15:53:50 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:53:50 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:53:50 [INFO] State loaded: 3 jobs in state
+2026-03-09 15:53:50 [INFO] QueueManager initialized
+2026-03-09 15:53:50 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 15:53:50 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:53:50 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:53:50 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:50 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 15:53:50 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:53:50 [INFO] UploadController initialized
+2026-03-09 15:53:50 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:53:50 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:53:50 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 15:53:50 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 15:53:50 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 15:53:50 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 15:53:50 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:53:52 [INFO] Main window initialized with Upload panels
+2026-03-09 15:53:52 [INFO] File monitor started
+2026-03-09 15:53:52 [INFO] Upload controller registered
+2026-03-09 15:53:52 [INFO] FileMonitor started
+2026-03-09 15:53:52 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 15:53:52 [INFO] Upload controller registered to download manager
+2026-03-09 15:53:52 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:53:52 [DEBUG] Job removed from state: TESTFC0101 .mxf
+2026-03-09 15:53:52 [DEBUG] Job removed from state: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:53:52 [DEBUG] Job removed from state: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:53:52 [INFO] Cleared 3 completed/failed jobs from state
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] DownloadWorker-1 initialized
+2026-03-09 15:53:52 [INFO] DownloadWorker-1 started
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] DownloadWorker-2 initialized
+2026-03-09 15:53:52 [INFO] DownloadWorker-2 started
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] DownloadWorker-3 initialized
+2026-03-09 15:53:52 [INFO] DownloadWorker-3 started
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] DownloadWorker-4 initialized
+2026-03-09 15:53:52 [INFO] DownloadWorker-4 started
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] DownloadWorker-5 initialized
+2026-03-09 15:53:52 [INFO] DownloadWorker-5 started
+2026-03-09 15:53:52 [INFO] Started 5 download workers
+2026-03-09 15:53:52 [INFO] Download manager started
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:53:52 [INFO] UploadWorker51-1 started
+2026-03-09 15:53:52 [INFO] Started UploadWorker51-1
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:53:52 [INFO] UploadWorker51-2 started
+2026-03-09 15:53:52 [INFO] Started UploadWorker51-2
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 15:53:52 [INFO] UploadWorker40-1 started
+2026-03-09 15:53:52 [INFO] Started UploadWorker40-1
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 15:53:52 [INFO] UploadWorker40-2 started
+2026-03-09 15:53:52 [INFO] Started UploadWorker40-2
+2026-03-09 15:53:52 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:53:52 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 15:53:52 [INFO] UploadWorker40-3 started
+2026-03-09 15:53:52 [INFO] Started UploadWorker40-3
+2026-03-09 15:53:52 [INFO] Total upload workers started: 5
+2026-03-09 15:53:52 [INFO] Upload manager started
+2026-03-09 15:53:52 [INFO] Download→Upload hook registered
+2026-03-09 15:53:52 [INFO] Starting GUI main loop
+2026-03-09 15:53:52 [INFO] Starting main loop
+2026-03-09 15:54:07 [INFO] New file detected: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB) in D:\Test watch folder\source
+2026-03-09 15:54:07 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR .mxf: size=10079366016, last_size=10079366016, time=0.0s
+2026-03-09 15:54:12 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR .mxf: size=10079366016, last_size=10079366016, time=5.0s
+2026-03-09 15:54:12 [INFO] File stable: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB) after 5.0s
+2026-03-09 15:54:12 [INFO] Created job for SPECIAL EVENT - TABLIGH AKBAR .mxf with source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR .mxf (size: 9.39GB)
+2026-03-09 15:54:12 [INFO] Job added to queue at position 1
+2026-03-09 15:54:12 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:54:12 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Worker-1 processing: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Dest path from job: 
+2026-03-09 15:54:12 [INFO] Size: 10079366016 bytes
+2026-03-09 15:54:12 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 15:54:12 [WARNING] Destination path is EMPTY for SPECIAL EVENT - TABLIGH AKBAR .mxf, trying to set from config
+2026-03-09 15:54:12 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:54:12 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:54:12 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:54:12 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:54:12 [INFO]   max_upload_51: 2
+2026-03-09 15:54:12 [INFO]   max_upload_40: 3
+2026-03-09 15:54:12 [INFO] Set destination path from config: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:12 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:54:28 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:54:28 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 10.7% (1.00GB/9.39GB)
+2026-03-09 15:54:28 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 10.7%
+2026-03-09 15:54:28 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 10%
+2026-03-09 15:54:44 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 21.3% (2.00GB/9.39GB)
+2026-03-09 15:54:44 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 21.3%
+2026-03-09 15:54:44 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 20%
+2026-03-09 15:55:01 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 32.0% (3.00GB/9.39GB)
+2026-03-09 15:55:01 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 32.0%
+2026-03-09 15:55:01 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 30%
+2026-03-09 15:55:21 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 42.6% (4.00GB/9.39GB)
+2026-03-09 15:55:21 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 42.6%
+2026-03-09 15:55:21 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 40%
+2026-03-09 15:55:36 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:55:36 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 50.6%
+2026-03-09 15:55:36 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 50%
+2026-03-09 15:55:41 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 53.3% (5.00GB/9.39GB)
+2026-03-09 15:55:54 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 61.3%
+2026-03-09 15:55:54 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 60%
+2026-03-09 15:55:58 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 63.9% (6.00GB/9.39GB)
+2026-03-09 15:56:15 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 71.9%
+2026-03-09 15:56:15 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 70%
+2026-03-09 15:56:19 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 74.6% (7.00GB/9.39GB)
+2026-03-09 15:56:35 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 82.6%
+2026-03-09 15:56:35 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 80%
+2026-03-09 15:56:40 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 85.2% (8.00GB/9.39GB)
+2026-03-09 15:56:49 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:56:49 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 90.5%
+2026-03-09 15:56:49 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 90%
+2026-03-09 15:56:57 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 95.9% (9.00GB/9.39GB)
+2026-03-09 15:57:04 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:57:04 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 100.0%
+2026-03-09 15:57:04 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 100%
+2026-03-09 15:57:04 [INFO] Copy completed: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB) in 171.98s
+2026-03-09 15:57:04 [INFO] Verification passed: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB)
+2026-03-09 15:57:04 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR .mxf - SUCCESS - Dest: 70
+2026-03-09 15:57:04 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:57:04 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:57:04 [INFO] UploadController initialized
+2026-03-09 15:57:04 [INFO] === UPLOAD CONTROLLER ===
+2026-03-09 15:57:04 [INFO] 📥 Download completed: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:04 [INFO] 📁 Source file in 70: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:04 [INFO] 🔍 Checking settings...
+2026-03-09 15:57:04 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:57:04 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:57:04 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:57:04 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:57:04 [INFO]   max_upload_51: 2
+2026-03-09 15:57:04 [INFO]   max_upload_40: 3
+2026-03-09 15:57:04 [DEBUG] Settings loaded: dest_51='D:/Test watch folder/destionation 51', dest_40='D:/Test watch folder/destination 40'
+2026-03-09 15:57:04 [INFO] ✅ Settings valid:
+2026-03-09 15:57:04 [INFO]    - destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:57:05 [INFO]    - destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:57:05 [INFO] 🔍 Checking destination folders...
+2026-03-09 15:57:05 [INFO] ✅ Destination 51 folder exists: D:/Test watch folder/destionation 51
+2026-03-09 15:57:05 [INFO] ✅ Write permission OK for destination 51
+2026-03-09 15:57:05 [INFO] ✅ Destination 40 folder exists: D:/Test watch folder/destination 40
+2026-03-09 15:57:05 [INFO] ✅ Write permission OK for destination 40
+2026-03-09 15:57:05 [INFO] 🔍 Creating upload job for 51 (HIRES)...
+2026-03-09 15:57:05 [DEBUG] Creating job for 51-HIRES with folder: D:/Test watch folder/destionation 51
+2026-03-09 15:57:05 [DEBUG] Destination path: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] ✅ Created upload job for 51-HIRES: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [DEBUG]   Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [DEBUG]   Dest: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [DEBUG]   Priority: HIGH
+2026-03-09 15:57:05 [INFO] 🔍 Creating upload job for 40 (LOWRES)...
+2026-03-09 15:57:05 [DEBUG] Creating job for 40-LOWRES with folder: D:/Test watch folder/destination 40
+2026-03-09 15:57:05 [DEBUG] Destination path: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] ✅ Created upload job for 40-LOWRES: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [DEBUG]   Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [DEBUG]   Dest: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [DEBUG]   Priority: NORMAL
+2026-03-09 15:57:05 [INFO] ✅ Upload job 51 created successfully
+2026-03-09 15:57:05 [INFO] [51-HIGH] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR .mxf (size: 9.39GB)
+2026-03-09 15:57:05 [INFO] [51-HIGH] Added to queue at position 1
+2026-03-09 15:57:05 [INFO]    Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO]    Dest: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] ✅ Upload job 40 created successfully
+2026-03-09 15:57:05 [INFO] [40-NORMAL] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR .mxf (size: 9.39GB)
+2026-03-09 15:57:05 [INFO] [40-NORMAL] Added to queue at position 1
+2026-03-09 15:57:05 [INFO]    Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO]    Dest: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] ✅ Upload controller notified for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Deleting source file: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Deleted: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Worker-1 completed: SPECIAL EVENT - TABLIGH AKBAR .mxf in 171.99s
+2026-03-09 15:57:05 [INFO] Job completed: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] [40-NORMAL] Job started: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Worker40-2 processing: SPECIAL EVENT - TABLIGH AKBAR .mxf (NORMAL PRIORITY)
+2026-03-09 15:57:05 [INFO] [51-HIGH] Job started: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Source path: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Worker51-1 processing: SPECIAL EVENT - TABLIGH AKBAR .mxf (⭐ HIGH PRIORITY)
+2026-03-09 15:57:05 [INFO] Dest path: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Source path: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Dest path: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:05 [INFO] Size: 10079366016 bytes
+2026-03-09 15:57:05 [INFO] Size: 10079366016 bytes
+2026-03-09 15:57:06 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 15:57:06 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 15:57:06 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Final source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Final source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Final dest: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Final dest: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Starting upload for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Starting upload for SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Copying to: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:06 [INFO] Copying to: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 15:57:42 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 10.7% (1.00GB/9.39GB)
+2026-03-09 15:57:42 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 10.7%
+2026-03-09 15:57:42 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 10%
+2026-03-09 15:57:42 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 10.7% (1.00GB/9.39GB)
+2026-03-09 15:57:42 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 10.7%
+2026-03-09 15:57:42 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 10%
+2026-03-09 15:58:14 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 21.3% (2.00GB/9.39GB)
+2026-03-09 15:58:14 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 21.3%
+2026-03-09 15:58:14 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 20%
+2026-03-09 15:58:19 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 21.3% (2.00GB/9.39GB)
+2026-03-09 15:58:19 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 21.3%
+2026-03-09 15:58:19 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 20%
+2026-03-09 15:58:48 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 32.0% (3.00GB/9.39GB)
+2026-03-09 15:58:48 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 32.0%
+2026-03-09 15:58:48 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 30%
+2026-03-09 15:58:55 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 32.0% (3.00GB/9.39GB)
+2026-03-09 15:58:55 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 32.0%
+2026-03-09 15:58:55 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 30%
+2026-03-09 15:59:21 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 42.6% (4.00GB/9.39GB)
+2026-03-09 15:59:21 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 42.6%
+2026-03-09 15:59:21 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 40%
+2026-03-09 15:59:30 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 42.6% (4.00GB/9.39GB)
+2026-03-09 15:59:30 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 42.6%
+2026-03-09 15:59:30 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 40%
+2026-03-09 15:59:50 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 50.6%
+2026-03-09 15:59:50 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 50%
+2026-03-09 16:00:00 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 50.6%
+2026-03-09 16:00:00 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 50%
+2026-03-09 16:00:01 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 53.3% (5.00GB/9.39GB)
+2026-03-09 16:00:11 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 53.3% (5.00GB/9.39GB)
+2026-03-09 16:00:28 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 61.3%
+2026-03-09 16:00:28 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 60%
+2026-03-09 16:00:38 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 61.3%
+2026-03-09 16:00:38 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 60%
+2026-03-09 16:00:38 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 63.9% (6.00GB/9.39GB)
+2026-03-09 16:00:48 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 63.9% (6.00GB/9.39GB)
+2026-03-09 16:01:06 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 71.9%
+2026-03-09 16:01:06 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 70%
+2026-03-09 16:01:15 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 71.9%
+2026-03-09 16:01:15 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 70%
+2026-03-09 16:01:15 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 74.6% (7.00GB/9.39GB)
+2026-03-09 16:01:23 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 74.6% (7.00GB/9.39GB)
+2026-03-09 16:01:40 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 82.6%
+2026-03-09 16:01:40 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 80%
+2026-03-09 16:01:51 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 82.6%
+2026-03-09 16:01:51 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 80%
+2026-03-09 16:01:51 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 85.2% (8.00GB/9.39GB)
+2026-03-09 16:02:01 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 85.2% (8.00GB/9.39GB)
+2026-03-09 16:02:06 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 90.5%
+2026-03-09 16:02:06 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 90%
+2026-03-09 16:02:18 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 90.5%
+2026-03-09 16:02:18 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 90%
+2026-03-09 16:02:22 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 95.9% (9.00GB/9.39GB)
+2026-03-09 16:02:36 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 100.0%
+2026-03-09 16:02:36 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 100%
+2026-03-09 16:02:36 [INFO] Copy completed: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB) in 330.15s
+2026-03-09 16:02:36 [INFO] Verification passed: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB)
+2026-03-09 16:02:36 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR .mxf - SUCCESS - Dest: 40
+2026-03-09 16:02:36 [INFO] Worker40-2 completed: SPECIAL EVENT - TABLIGH AKBAR .mxf in 330.18s
+2026-03-09 16:02:36 [INFO] [40-NORMAL] Job completed: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:02:36 [INFO] ✅ Upload to 40 completed: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:02:36 [INFO] SPECIAL EVENT - TABLIGH AKBAR .mxf: 95.9% (9.00GB/9.39GB)
+2026-03-09 16:02:39 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR .mxf: 100.0%
+2026-03-09 16:02:39 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR .mxf: 100%
+2026-03-09 16:02:39 [INFO] Copy completed: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB) in 333.41s
+2026-03-09 16:02:39 [INFO] Verification passed: SPECIAL EVENT - TABLIGH AKBAR .mxf (9.39GB)
+2026-03-09 16:02:39 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR .mxf - SUCCESS - Dest: 51
+2026-03-09 16:02:39 [INFO] Worker51-1 completed: SPECIAL EVENT - TABLIGH AKBAR .mxf in 333.43s
+2026-03-09 16:02:39 [INFO] [51-HIGH] Job completed: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:02:39 [INFO] ✅ Upload to 51 completed: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:02:39 [INFO] 🎉 Both uploads completed for: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:02:39 [INFO] 🗑️ Deleted source file from 70: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:02:39 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR .mxf - SUCCESS - Dest: 70_DELETED
+2026-03-09 16:05:19 [INFO] New file detected: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in D:\Test watch folder\source
+2026-03-09 16:05:19 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=0.0s
+2026-03-09 16:05:24 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=5.3s
+2026-03-09 16:05:24 [INFO] File stable: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) after 5.3s
+2026-03-09 16:05:24 [INFO] Created job for SPECIAL EVENT - TABLIGH AKBAR - .mxf with source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 16:05:24 [INFO] Job added to queue at position 1
+2026-03-09 16:05:24 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 16:05:24 [INFO] Worker-1 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Dest path from job: 
+2026-03-09 16:05:24 [INFO] Size: 10079366016 bytes
+2026-03-09 16:05:24 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:05:24 [WARNING] Destination path is EMPTY for SPECIAL EVENT - TABLIGH AKBAR - .mxf, trying to set from config
+2026-03-09 16:05:24 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 16:05:24 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 16:05:24 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 16:05:24 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 16:05:24 [INFO]   max_upload_51: 2
+2026-03-09 16:05:24 [INFO]   max_upload_40: 3
+2026-03-09 16:05:24 [INFO] Set destination path from config: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:24 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:05:25 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:25 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:05:27 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:27 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:05:31 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:31 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:05:39 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:39 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:05:39 [ERROR] Worker-1 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:05:39 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:05:39 [INFO] Worker-1 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (1/3)
+2026-03-09 16:05:39 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (1/3)
+2026-03-09 16:05:39 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:39 [INFO] Worker-1 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:39 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:39 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:39 [INFO] Size: 10079366016 bytes
+2026-03-09 16:05:40 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:05:40 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:40 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:40 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:40 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:40 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:40 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:05:41 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:41 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:05:43 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:43 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:05:47 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:47 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:05:55 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:05:55 [ERROR] Worker-1 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:05:55 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:05:55 [INFO] Worker-1 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (2/3)
+2026-03-09 16:05:55 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (2/3)
+2026-03-09 16:05:55 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Worker-4 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Size: 10079366016 bytes
+2026-03-09 16:05:55 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:05:55 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:55 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:05:56 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:56 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:05:58 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:05:58 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:06:02 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:06:02 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:06:10 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:06:10 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:06:10 [ERROR] Worker-4 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:06:10 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:06:10 [ERROR] Worker-4 permanent failure: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:06:10 [ERROR] Job failed permanently: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:09:07 [INFO] Closing application...
+2026-03-09 16:09:08 [INFO] FileMonitor stopped
+2026-03-09 16:09:08 [INFO] Stopping all workers...
+2026-03-09 16:09:08 [INFO] DownloadWorker-1 stopping...
+2026-03-09 16:09:08 [INFO] DownloadWorker-2 stopping...
+2026-03-09 16:09:08 [INFO] DownloadWorker-3 stopping...
+2026-03-09 16:09:08 [INFO] DownloadWorker-4 stopping...
+2026-03-09 16:09:08 [INFO] DownloadWorker-5 stopping...
+2026-03-09 16:09:09 [INFO] DownloadWorker-5 stopped
+2026-03-09 16:09:09 [INFO] DownloadWorker-3 stopped
+2026-03-09 16:09:09 [INFO] DownloadWorker-2 stopped
+2026-03-09 16:09:09 [INFO] DownloadWorker-4 stopped
+2026-03-09 16:09:10 [INFO] DownloadWorker-1 stopped
+2026-03-09 16:09:10 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:09:10 [INFO] All workers stopped
+2026-03-09 16:09:10 [INFO] Stopping all upload workers...
+2026-03-09 16:09:10 [INFO] UploadWorker51-1 stopping...
+2026-03-09 16:09:10 [INFO] UploadWorker51-2 stopping...
+2026-03-09 16:09:10 [INFO] UploadWorker40-1 stopping...
+2026-03-09 16:09:10 [INFO] UploadWorker40-2 stopping...
+2026-03-09 16:09:10 [INFO] UploadWorker40-3 stopping...
+2026-03-09 16:09:11 [INFO] UploadWorker40-3 stopped
+2026-03-09 16:09:11 [INFO] UploadWorker40-1 stopped
+2026-03-09 16:09:11 [INFO] UploadWorker51-1 stopped
+2026-03-09 16:09:11 [INFO] UploadWorker51-2 stopped
+2026-03-09 16:09:12 [INFO] UploadWorker40-2 stopped
+2026-03-09 16:09:12 [INFO] All upload workers stopped
+2026-03-09 16:09:12 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:09:20 [INFO] ==================================================
+2026-03-09 16:09:20 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 16:09:20 [INFO] ==================================================
+2026-03-09 16:09:20 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:20 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:20 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 16:09:20 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 16:09:20 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 16:09:20 [INFO]   max_upload_51: 2
+2026-03-09 16:09:20 [INFO]   max_upload_40: 3
+2026-03-09 16:09:20 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 16:09:20 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:09:20 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:09:20 [INFO] State loaded: 2 jobs in state
+2026-03-09 16:09:20 [INFO] QueueManager initialized
+2026-03-09 16:09:20 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 16:09:20 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 16:09:20 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:09:20 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:20 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 16:09:20 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:09:20 [INFO] UploadController initialized
+2026-03-09 16:09:20 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 16:09:20 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:09:20 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 16:09:20 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 16:09:20 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 16:09:20 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 16:09:20 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:09:22 [INFO] Main window initialized with Upload panels
+2026-03-09 16:09:22 [INFO] File monitor started
+2026-03-09 16:09:22 [INFO] Upload controller registered
+2026-03-09 16:09:22 [INFO] FileMonitor started
+2026-03-09 16:09:22 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 16:09:22 [INFO] Upload controller registered to download manager
+2026-03-09 16:09:22 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:09:22 [DEBUG] Job removed from state: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:09:22 [DEBUG] Job removed from state: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:22 [INFO] Cleared 2 completed/failed jobs from state
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] DownloadWorker-1 initialized
+2026-03-09 16:09:22 [INFO] DownloadWorker-1 started
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] DownloadWorker-2 initialized
+2026-03-09 16:09:22 [INFO] DownloadWorker-2 started
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] DownloadWorker-3 initialized
+2026-03-09 16:09:22 [INFO] DownloadWorker-3 started
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] DownloadWorker-4 initialized
+2026-03-09 16:09:22 [INFO] DownloadWorker-4 started
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] DownloadWorker-5 initialized
+2026-03-09 16:09:22 [INFO] DownloadWorker-5 started
+2026-03-09 16:09:22 [INFO] Started 5 download workers
+2026-03-09 16:09:22 [INFO] Download manager started
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 16:09:22 [INFO] UploadWorker51-1 started
+2026-03-09 16:09:22 [INFO] Started UploadWorker51-1
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 16:09:22 [INFO] UploadWorker51-2 started
+2026-03-09 16:09:22 [INFO] Started UploadWorker51-2
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 16:09:22 [INFO] UploadWorker40-1 started
+2026-03-09 16:09:22 [INFO] Started UploadWorker40-1
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 16:09:22 [INFO] UploadWorker40-2 started
+2026-03-09 16:09:22 [INFO] Started UploadWorker40-2
+2026-03-09 16:09:22 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:22 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 16:09:22 [INFO] UploadWorker40-3 started
+2026-03-09 16:09:22 [INFO] Started UploadWorker40-3
+2026-03-09 16:09:22 [INFO] Total upload workers started: 5
+2026-03-09 16:09:22 [INFO] Upload manager started
+2026-03-09 16:09:22 [INFO] Download→Upload hook registered
+2026-03-09 16:09:22 [INFO] Starting GUI main loop
+2026-03-09 16:09:22 [INFO] Starting main loop
+2026-03-09 16:09:48 [INFO] New file detected: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in D:\Test watch folder\source
+2026-03-09 16:09:48 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=0.2s
+2026-03-09 16:09:53 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=5.5s
+2026-03-09 16:09:53 [INFO] File stable: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) after 5.5s
+2026-03-09 16:09:53 [INFO] Created job for SPECIAL EVENT - TABLIGH AKBAR - .mxf with source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 16:09:53 [INFO] Job added to queue at position 1
+2026-03-09 16:09:53 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 16:09:53 [INFO] Worker-3 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Dest path from job: 
+2026-03-09 16:09:53 [INFO] Size: 10079366016 bytes
+2026-03-09 16:09:53 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:09:53 [WARNING] Destination path is EMPTY for SPECIAL EVENT - TABLIGH AKBAR - .mxf, trying to set from config
+2026-03-09 16:09:53 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 16:09:53 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 16:09:53 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 16:09:53 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 16:09:53 [INFO]   max_upload_51: 2
+2026-03-09 16:09:53 [INFO]   max_upload_40: 3
+2026-03-09 16:09:53 [INFO] Set destination path from config: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:53 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:09:54 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:54 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:09:56 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:09:56 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:10:00 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:00 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:10:08 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:08 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:10:08 [ERROR] Worker-3 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:10:09 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:10:09 [INFO] Worker-3 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (1/3)
+2026-03-09 16:10:09 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (1/3)
+2026-03-09 16:10:09 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Worker-1 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Size: 10079366016 bytes
+2026-03-09 16:10:09 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:10:09 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:09 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:10:10 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:10 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:10:12 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:12 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:10:16 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:16 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:10:24 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:24 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:10:25 [ERROR] Worker-1 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:10:25 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:10:25 [INFO] Worker-1 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (2/3)
+2026-03-09 16:10:25 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (2/3)
+2026-03-09 16:10:25 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Worker-2 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Size: 10079366016 bytes
+2026-03-09 16:10:25 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:10:25 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:25 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:10:26 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:26 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:10:28 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:28 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:10:32 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:32 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:10:40 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:40 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:10:40 [ERROR] Worker-2 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:10:40 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:10:40 [ERROR] Worker-2 permanent failure: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:10:40 [ERROR] Job failed permanently: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:14:31 [INFO] ==================================================
+2026-03-09 16:14:31 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 16:14:31 [INFO] ==================================================
+2026-03-09 16:14:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:31 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:31 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 16:14:31 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 16:14:31 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 16:14:31 [INFO]   max_upload_51: 2
+2026-03-09 16:14:31 [INFO]   max_upload_40: 3
+2026-03-09 16:14:31 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 16:14:31 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:14:31 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:14:31 [INFO] State loaded: 2 jobs in state
+2026-03-09 16:14:31 [INFO] QueueManager initialized
+2026-03-09 16:14:31 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 16:14:31 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 16:14:31 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:14:31 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:31 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 16:14:31 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:14:31 [INFO] UploadController initialized
+2026-03-09 16:14:31 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 16:14:31 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:14:31 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 16:14:31 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 16:14:31 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 16:14:31 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 16:14:31 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 16:14:32 [INFO] Main window initialized with Upload panels
+2026-03-09 16:14:32 [INFO] File monitor started
+2026-03-09 16:14:32 [INFO] Upload controller registered
+2026-03-09 16:14:32 [INFO] FileMonitor started
+2026-03-09 16:14:32 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 16:14:32 [INFO] Upload controller registered to download manager
+2026-03-09 16:14:32 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 16:14:32 [DEBUG] Job removed from state: SPECIAL EVENT - TABLIGH AKBAR .mxf
+2026-03-09 16:14:32 [DEBUG] Job removed from state: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:32 [INFO] Cleared 2 completed/failed jobs from state
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] DownloadWorker-1 initialized
+2026-03-09 16:14:32 [INFO] DownloadWorker-1 started
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] DownloadWorker-2 initialized
+2026-03-09 16:14:32 [INFO] DownloadWorker-2 started
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] DownloadWorker-3 initialized
+2026-03-09 16:14:32 [INFO] DownloadWorker-3 started
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] DownloadWorker-4 initialized
+2026-03-09 16:14:32 [INFO] DownloadWorker-4 started
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] DownloadWorker-5 initialized
+2026-03-09 16:14:32 [INFO] DownloadWorker-5 started
+2026-03-09 16:14:32 [INFO] Started 5 download workers
+2026-03-09 16:14:32 [INFO] Download manager started
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 16:14:32 [INFO] UploadWorker51-1 started
+2026-03-09 16:14:32 [INFO] Started UploadWorker51-1
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 16:14:32 [INFO] UploadWorker51-2 started
+2026-03-09 16:14:32 [INFO] Started UploadWorker51-2
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 16:14:32 [INFO] UploadWorker40-1 started
+2026-03-09 16:14:32 [INFO] Started UploadWorker40-1
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 16:14:32 [INFO] UploadWorker40-2 started
+2026-03-09 16:14:32 [INFO] Started UploadWorker40-2
+2026-03-09 16:14:32 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:32 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 16:14:32 [INFO] UploadWorker40-3 started
+2026-03-09 16:14:32 [INFO] Started UploadWorker40-3
+2026-03-09 16:14:32 [INFO] Total upload workers started: 5
+2026-03-09 16:14:32 [INFO] Upload manager started
+2026-03-09 16:14:32 [INFO] Download→Upload hook registered
+2026-03-09 16:14:32 [INFO] Starting GUI main loop
+2026-03-09 16:14:32 [INFO] Starting main loop
+2026-03-09 16:14:52 [INFO] New file detected: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in D:\Test watch folder\source
+2026-03-09 16:14:52 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=0.0s
+2026-03-09 16:14:57 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=5.3s
+2026-03-09 16:14:58 [INFO] File stable: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) after 5.3s
+2026-03-09 16:14:58 [INFO] Created job for SPECIAL EVENT - TABLIGH AKBAR - .mxf with source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 16:14:58 [INFO] Job added to queue at position 1
+2026-03-09 16:14:58 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 16:14:58 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Worker-4 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Dest path from job: 
+2026-03-09 16:14:58 [INFO] Size: 10079366016 bytes
+2026-03-09 16:14:58 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:14:58 [WARNING] Destination path is EMPTY for SPECIAL EVENT - TABLIGH AKBAR - .mxf, trying to set from config
+2026-03-09 16:14:58 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 16:14:58 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 16:14:58 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 16:14:58 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 16:14:58 [INFO]   max_upload_51: 2
+2026-03-09 16:14:58 [INFO]   max_upload_40: 3
+2026-03-09 16:14:58 [INFO] Set destination path from config: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:58 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:14:59 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:14:59 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:15:01 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:01 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:15:05 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:05 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:15:13 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:13 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:15:13 [ERROR] Worker-4 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:15:13 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:15:13 [INFO] Worker-4 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (1/3)
+2026-03-09 16:15:13 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (1/3)
+2026-03-09 16:15:13 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:13 [INFO] Worker-4 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:13 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:13 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:13 [INFO] Size: 10079366016 bytes
+2026-03-09 16:15:14 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:15:14 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:14 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:14 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:14 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:14 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:14 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:15:15 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:15 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:15:17 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:17 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:15:21 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:21 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:15:29 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:15:29 [ERROR] Worker-4 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:15:29 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:15:29 [INFO] Worker-4 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (2/3)
+2026-03-09 16:15:29 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (2/3)
+2026-03-09 16:15:29 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Worker-5 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Size: 10079366016 bytes
+2026-03-09 16:15:29 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 16:15:29 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:29 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 16:15:30 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:30 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 16:15:32 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:32 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 16:15:36 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:36 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 16:15:44 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:44 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 16:15:44 [ERROR] Worker-5 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 16:15:44 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 16:15:44 [ERROR] Worker-5 permanent failure: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 16:15:44 [ERROR] Job failed permanently: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 17:10:47 [INFO] Closing application...
+2026-03-09 17:10:48 [INFO] FileMonitor stopped
+2026-03-09 17:10:48 [INFO] Stopping all workers...
+2026-03-09 17:10:48 [INFO] DownloadWorker-1 stopping...
+2026-03-09 17:10:48 [INFO] DownloadWorker-2 stopping...
+2026-03-09 17:10:48 [INFO] DownloadWorker-3 stopping...
+2026-03-09 17:10:48 [INFO] DownloadWorker-4 stopping...
+2026-03-09 17:10:48 [INFO] DownloadWorker-5 stopping...
+2026-03-09 17:10:49 [INFO] DownloadWorker-1 stopped
+2026-03-09 17:10:49 [INFO] DownloadWorker-2 stopped
+2026-03-09 17:10:49 [INFO] DownloadWorker-5 stopped
+2026-03-09 17:10:49 [INFO] DownloadWorker-3 stopped
+2026-03-09 17:10:50 [INFO] DownloadWorker-4 stopped
+2026-03-09 17:10:50 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:10:50 [INFO] All workers stopped
+2026-03-09 17:10:50 [INFO] Stopping all upload workers...
+2026-03-09 17:10:50 [INFO] UploadWorker51-1 stopping...
+2026-03-09 17:10:50 [INFO] UploadWorker51-2 stopping...
+2026-03-09 17:10:50 [INFO] UploadWorker40-1 stopping...
+2026-03-09 17:10:50 [INFO] UploadWorker40-2 stopping...
+2026-03-09 17:10:50 [INFO] UploadWorker40-3 stopping...
+2026-03-09 17:10:51 [INFO] UploadWorker40-3 stopped
+2026-03-09 17:10:51 [INFO] UploadWorker40-1 stopped
+2026-03-09 17:10:51 [INFO] UploadWorker40-2 stopped
+2026-03-09 17:10:51 [INFO] UploadWorker51-1 stopped
+2026-03-09 17:10:51 [INFO] UploadWorker51-2 stopped
+2026-03-09 17:10:51 [INFO] All upload workers stopped
+2026-03-09 17:10:51 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:11:06 [INFO] ==================================================
+2026-03-09 17:11:06 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 17:11:06 [INFO] ==================================================
+2026-03-09 17:11:06 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:06 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:06 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 17:11:06 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 17:11:06 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 17:11:06 [INFO]   max_upload_51: 2
+2026-03-09 17:11:06 [INFO]   max_upload_40: 3
+2026-03-09 17:11:06 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 17:11:06 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:11:06 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:11:06 [INFO] State loaded: 1 jobs in state
+2026-03-09 17:11:06 [INFO] QueueManager initialized
+2026-03-09 17:11:06 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 17:11:06 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 17:11:06 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:11:06 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:06 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 17:11:06 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:11:06 [INFO] UploadController initialized
+2026-03-09 17:11:06 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 17:11:06 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:11:06 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 17:11:06 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 17:11:06 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 17:11:06 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 17:11:06 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:11:07 [INFO] Main window initialized with Upload panels
+2026-03-09 17:11:07 [INFO] File monitor started
+2026-03-09 17:11:07 [INFO] Upload controller registered
+2026-03-09 17:11:07 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 17:11:07 [INFO] Upload controller registered to download manager
+2026-03-09 17:11:07 [INFO] FileMonitor started
+2026-03-09 17:11:07 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:11:07 [DEBUG] Job removed from state: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:11:07 [INFO] Cleared 1 completed/failed jobs from state
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] DownloadWorker-1 initialized
+2026-03-09 17:11:07 [INFO] DownloadWorker-1 started
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] DownloadWorker-2 initialized
+2026-03-09 17:11:07 [INFO] DownloadWorker-2 started
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] DownloadWorker-3 initialized
+2026-03-09 17:11:07 [INFO] DownloadWorker-3 started
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] DownloadWorker-4 initialized
+2026-03-09 17:11:07 [INFO] DownloadWorker-4 started
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] DownloadWorker-5 initialized
+2026-03-09 17:11:07 [INFO] DownloadWorker-5 started
+2026-03-09 17:11:07 [INFO] Started 5 download workers
+2026-03-09 17:11:07 [INFO] Download manager started
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 17:11:07 [INFO] UploadWorker51-1 started
+2026-03-09 17:11:07 [INFO] Started UploadWorker51-1
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 17:11:07 [INFO] UploadWorker51-2 started
+2026-03-09 17:11:07 [INFO] Started UploadWorker51-2
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 17:11:07 [INFO] UploadWorker40-1 started
+2026-03-09 17:11:07 [INFO] Started UploadWorker40-1
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 17:11:07 [INFO] UploadWorker40-2 started
+2026-03-09 17:11:07 [INFO] Started UploadWorker40-2
+2026-03-09 17:11:07 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:11:07 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 17:11:07 [INFO] UploadWorker40-3 started
+2026-03-09 17:11:07 [INFO] Started UploadWorker40-3
+2026-03-09 17:11:07 [INFO] Total upload workers started: 5
+2026-03-09 17:11:07 [INFO] Upload manager started
+2026-03-09 17:11:07 [INFO] Download→Upload hook registered
+2026-03-09 17:11:07 [INFO] Starting GUI main loop
+2026-03-09 17:11:07 [INFO] Starting main loop
+2026-03-09 17:11:55 [INFO] Closing application...
+2026-03-09 17:11:55 [INFO] FileMonitor stopped
+2026-03-09 17:11:55 [INFO] Stopping all workers...
+2026-03-09 17:11:55 [INFO] DownloadWorker-1 stopping...
+2026-03-09 17:11:55 [INFO] DownloadWorker-2 stopping...
+2026-03-09 17:11:55 [INFO] DownloadWorker-3 stopping...
+2026-03-09 17:11:55 [INFO] DownloadWorker-4 stopping...
+2026-03-09 17:11:55 [INFO] DownloadWorker-5 stopping...
+2026-03-09 17:11:55 [INFO] DownloadWorker-2 stopped
+2026-03-09 17:11:55 [INFO] DownloadWorker-5 stopped
+2026-03-09 17:11:55 [INFO] DownloadWorker-3 stopped
+2026-03-09 17:11:55 [INFO] DownloadWorker-1 stopped
+2026-03-09 17:11:55 [INFO] DownloadWorker-4 stopped
+2026-03-09 17:11:55 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:11:55 [INFO] All workers stopped
+2026-03-09 17:11:55 [INFO] Stopping all upload workers...
+2026-03-09 17:11:55 [INFO] UploadWorker51-1 stopping...
+2026-03-09 17:11:55 [INFO] UploadWorker51-2 stopping...
+2026-03-09 17:11:55 [INFO] UploadWorker40-1 stopping...
+2026-03-09 17:11:55 [INFO] UploadWorker40-2 stopping...
+2026-03-09 17:11:55 [INFO] UploadWorker40-3 stopping...
+2026-03-09 17:11:57 [INFO] UploadWorker40-2 stopped
+2026-03-09 17:11:57 [INFO] UploadWorker51-1 stopped
+2026-03-09 17:11:57 [INFO] UploadWorker40-3 stopped
+2026-03-09 17:11:57 [INFO] UploadWorker51-2 stopped
+2026-03-09 17:11:57 [INFO] UploadWorker40-1 stopped
+2026-03-09 17:11:57 [INFO] All upload workers stopped
+2026-03-09 17:11:57 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:12:13 [INFO] ==================================================
+2026-03-09 17:12:13 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 17:12:13 [INFO] ==================================================
+2026-03-09 17:12:13 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:13 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:13 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 17:12:13 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 17:12:13 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 17:12:13 [INFO]   max_upload_51: 2
+2026-03-09 17:12:13 [INFO]   max_upload_40: 3
+2026-03-09 17:12:13 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 17:12:13 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:12:13 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:12:13 [INFO] State loaded: 0 jobs in state
+2026-03-09 17:12:13 [INFO] QueueManager initialized
+2026-03-09 17:12:13 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 17:12:13 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 17:12:13 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:12:13 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:13 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 17:12:13 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:12:13 [INFO] UploadController initialized
+2026-03-09 17:12:13 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 17:12:13 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:12:13 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 17:12:13 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 17:12:13 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 17:12:13 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 17:12:13 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:12:14 [INFO] Main window initialized with Upload panels
+2026-03-09 17:12:14 [INFO] File monitor started
+2026-03-09 17:12:14 [INFO] Upload controller registered
+2026-03-09 17:12:14 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 17:12:14 [INFO] Upload controller registered to download manager
+2026-03-09 17:12:14 [INFO] FileMonitor started
+2026-03-09 17:12:14 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] DownloadWorker-1 initialized
+2026-03-09 17:12:14 [INFO] DownloadWorker-1 started
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] DownloadWorker-2 initialized
+2026-03-09 17:12:14 [INFO] DownloadWorker-2 started
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] DownloadWorker-3 initialized
+2026-03-09 17:12:14 [INFO] DownloadWorker-3 started
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] DownloadWorker-4 initialized
+2026-03-09 17:12:14 [INFO] DownloadWorker-4 started
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] DownloadWorker-5 initialized
+2026-03-09 17:12:14 [INFO] DownloadWorker-5 started
+2026-03-09 17:12:14 [INFO] Started 5 download workers
+2026-03-09 17:12:14 [INFO] Download manager started
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 17:12:14 [INFO] UploadWorker51-1 started
+2026-03-09 17:12:14 [INFO] Started UploadWorker51-1
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 17:12:14 [INFO] UploadWorker51-2 started
+2026-03-09 17:12:14 [INFO] Started UploadWorker51-2
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 17:12:14 [INFO] UploadWorker40-1 started
+2026-03-09 17:12:14 [INFO] Started UploadWorker40-1
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 17:12:14 [INFO] UploadWorker40-2 started
+2026-03-09 17:12:14 [INFO] Started UploadWorker40-2
+2026-03-09 17:12:14 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:12:14 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 17:12:14 [INFO] UploadWorker40-3 started
+2026-03-09 17:12:14 [INFO] Started UploadWorker40-3
+2026-03-09 17:12:14 [INFO] Total upload workers started: 5
+2026-03-09 17:12:14 [INFO] Upload manager started
+2026-03-09 17:12:14 [INFO] Download→Upload hook registered
+2026-03-09 17:12:14 [INFO] Starting GUI main loop
+2026-03-09 17:12:14 [INFO] Starting main loop
+2026-03-09 17:12:29 [INFO] 📂 New file detected: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in D:\Test watch folder\source
+2026-03-09 17:12:31 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:12:31 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:12:38 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:12:38 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:12:46 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:12:46 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:12:54 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:12:54 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:01 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:01 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:09 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:09 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:17 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:17 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:24 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:24 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:32 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:32 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:40 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:40 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:48 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:48 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:13:56 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:13:56 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:03 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:03 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:11 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:11 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:19 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:19 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:26 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:26 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:33 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:33 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:41 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:41 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:49 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:49 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:14:56 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:14:56 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:15:04 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:04 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:15:12 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:12 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:15:20 [DEBUG] 🔒 File masih terkunci: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:20 [DEBUG] ⏸️  SPECIAL EVENT - TABLIGH AKBAR - .mxf stabil tapi terkunci
+2026-03-09 17:15:27 [DEBUG] ✅ File siap: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] ✅ File READY for processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB)
+2026-03-09 17:15:27 [INFO] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 17:15:27 [INFO]    → Job added to queue at position 1
+2026-03-09 17:15:27 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Worker-2 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Dest path from job: 
+2026-03-09 17:15:27 [INFO] Size: 10079366016 bytes
+2026-03-09 17:15:27 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 17:15:27 [WARNING] Destination path is EMPTY for SPECIAL EVENT - TABLIGH AKBAR - .mxf, trying to set from config
+2026-03-09 17:15:27 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 17:15:27 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 17:15:27 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 17:15:27 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 17:15:27 [INFO]   max_upload_51: 2
+2026-03-09 17:15:27 [INFO]   max_upload_40: 3
+2026-03-09 17:15:27 [INFO] Set destination path from config: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:27 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:15:42 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:15:42 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10.7% (1.00GB/9.39GB)
+2026-03-09 17:15:42 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10.7%
+2026-03-09 17:15:42 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10%
+2026-03-09 17:15:56 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 21.3% (2.00GB/9.39GB)
+2026-03-09 17:15:56 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 21.3%
+2026-03-09 17:15:56 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 20%
+2026-03-09 17:16:18 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 32.0% (3.00GB/9.39GB)
+2026-03-09 17:16:18 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 32.0%
+2026-03-09 17:16:18 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 30%
+2026-03-09 17:16:33 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 42.6% (4.00GB/9.39GB)
+2026-03-09 17:16:33 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 42.6%
+2026-03-09 17:16:33 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 40%
+2026-03-09 17:16:46 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:16:46 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 50.6%
+2026-03-09 17:16:46 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 50%
+2026-03-09 17:16:50 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 53.3% (5.00GB/9.39GB)
+2026-03-09 17:17:01 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 61.3%
+2026-03-09 17:17:01 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 60%
+2026-03-09 17:17:05 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 63.9% (6.00GB/9.39GB)
+2026-03-09 17:17:20 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 71.9%
+2026-03-09 17:17:20 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 70%
+2026-03-09 17:17:23 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 74.6% (7.00GB/9.39GB)
+2026-03-09 17:17:35 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 82.6%
+2026-03-09 17:17:35 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 80%
+2026-03-09 17:17:38 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 85.2% (8.00GB/9.39GB)
+2026-03-09 17:17:48 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:17:48 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 90.5%
+2026-03-09 17:17:48 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 90%
+2026-03-09 17:17:56 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 95.9% (9.00GB/9.39GB)
+2026-03-09 17:18:02 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:18:02 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 100.0%
+2026-03-09 17:18:02 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 100%
+2026-03-09 17:18:02 [INFO] Copy completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in 155.38s
+2026-03-09 17:18:02 [INFO] Verification passed: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB)
+2026-03-09 17:18:02 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - SUCCESS - Dest: 70
+2026-03-09 17:18:02 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 17:18:02 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 17:18:02 [INFO] UploadController initialized
+2026-03-09 17:18:02 [INFO] === UPLOAD CONTROLLER ===
+2026-03-09 17:18:02 [INFO] 📥 Download completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] 📁 Source file in 70: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] 🔍 Checking settings...
+2026-03-09 17:18:02 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 17:18:02 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 17:18:02 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 17:18:02 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 17:18:02 [INFO]   max_upload_51: 2
+2026-03-09 17:18:02 [INFO]   max_upload_40: 3
+2026-03-09 17:18:02 [DEBUG] Settings loaded: dest_51='D:/Test watch folder/destionation 51', dest_40='D:/Test watch folder/destination 40'
+2026-03-09 17:18:02 [INFO] ✅ Settings valid:
+2026-03-09 17:18:02 [INFO]    - destination_51: D:/Test watch folder/destionation 51
+2026-03-09 17:18:02 [INFO]    - destination_40: D:/Test watch folder/destination 40
+2026-03-09 17:18:02 [INFO] 🔍 Checking destination folders...
+2026-03-09 17:18:02 [INFO] ✅ Destination 51 folder exists: D:/Test watch folder/destionation 51
+2026-03-09 17:18:02 [INFO] ✅ Write permission OK for destination 51
+2026-03-09 17:18:02 [INFO] ✅ Destination 40 folder exists: D:/Test watch folder/destination 40
+2026-03-09 17:18:02 [INFO] ✅ Write permission OK for destination 40
+2026-03-09 17:18:02 [INFO] 🔍 Creating upload job for 51 (HIRES)...
+2026-03-09 17:18:02 [DEBUG] Creating job for 51-HIRES with folder: D:/Test watch folder/destionation 51
+2026-03-09 17:18:02 [DEBUG] Destination path: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] ✅ Created upload job for 51-HIRES: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [DEBUG]   Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [DEBUG]   Dest: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [DEBUG]   Priority: HIGH
+2026-03-09 17:18:02 [INFO] 🔍 Creating upload job for 40 (LOWRES)...
+2026-03-09 17:18:02 [DEBUG] Creating job for 40-LOWRES with folder: D:/Test watch folder/destination 40
+2026-03-09 17:18:02 [DEBUG] Destination path: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] ✅ Created upload job for 40-LOWRES: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [DEBUG]   Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [DEBUG]   Dest: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [DEBUG]   Priority: NORMAL
+2026-03-09 17:18:02 [INFO] ✅ Upload job 51 created successfully
+2026-03-09 17:18:02 [INFO] [51-HIGH] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 17:18:02 [INFO] [51-HIGH] Added to queue at position 1
+2026-03-09 17:18:02 [INFO] [51-HIGH] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO]    Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Worker51-1 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf (⭐ HIGH PRIORITY)
+2026-03-09 17:18:02 [INFO]    Dest: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Source path: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] ✅ Upload job 40 created successfully
+2026-03-09 17:18:02 [INFO] Dest path: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] [40-NORMAL] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 17:18:02 [INFO] Size: 10079366016 bytes
+2026-03-09 17:18:02 [INFO] [40-NORMAL] Added to queue at position 1
+2026-03-09 17:18:02 [INFO] [40-NORMAL] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 17:18:02 [INFO] Worker40-2 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf (NORMAL PRIORITY)
+2026-03-09 17:18:02 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO]    Source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Final source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Source path: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO]    Dest: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] ✅ Upload controller notified for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Dest path: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Final dest: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Deleting source file: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Size: 10079366016 bytes
+2026-03-09 17:18:02 [INFO] Starting upload for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 17:18:02 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Final source: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Copying to: D:/Test watch folder/destionation 51\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Final dest: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Starting upload for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Copying to: D:/Test watch folder/destination 40\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Deleted: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:02 [INFO] Worker-2 completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf in 155.41s
+2026-03-09 17:18:02 [INFO] Job completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:18:40 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10.7% (1.00GB/9.39GB)
+2026-03-09 17:18:40 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10.7%
+2026-03-09 17:18:40 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10%
+2026-03-09 17:18:40 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10.7% (1.00GB/9.39GB)
+2026-03-09 17:18:40 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10.7%
+2026-03-09 17:18:40 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 10%
+2026-03-09 17:19:16 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 21.3% (2.00GB/9.39GB)
+2026-03-09 17:19:16 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 21.3%
+2026-03-09 17:19:16 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 20%
+2026-03-09 17:19:18 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 21.3% (2.00GB/9.39GB)
+2026-03-09 17:19:18 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 21.3%
+2026-03-09 17:19:18 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 20%
+2026-03-09 17:19:48 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 32.0% (3.00GB/9.39GB)
+2026-03-09 17:19:48 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 32.0%
+2026-03-09 17:19:48 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 30%
+2026-03-09 17:19:55 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 32.0% (3.00GB/9.39GB)
+2026-03-09 17:19:55 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 32.0%
+2026-03-09 17:19:55 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 30%
+2026-03-09 17:20:23 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 42.6% (4.00GB/9.39GB)
+2026-03-09 17:20:23 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 42.6%
+2026-03-09 17:20:23 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 40%
+2026-03-09 17:20:31 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 42.6% (4.00GB/9.39GB)
+2026-03-09 17:20:31 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 42.6%
+2026-03-09 17:20:31 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 40%
+2026-03-09 17:20:42 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 50.6%
+2026-03-09 17:20:42 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 50%
+2026-03-09 17:20:50 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 53.3% (5.00GB/9.39GB)
+2026-03-09 17:21:02 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 50.6%
+2026-03-09 17:21:02 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 50%
+2026-03-09 17:21:14 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 53.3% (5.00GB/9.39GB)
+2026-03-09 17:21:20 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 61.3%
+2026-03-09 17:21:20 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 60%
+2026-03-09 17:21:28 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 63.9% (6.00GB/9.39GB)
+2026-03-09 17:21:40 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 61.3%
+2026-03-09 17:21:40 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 60%
+2026-03-09 17:21:50 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 63.9% (6.00GB/9.39GB)
+2026-03-09 17:21:52 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 71.9%
+2026-03-09 17:21:52 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 70%
+2026-03-09 17:22:02 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 74.6% (7.00GB/9.39GB)
+2026-03-09 17:22:21 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 71.9%
+2026-03-09 17:22:21 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 70%
+2026-03-09 17:22:33 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 74.6% (7.00GB/9.39GB)
+2026-03-09 17:22:33 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 82.6%
+2026-03-09 17:22:33 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 80%
+2026-03-09 17:22:44 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 85.2% (8.00GB/9.39GB)
+2026-03-09 17:23:00 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 90.5%
+2026-03-09 17:23:00 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 90%
+2026-03-09 17:23:02 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 82.6%
+2026-03-09 17:23:02 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 80%
+2026-03-09 17:23:11 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 85.2% (8.00GB/9.39GB)
+2026-03-09 17:23:15 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 95.9% (9.00GB/9.39GB)
+2026-03-09 17:23:29 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 90.5%
+2026-03-09 17:23:29 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 90%
+2026-03-09 17:23:30 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 100.0%
+2026-03-09 17:23:30 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 100%
+2026-03-09 17:23:30 [INFO] Copy completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in 328.34s
+2026-03-09 17:23:30 [INFO] Verification passed: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB)
+2026-03-09 17:23:30 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - SUCCESS - Dest: 40
+2026-03-09 17:23:30 [INFO] Worker40-2 completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf in 328.35s
+2026-03-09 17:23:31 [INFO] [40-NORMAL] Job completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:23:31 [INFO] ✅ Upload to 40 completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:23:34 [INFO] SPECIAL EVENT - TABLIGH AKBAR - .mxf: 95.9% (9.00GB/9.39GB)
+2026-03-09 17:23:38 [DEBUG] Checkpoint saved for SPECIAL EVENT - TABLIGH AKBAR - .mxf: 100.0%
+2026-03-09 17:23:38 [DEBUG] Checkpoint SPECIAL EVENT - TABLIGH AKBAR - .mxf: 100%
+2026-03-09 17:23:38 [INFO] Copy completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in 336.10s
+2026-03-09 17:23:38 [INFO] Verification passed: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB)
+2026-03-09 17:23:38 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - SUCCESS - Dest: 51
+2026-03-09 17:23:38 [INFO] Worker51-1 completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf in 336.11s
+2026-03-09 17:23:38 [INFO] [51-HIGH] Job completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:23:38 [INFO] ✅ Upload to 51 completed: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:23:38 [INFO] 🎉 Both uploads completed for: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:23:38 [INFO] 🗑️ Deleted source file from 70: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 17:23:38 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - SUCCESS - Dest: 70_DELETED
+2026-03-09 17:32:42 [INFO] Closing application...
+2026-03-09 17:32:43 [INFO] FileMonitor stopped
+2026-03-09 17:32:43 [INFO] Stopping all workers...
+2026-03-09 17:32:43 [INFO] DownloadWorker-1 stopping...
+2026-03-09 17:32:43 [INFO] DownloadWorker-2 stopping...
+2026-03-09 17:32:43 [INFO] DownloadWorker-3 stopping...
+2026-03-09 17:32:43 [INFO] DownloadWorker-4 stopping...
+2026-03-09 17:32:43 [INFO] DownloadWorker-5 stopping...
+2026-03-09 17:32:44 [INFO] DownloadWorker-2 stopped
+2026-03-09 17:32:45 [INFO] DownloadWorker-4 stopped
+2026-03-09 17:32:45 [INFO] DownloadWorker-5 stopped
+2026-03-09 17:32:45 [INFO] DownloadWorker-1 stopped
+2026-03-09 17:32:45 [INFO] DownloadWorker-3 stopped
+2026-03-09 17:32:45 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 17:32:45 [INFO] All workers stopped
+2026-03-09 17:32:45 [INFO] Stopping all upload workers...
+2026-03-09 17:32:45 [INFO] UploadWorker51-1 stopping...
+2026-03-09 17:32:45 [INFO] UploadWorker51-2 stopping...
+2026-03-09 17:32:45 [INFO] UploadWorker40-1 stopping...
+2026-03-09 17:32:45 [INFO] UploadWorker40-2 stopping...
+2026-03-09 17:32:45 [INFO] UploadWorker40-3 stopping...
+2026-03-09 17:32:45 [INFO] UploadWorker51-1 stopped
+2026-03-09 17:32:45 [INFO] UploadWorker40-2 stopped
+2026-03-09 17:32:47 [INFO] UploadWorker51-2 stopped
+2026-03-09 17:32:47 [INFO] UploadWorker40-1 stopped
+2026-03-09 17:32:47 [INFO] UploadWorker40-3 stopped
+2026-03-09 17:32:47 [INFO] All upload workers stopped
+2026-03-09 17:32:47 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json

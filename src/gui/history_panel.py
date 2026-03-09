@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 History panel untuk menampilkan riwayat file yang sudah diproses
+Dengan layout 2 kolom: kiri untuk history, kanan untuk stats + storage
 """
 
 import tkinter as tk
@@ -8,9 +9,12 @@ from tkinter import ttk, messagebox
 import os
 import time
 import re
+import shutil
 from datetime import datetime
 from ..utils.history import HistoryLogger
 from ..constants.settings import REFRESH_INTERVAL
+
+logger = logging.getLogger(__name__)
 
 class HistoryPanel(ttk.Frame):
     """
@@ -33,14 +37,45 @@ class HistoryPanel(ttk.Frame):
         self.all_entries = []
         self.filtered_entries = []
         
+        # Path untuk disk usage
+        self.dest_70_path = r"D:/Test watch folder/destination 70"
+        self.dest_51_path = r"D:/Test watch folder/destionation 51"
+        self.dest_40_path = r"D:/Test watch folder/destination 40"
+        
         self._create_widgets()
         self._refresh_display()
     
+    def _get_disk_usage(self, path):
+        """Mendapatkan info disk usage dalam GB"""
+        try:
+            total, used, free = shutil.disk_usage(path)
+            return {
+                'total': total / (1024**3),
+                'used': used / (1024**3),
+                'free': free / (1024**3),
+                'percent': (used / total) * 100
+            }
+        except:
+            return None
+    
     def _create_widgets(self):
-        """Buat semua widget"""
+        """Buat semua widget dengan layout 2 kolom"""
+        
+        # Main container dengan 2 kolom
+        main_container = ttk.Frame(self)
+        main_container.pack(fill='both', expand=True)
+        
+        # Configure grid untuk 2 kolom (70% - 30%)
+        main_container.grid_columnconfigure(0, weight=7)  # Kolom kiri 70%
+        main_container.grid_columnconfigure(1, weight=3)  # Kolom kanan 30%
+        main_container.grid_rowconfigure(0, weight=1)
+        
+        # ===== KOLOM KIRI: HISTORY TABLE =====
+        left_frame = ttk.Frame(main_container)
+        left_frame.grid(row=0, column=0, sticky='nsew', padx=(0, 5))
         
         # Toolbar
-        toolbar = ttk.Frame(self)
+        toolbar = ttk.Frame(left_frame)
         toolbar.pack(fill='x', pady=(0, 5))
         
         ttk.Button(toolbar, text="🔄 Refresh", command=self._refresh_display, width=10).pack(side='left', padx=2)
@@ -68,21 +103,9 @@ class HistoryPanel(ttk.Frame):
         self.clear_info_label = ttk.Label(toolbar, text="", font=('Arial', 8, 'italic'))
         self.clear_info_label.pack(side='right', padx=5)
         
-        # ===== MAIN CONTENT AREA =====
-        content_frame = ttk.Frame(self)
-        content_frame.pack(fill='both', expand=True)
-        
-        # Configure grid for content (70% tree, 30% stats)
-        content_frame.grid_columnconfigure(0, weight=7)  # Treeview 70%
-        content_frame.grid_columnconfigure(1, weight=3)  # Stats 30%
-        content_frame.grid_rowconfigure(0, weight=1)
-        
-        # ===== TREEVIEW (LEFT) =====
-        tree_frame = ttk.Frame(content_frame)
-        tree_frame.grid(row=0, column=0, sticky='nsew', padx=(0, 5))
-        
+        # Treeview untuk history
         columns = ('timestamp', 'filename', 'size', 'status', 'duration', 'retry', 'dest')
-        self.tree = ttk.Treeview(tree_frame, columns=columns, show='headings', height=12)
+        self.tree = ttk.Treeview(left_frame, columns=columns, show='headings', height=15)
         
         # Define headings
         self.tree.heading('timestamp', text='Timestamp')
@@ -103,7 +126,7 @@ class HistoryPanel(ttk.Frame):
         self.tree.column('dest', width=50, anchor='center')
         
         # Scrollbar
-        scrollbar = ttk.Scrollbar(tree_frame, orient='vertical', command=self.tree.yview)
+        scrollbar = ttk.Scrollbar(left_frame, orient='vertical', command=self.tree.yview)
         self.tree.configure(yscrollcommand=scrollbar.set)
         
         # Pack tree
@@ -114,14 +137,27 @@ class HistoryPanel(ttk.Frame):
         self.tree.tag_configure('success_row', foreground='#27ae60')  # Hijau
         self.tree.tag_configure('failed_row', foreground='#c0392b')   # Merah
         
-        # ===== STATS PANEL (RIGHT) - VERTIKAL BOLD =====
-        stats_frame = ttk.LabelFrame(content_frame, text="Statistics", padding=10)
-        stats_frame.grid(row=0, column=1, sticky='nsew')
+        # ===== KOLOM KANAN: STATS + STORAGE =====
+        right_frame = ttk.Frame(main_container)
+        right_frame.grid(row=0, column=1, sticky='nsew')
         
-        self.stats_text = tk.Text(stats_frame, wrap='word', height=15, width=25,
-                                  font=('Arial', 10, 'bold'), bd=0, bg='#f5f5f5')
+        # Frame untuk STATISTICS
+        stats_frame = ttk.LabelFrame(right_frame, text="📊 STATISTICS", padding=10)
+        stats_frame.pack(fill='both', expand=True, pady=(0, 5))
+        
+        self.stats_text = tk.Text(stats_frame, wrap='word', height=12, width=30,
+                                  font=('Consolas', 9, 'bold'), bd=0, bg='#f5f5f5')
         self.stats_text.pack(fill='both', expand=True)
         self.stats_text.config(state='disabled')
+        
+        # Frame untuk STORAGE INFORMATION
+        storage_frame = ttk.LabelFrame(right_frame, text="💾 STORAGE INFORMATION", padding=10)
+        storage_frame.pack(fill='both', expand=True, pady=(5, 0))
+        
+        self.storage_text = tk.Text(storage_frame, wrap='word', height=12, width=30,
+                                    font=('Consolas', 9), bd=0, bg='#f5f5f5')
+        self.storage_text.pack(fill='both', expand=True)
+        self.storage_text.config(state='disabled')
     
     def _refresh_display(self):
         """Refresh tampilan history"""
@@ -174,8 +210,11 @@ class HistoryPanel(ttk.Frame):
                 entry.get('dest', '-')
             ), tags=tags)
         
-        # ===== UPDATE STATS PANEL (VERTIKAL BOLD) =====
+        # Update stats display
         self._update_stats_display()
+        
+        # Update storage display
+        self._update_storage_display()
         
         # Update info clear
         if self.last_clear_time > 0:
@@ -188,7 +227,7 @@ class HistoryPanel(ttk.Frame):
         self.after_id = self.after(REFRESH_INTERVAL * 5, self._refresh_display)
     
     def _update_stats_display(self):
-        """Update panel statistik dengan format vertikal bold"""
+        """Update panel statistik dengan format vertikal"""
         # Hitung statistik
         total = len(self.all_entries)
         displayed = len([e for e in self.filtered_entries 
@@ -203,7 +242,7 @@ class HistoryPanel(ttk.Frame):
         
         total_gb = sum(self._parse_size(e['size']) for e in self.all_entries if e['status'] == 'SUCCESS')
         
-        # Format teks vertikal bold
+        # Format teks vertikal
         stats_text = f"""
 Total: {total} files
 
@@ -224,6 +263,44 @@ Total: {total_gb:.2f} GB
         self.stats_text.delete('1.0', tk.END)
         self.stats_text.insert('1.0', stats_text)
         self.stats_text.config(state='disabled')
+    
+    def _update_storage_display(self):
+        """Update panel storage information"""
+        storage_text = "💾 DISK USAGE\n\n"
+        
+        # Download 70
+        usage = self._get_disk_usage(self.dest_70_path)
+        if usage:
+            storage_text += f"📥 DOWNLOAD 70:\n"
+            storage_text += f"  Used: {usage['used']:.1f}/{usage['total']:.0f} GB ({usage['percent']:.0f}%)\n"
+            storage_text += f"  Free: {usage['free']:.1f} GB\n\n"
+        else:
+            storage_text += f"📥 DOWNLOAD 70:\n  (tidak tersedia)\n\n"
+        
+        # Upload 51
+        usage = self._get_disk_usage(self.dest_51_path)
+        if usage:
+            storage_text += f"📤 UPLOAD 51:\n"
+            storage_text += f"  Used: {usage['used']:.1f}/{usage['total']:.0f} GB ({usage['percent']:.0f}%)\n"
+            storage_text += f"  Free: {usage['free']:.1f} GB\n\n"
+        else:
+            storage_text += f"📤 UPLOAD 51:\n  (tidak tersedia)\n\n"
+        
+        # Upload 40
+        usage = self._get_disk_usage(self.dest_40_path)
+        if usage:
+            warning = " ⚠️" if usage['percent'] > 80 else ""
+            storage_text += f"📤 UPLOAD 40:\n"
+            storage_text += f"  Used: {usage['used']:.1f}/{usage['total']:.0f} GB ({usage['percent']:.0f}%){warning}\n"
+            storage_text += f"  Free: {usage['free']:.1f} GB\n"
+        else:
+            storage_text += f"📤 UPLOAD 40:\n  (tidak tersedia)\n"
+        
+        # Update text widget
+        self.storage_text.config(state='normal')
+        self.storage_text.delete('1.0', tk.END)
+        self.storage_text.insert('1.0', storage_text)
+        self.storage_text.config(state='disabled')
     
     def _is_after_clear(self, entry):
         """Cek apakah entry setelah last_clear_time"""

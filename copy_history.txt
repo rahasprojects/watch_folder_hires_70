@@ -151,3 +151,29 @@ Timestamp            Filename                                         Size Statu
                      ERROR:                                   Copy failed (safe_copy returned False)
 2026-03-09 15:46:16  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          3     70   
                      ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 15:57:04  SPECIAL EVENT - TABLIGH AKBAR .mxf              9.39 GB SUCCESS    00:02:51   0     70   
+2026-03-09 16:02:36  SPECIAL EVENT - TABLIGH AKBAR .mxf              9.39 GB SUCCESS    00:05:30   0     40   
+2026-03-09 16:02:39  SPECIAL EVENT - TABLIGH AKBAR .mxf              9.39 GB SUCCESS    00:05:33   0     51   
+2026-03-09 16:02:39  SPECIAL EVENT - TABLIGH AKBAR .mxf              9.39 GB SUCCESS    -          0     70_DELETED
+2026-03-09 16:05:39  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          1     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:05:55  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          2     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:06:10  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          3     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:10:08  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          1     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:10:25  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          2     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:10:40  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          3     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:15:13  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          1     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:15:29  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          2     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 16:15:44  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB FAILED     -          3     70   
+                     ERROR:                                   Copy failed (safe_copy returned False)
+2026-03-09 17:18:02  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    00:02:35   0     70   
+2026-03-09 17:23:30  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    00:05:28   0     40   
+2026-03-09 17:23:38  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    00:05:36   0     51   
+2026-03-09 17:23:38  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    -          0     70_DELETED

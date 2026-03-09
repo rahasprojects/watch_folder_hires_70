@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 File monitor untuk mendeteksi file baru di folder 12 menggunakan SMB
+Dengan rename test untuk deteksi file siap
 """
 
 import os
@@ -40,9 +41,15 @@ class FileMonitor:
         self.queue_manager = queue_manager
         self.polling_interval = polling_interval
         
-        # State
+        # State untuk file yang sudah pernah dilihat
         self.seen_files: Dict[str, set] = {}  # {folder: set of files}
+        
+        # State untuk file yang sedang dalam proses stabilisasi
         self.stable_files: Dict[str, dict] = {}  # {file_path: info}
+        
+        # State untuk file yang sedang aktif di-copy (tracking progress)
+        self.active_copies: Dict[str, dict] = {}  # {file_path: info}
+        
         self.running = False
         self.monitor_thread = None
         
@@ -86,11 +93,15 @@ class FileMonitor:
         
         while self.running:
             try:
+                # Scan folder untuk file baru
                 for folder in self.source_folders:
                     self._scan_folder(folder)
-                    
-                # Cek kestabilan file
+                
+                # Cek kestabilan file (metode lama - untuk kompatibilitas)
                 self._check_stable_files()
+                
+                # Update progress untuk file yang sedang di-copy (metode baru)
+                self._update_copy_progress()
                 
             except Exception as e:
                 logger.error(f"Error in monitor loop: {e}")
@@ -147,16 +158,18 @@ class FileMonitor:
                     # File baru terdeteksi
                     try:
                         file_size = os.path.getsize(item_path)
-                        logger.info(f"New file detected: {item} ({file_size/(1024**3):.2f}GB) in {folder}")
+                        logger.info(f"📂 New file detected: {item} ({file_size/(1024**3):.2f}GB) in {folder}")
                         
-                        # Masukkan ke daftar file yang perlu dicek kestabilannya
-                        self.stable_files[item_path] = {
+                        # Masukkan ke active_copies untuk tracking dengan rename test
+                        self.active_copies[item_path] = {
+                            'filename': item,
                             'first_seen': time.time(),
                             'last_size': file_size,
+                            'last_active': time.time(),
                             'folder': folder,
-                            'filename': item,
-                            'checked_count': 0
+                            'status': 'copying'
                         }
+                        
                     except Exception as e:
                         logger.error(f"Error getting size for new file {item}: {e}")
             
@@ -168,14 +181,14 @@ class FileMonitor:
     
     def _check_stable_files(self):
         """
-        Cek file yang sudah stabil (tidak berubah ukurannya)
+        Cek file yang sudah stabil (tidak berubah ukurannya) - METODE LAMA
+        Untuk kompatibilitas ke belakang
         """
         to_remove = []
         
         for file_path, info in self.stable_files.items():
             try:
                 if not os.path.exists(file_path):
-                    # File sudah dihapus
                     logger.debug(f"File removed before stabilization: {info['filename']}")
                     to_remove.append(file_path)
                     continue
@@ -187,49 +200,159 @@ class FileMonitor:
                 logger.debug(f"Checking {info['filename']}: size={current_size}, last_size={info['last_size']}, time={time_since_first:.1f}s")
                 
                 if current_size == info['last_size'] and time_since_first >= 5:
-                    # File stabil (ukuran tidak berubah selama 3 detik)
                     logger.info(f"File stable: {info['filename']} ({current_size/(1024**3):.2f}GB) after {time_since_first:.1f}s")
                     
-                    # Buat job (dest_path akan diisi kosong dulu)
+                    # Buat job
                     job = FileJob(
                         name=info['filename'],
                         source_path=file_path,
-                        dest_path="",  # Akan diisi oleh settings/download_worker
+                        dest_path="",
                         size_bytes=current_size
                     )
                     
-                    logger.info(f"Created job for {info['filename']} with source: {file_path}")
+                    logger.info(f"Created job for {info['filename']}")
                     
                     # Tambah ke queue
                     position = self.queue_manager.add_job(job)
                     logger.info(f"Job added to queue at position {position}")
                     
-                    # Notifikasi
                     self._notify_callbacks(job)
-                    
                     to_remove.append(file_path)
                     
                 elif current_size != info['last_size']:
-                    # Ukuran berubah, update
                     logger.debug(f"File {info['filename']} still changing: {info['last_size']} -> {current_size}")
                     info['last_size'] = current_size
                     
                 elif time_since_first > 30:
-                    # Sudah 30 detik tapi masih berubah? mungkin file besar
                     logger.info(f"File {info['filename']} still changing after 30s, current size: {current_size/(1024**3):.2f}GB")
-                    # Tetap pertahankan, jangan hapus
                     
             except Exception as e:
                 logger.error(f"Error checking stable file {file_path}: {e}")
                 to_remove.append(file_path)
         
-        # Hapus yang sudah diproses
         for file_path in to_remove:
             if file_path in self.stable_files:
                 del self.stable_files[file_path]
+    
+    def is_file_active(self, file_path: str, check_interval: int = 2) -> bool:
+        """
+        Cek apakah file sedang aktif ditulis (ukuran bertambah)
         
-        if to_remove:
-            logger.debug(f"Removed {len(to_remove)} files from stabilization queue")
+        Args:
+            file_path: Path file yang dicek
+            check_interval: Interval pengecekan dalam detik
+        
+        Returns:
+            True jika ukuran bertambah, False jika stabil
+        """
+        try:
+            if not os.path.exists(file_path):
+                return False
+            
+            # Baca ukuran pertama
+            size1 = os.path.getsize(file_path)
+            
+            # Tunggu sebentar
+            time.sleep(check_interval)
+            
+            # Baca ukuran kedua
+            size2 = os.path.getsize(file_path)
+            
+            # Jika bertambah, file masih aktif
+            if size2 > size1:
+                logger.debug(f"📈 File aktif: {os.path.basename(file_path)} bertambah {size2-size1} bytes")
+                return True
+            
+            return False
+            
+        except Exception as e:
+            logger.error(f"Error checking file activity: {e}")
+            return False
+    
+    def is_file_ready(self, file_path: str) -> bool:
+        """
+        Cek apakah file sudah siap diproses dengan mencoba rename
+        
+        Args:
+            file_path: Path file yang dicek
+            
+        Returns:
+            True jika file tidak terkunci, False jika masih terkunci
+        """
+        try:
+            if not os.path.exists(file_path):
+                return False
+            
+            # Coba rename ke nama sementara
+            temp_path = file_path + ".tmp_check"
+            os.rename(file_path, temp_path)
+            
+            # Jika berhasil, rename kembali
+            os.rename(temp_path, file_path)
+            
+            logger.debug(f"✅ File siap: {os.path.basename(file_path)}")
+            return True
+            
+        except OSError as e:
+            # File masih terkunci oleh proses lain
+            logger.debug(f"🔒 File masih terkunci: {os.path.basename(file_path)}")
+            return False
+        except Exception as e:
+            logger.error(f"Error checking file readiness: {e}")
+            return False
+    
+    def _update_copy_progress(self):
+        """Update progress untuk file yang sedang di-copy menggunakan rename test"""
+        to_remove = []
+        
+        for file_path, info in list(self.active_copies.items()):
+            try:
+                if not os.path.exists(file_path):
+                    logger.debug(f"File removed: {info['filename']}")
+                    to_remove.append(file_path)
+                    continue
+                
+                # ===== CEK AKTIVITAS =====
+                if self.is_file_active(file_path):
+                    # File masih aktif ditulis
+                    info['last_active'] = time.time()
+                    logger.debug(f"⏳ {info['filename']} masih aktif")
+                    continue  # Langsung skip ke file berikutnya
+                # ==========================
+                
+                # ===== CEK SIAP DENGAN RENAME TEST =====
+                if self.is_file_ready(file_path):
+                    # File sudah selesai dan tidak terkunci
+                    size_gb = os.path.getsize(file_path) / (1024**3)
+                    logger.info(f"✅ File READY for processing: {info['filename']} ({size_gb:.2f}GB)")
+                    
+                    # Buat job
+                    job = FileJob(
+                        name=info['filename'],
+                        source_path=file_path,
+                        dest_path="",  # Akan diisi download_worker
+                        size_bytes=os.path.getsize(file_path)
+                    )
+                    
+                    position = self.queue_manager.add_job(job)
+                    logger.info(f"   → Job added to queue at position {position}")
+                    
+                    self._notify_callbacks('ready', job)
+                    to_remove.append(file_path)
+                    continue
+                # =======================================
+                
+                # Jika sampai sini, file stabil tapi masih terkunci
+                logger.debug(f"⏸️  {info['filename']} stabil tapi terkunci")
+                
+            except Exception as e:
+                logger.error(f"Error in _update_copy_progress: {e}")
+                to_remove.append(file_path)
+        
+        # Hapus file yang sudah diproses
+        for file_path in to_remove:
+            if file_path in self.active_copies:
+                del self.active_copies[file_path]
     
     def add_source_folder(self, folder: str):
         """Tambah folder sumber baru"""
@@ -255,13 +378,13 @@ class FileMonitor:
         """Register callback untuk notifikasi file baru"""
         self.detection_callbacks.append(callback)
     
-    def _notify_callbacks(self, job: FileJob):
+    def _notify_callbacks(self, event: str, *args, **kwargs):
         """Notifikasi ke semua callback"""
         for callback in self.detection_callbacks:
             try:
-                callback(job)
+                callback(event, *args, **kwargs)
             except Exception as e:
-                logger.error(f"Error in detection callback: {e}")
+                logger.error(f"Error in callback: {e}")
     
     def get_stats(self) -> dict:
         """Dapatkan statistik monitoring"""
@@ -272,7 +395,7 @@ class FileMonitor:
         return {
             'folders_monitored': len(self.source_folders),
             'files_seen': total_files_seen,
-            'files_stabilizing': len(self.stable_files),
+            'active_copies': len(self.active_copies),
             'extensions': self.extensions,
             'running': self.running
         }
@@ -283,6 +406,7 @@ class FileMonitor:
         for folder in self.source_folders:
             self._scan_folder(folder)
         self._check_stable_files()
+        self._update_copy_progress()
 
 
 # Test sederhana
@@ -303,6 +427,10 @@ if __name__ == "__main__":
         queue_manager=DummyQueue()
     )
     
-    print("FileMonitor class ready with full debug")
+    print("FileMonitor class ready with rename test")
     print(f"Monitoring: {monitor.source_folders}")
     print(f"Extensions: {monitor.extensions}")
+    print("Features:")
+    print("  - Active copy tracking with rename test")
+    print("  - File activity detection")
+    print("  - Ready check via rename test")
