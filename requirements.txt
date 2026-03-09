@@ -278,7 +278,7 @@ class Settings:
     source_folders: List[str] = field(default_factory=list)
     
     # Destination folder (70)
-    destination_folder: str = ""
+    destination_70: str = ""
     
     # File extensions yang diproses
     extensions: List[str] = field(default_factory=lambda: DEFAULT_EXTENSIONS.copy())
@@ -287,7 +287,7 @@ class Settings:
     max_download: int = DEFAULT_MAX_DOWNLOAD
     max_retry: int = DEFAULT_MAX_RETRY
     
-    def validate(self) -> tuple[bool, str]:
+    def validate(self) -> Tuple[bool, str]:
         """
         Validasi settings
         Returns: (is_valid, error_message)
@@ -297,7 +297,7 @@ class Settings:
             return False, "Minimal satu source folder harus diisi"
         
         # Cek destination folder
-        if not self.destination_folder:
+        if not self.destination_70:
             return False, "Destination folder harus diisi"
         
         # Cek extensions
@@ -318,7 +318,7 @@ class Settings:
         """Konversi ke dictionary untuk disimpan ke JSON"""
         return {
             'source_folders': self.source_folders,
-            'destination_folder': self.destination_folder,
+            'destination_70': self.destination_70,
             'extensions': self.extensions,
             'max_download': self.max_download,
             'max_retry': self.max_retry
@@ -329,7 +329,7 @@ class Settings:
         """Buat Settings dari dictionary"""
         return cls(
             source_folders=data.get('source_folders', []),
-            destination_folder=data.get('destination_folder', ''),
+            destination_70=data.get('destination_70', ''),
             extensions=data.get('extensions', DEFAULT_EXTENSIONS.copy()),
             max_download=data.get('max_download', DEFAULT_MAX_DOWNLOAD),
             max_retry=data.get('max_retry', DEFAULT_MAX_RETRY)
@@ -2648,7 +2648,7 @@ class SettingsPanel(ttk.LabelFrame):
         
         # Update UI
         self._update_source_listbox()
-        self.dest_var.set(self.settings.destination_folder)
+        self.dest_var.set(self.settings.destination_70)
         self._update_ext_listbox()
         self.max_download_var.set(self.settings.max_download)
         self.max_retry_var.set(self.settings.max_retry)
@@ -2660,7 +2660,7 @@ class SettingsPanel(ttk.LabelFrame):
         """Save settings ke config manager"""
         # Update settings dari UI
         self.settings.source_folders = list(self.source_listbox.get(0, tk.END))
-        self.settings.destination_folder = self.dest_var.get().strip()
+        self.settings.destination_70 = self.dest_var.get().strip()
         self.settings.extensions = list(self.ext_listbox.get(0, tk.END))
         self.settings.max_download = self.max_download_var.get()
         self.settings.max_retry = self.max_retry_var.get()
@@ -2799,7 +2799,7 @@ class SettingsPanel(ttk.LabelFrame):
         """Dapatkan settings terbaru dari UI"""
         return Settings(
             source_folders=list(self.source_listbox.get(0, tk.END)),
-            destination_folder=self.dest_var.get().strip(),
+            destination_70=self.dest_var.get().strip(),
             extensions=list(self.ext_listbox.get(0, tk.END)),
             max_download=self.max_download_var.get(),
             max_retry=self.max_retry_var.get()

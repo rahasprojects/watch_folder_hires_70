@@ -139,7 +139,7 @@ class SettingsPanel(ttk.LabelFrame):
         
         # Update UI
         self._update_source_listbox()
-        self.dest_var.set(self.settings.destination_folder)
+        self.dest_var.set(self.settings.destination_70)
         self._update_ext_listbox()
         self.max_download_var.set(self.settings.max_download)
         self.max_retry_var.set(self.settings.max_retry)
@@ -151,7 +151,7 @@ class SettingsPanel(ttk.LabelFrame):
         """Save settings ke config manager"""
         # Update settings dari UI
         self.settings.source_folders = list(self.source_listbox.get(0, tk.END))
-        self.settings.destination_folder = self.dest_var.get().strip()
+        self.settings.destination_70 = self.dest_var.get().strip()
         self.settings.extensions = list(self.ext_listbox.get(0, tk.END))
         self.settings.max_download = self.max_download_var.get()
         self.settings.max_retry = self.max_retry_var.get()
@@ -290,7 +290,7 @@ class SettingsPanel(ttk.LabelFrame):
         """Dapatkan settings terbaru dari UI"""
         return Settings(
             source_folders=list(self.source_listbox.get(0, tk.END)),
-            destination_folder=self.dest_var.get().strip(),
+            destination_70=self.dest_var.get().strip(),
             extensions=list(self.ext_listbox.get(0, tk.END)),
             max_download=self.max_download_var.get(),
             max_retry=self.max_retry_var.get()

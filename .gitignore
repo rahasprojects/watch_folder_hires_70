@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.env
+.venv
+env/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+config.json
+pipeline_state.json
+upload_state.json
+copy_history.txt
+pipeline.log
+*.log
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Virtual environment
+venv/
+.venv/
+
+# Test files
+.coverage
+htmlcov/
+.pytest_cache/
+
+# OS
+.DS_Store

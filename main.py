@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-watch_folder_hires_70 - Aplikasi pipeline copy file dari 12 ke 70
-Fase 1: Download 12 → 70 dengan monitoring SMB, queue FIFO, resume capability.
+watch_folder_hires_70 - Aplikasi pipeline copy file
+Fase 2: Download 12 → 70 dan Upload 70 → 40 & 51
 """
 
 import sys
@@ -22,6 +22,11 @@ def main():
         from src.core.file_monitor import FileMonitor
         from src.core.download_manager import DownloadManager
         from src.core.queue_manager import QueueManager
+        # ===== IMPORT UPLOAD MODULES =====
+        from src.core.upload_queue_manager import UploadQueueManager
+        from src.core.upload_manager import UploadManager
+        from src.core.upload_controller import UploadController
+        # ================================
         from src.gui.main_window import MainWindow
         import tkinter as tk
         import threading
@@ -31,21 +36,37 @@ def main():
         import logging
         logger = logging.getLogger(__name__)
         logger.info("="*50)
-        logger.info("Memulai aplikasi watch_folder_hires_70")
+        logger.info("Memulai aplikasi watch_folder_hires_70 - FASE 2")
         logger.info("="*50)
 
         # Load konfigurasi
         config_mgr = ConfigManager()
         config = config_mgr.load()
-        logger.info(f"Config loaded: max_download={config.max_download}")
+        logger.info(f"Config loaded: max_download={config.max_download}, max_upload_51={config.max_upload_51}, max_upload_40={config.max_upload_40}")
 
         # Load state untuk resume
         state_mgr = StateManager()
         state = state_mgr.load()
         logger.info(f"State loaded: {len(state.get('jobs', {}))} jobs in state")
 
-        # Inisialisasi queue manager (FIFO)
-        queue_mgr = QueueManager()
+        # ===== INISIALISASI QUEUE MANAGER =====
+        queue_mgr = QueueManager()  # Untuk download
+
+        # ===== INISIALISASI UPLOAD COMPONENTS =====
+        upload_queue_mgr = UploadQueueManager()  # Queue untuk upload
+        upload_mgr = UploadManager(
+            max_workers_51=config.max_upload_51,
+            max_workers_40=config.max_upload_40,
+            queue_manager=upload_queue_mgr,
+            state_manager=state_mgr
+        )
+        upload_controller = UploadController(
+            upload_manager=upload_mgr,
+            queue_manager=upload_queue_mgr,
+            config_manager=config_mgr,
+            history_logger=None  # Akan pakai history logger dari main window
+        )
+        # ========================================
 
         # Inisialisasi download manager
         download_mgr = DownloadManager(
@@ -70,17 +91,40 @@ def main():
             state_mgr=state_mgr,
             queue_mgr=queue_mgr,
             download_mgr=download_mgr,
+            upload_mgr=upload_mgr,              # BARU
+            upload_controller=upload_controller, # BARU
             monitor=monitor
         )
 
-        # Start monitor di thread terpisah
+        # ===== START MONITOR THREAD =====
         monitor_thread = threading.Thread(target=monitor.start, daemon=True)
         monitor_thread.start()
         logger.info("File monitor started")
 
-        # Start download manager
+        # ===== START DOWNLOAD MANAGER =====
+        download_mgr.register_upload_controller(upload_controller)
+        logger.info("Upload controller registered to download manager")
         download_mgr.start()
         logger.info("Download manager started")
+
+        # ===== START UPLOAD MANAGER =====
+        upload_mgr.start()
+        logger.info("Upload manager started")
+
+        # ===== HUBUNGKAN DOWNLOAD → UPLOAD =====
+        # Kita perlu hook ke download manager untuk memanggil upload controller
+        # saat download selesai. Ini bisa dilakukan dengan callback.
+        
+        def on_download_complete(job):
+            """Callback saat download selesai"""
+            logger.info(f"Download complete callback: {job.name}")
+            upload_controller.on_download_complete(job)
+        
+        # Register callback ke download manager (perlu tambahan di download_manager.py)
+        # Atau bisa juga di download_worker.py langsung panggil upload_controller
+        # Untuk sementara, kita akan modifikasi download_worker.py nanti
+        
+        logger.info("Download→Upload hook registered")
 
         # Jalankan GUI (blocking)
         logger.info("Starting GUI main loop")

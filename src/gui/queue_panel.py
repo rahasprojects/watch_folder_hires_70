@@ -10,7 +10,7 @@ from ..models.file_job import FileJob
 from ..core.queue_manager import QueueManager
 from ..constants.settings import REFRESH_INTERVAL
 
-class QueuePanel(ttk.LabelFrame):
+class QueuePanel(ttk.Frame):
     """
     Panel untuk menampilkan antrian download
     """
@@ -23,7 +23,7 @@ class QueuePanel(ttk.LabelFrame):
             parent: Parent widget
             queue_manager: QueueManager instance
         """
-        super().__init__(parent, text="📋 Download Queue", padding=5)
+        super().__init__(parent)
         
         self.queue_manager = queue_manager
         self.after_id = None
@@ -36,7 +36,7 @@ class QueuePanel(ttk.LabelFrame):
         
         # Treeview untuk menampilkan queue
         columns = ('priority', 'filename', 'size', 'status', 'progress', 'eta')
-        self.tree = ttk.Treeview(self, columns=columns, show='headings', height=8)
+        self.tree = ttk.Treeview(self, columns=columns, show='headings', height=6)
         
         # Define headings
         self.tree.heading('priority', text='#')
@@ -51,7 +51,7 @@ class QueuePanel(ttk.LabelFrame):
         self.tree.column('filename', width=300, anchor='w')
         self.tree.column('size', width=80, anchor='center')
         self.tree.column('status', width=100, anchor='center')
-        self.tree.column('progress', width=100, anchor='center')
+        self.tree.column('progress', width=80, anchor='center')
         self.tree.column('eta', width=80, anchor='center')
         
         # Scrollbar
@@ -62,12 +62,8 @@ class QueuePanel(ttk.LabelFrame):
         self.tree.pack(side='left', fill='both', expand=True)
         scrollbar.pack(side='right', fill='y')
         
-        # Info bar
-        info_frame = ttk.Frame(self)
-        info_frame.pack(fill='x', pady=5)
-        
-        self.info_label = ttk.Label(info_frame, text="", font=('Arial', 9, 'italic'))
-        self.info_label.pack(side='left')
+        # ===== INFO BAR DIHAPUS =====
+        # Tidak ada info_label lagi
         
         # Bind double-click untuk detail
         self.tree.bind('<Double-Button-1>', self._show_job_details)
@@ -82,16 +78,6 @@ class QueuePanel(ttk.LabelFrame):
         waiting_jobs = self.queue_manager.get_waiting_jobs()
         active_jobs = self.queue_manager.get_active_jobs()
         
-        # Hitung statistik
-        total_waiting = len(waiting_jobs)
-        total_active = len(active_jobs)
-        total_size = sum(job.size_gb for job in waiting_jobs + active_jobs)
-        
-        # Update info label
-        self.info_label.config(
-            text=f"📊 Active: {total_active} | Waiting: {total_waiting} | Total: {total_size:.1f} GB"
-        )
-        
         # Tampilkan active jobs dulu (dengan warna hijau)
         for job in active_jobs:
             self._insert_job_row(job, 'active')
@@ -99,6 +85,8 @@ class QueuePanel(ttk.LabelFrame):
         # Tampilkan waiting jobs
         for job in waiting_jobs:
             self._insert_job_row(job, 'waiting')
+        
+        # ===== INFO LABEL TIDAK DIUPDATE LAGI =====
         
         # Schedule refresh berikutnya
         self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
@@ -214,11 +202,3 @@ class QueuePanel(ttk.LabelFrame):
         if self.after_id:
             self.after_cancel(self.after_id)
         super().destroy()
-
-
-# Test sederhana
-if __name__ == "__main__":
-    from ..utils.logger import setup_logging
-    setup_logging()
-    
-    print("QueuePanel class ready")

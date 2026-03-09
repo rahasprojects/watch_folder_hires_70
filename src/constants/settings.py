@@ -9,6 +9,13 @@ DEFAULT_MAX_RETRY = 3
 DEFAULT_CHUNK_SIZE = 256 * 1024 * 1024  # 256MB
 CHECKPOINT_PERCENT = 10  # Resume setiap 10%
 
+# ===== KONSTANTA BARU UNTUK FASE 2 =====
+DEFAULT_MAX_UPLOAD_51 = 2  # Max paralel upload ke HIRES
+DEFAULT_MAX_UPLOAD_40 = 3  # Max paralel upload ke LOWRES
+UPLOAD_PRIORITY_51 = "HIGH"
+UPLOAD_PRIORITY_40 = "NORMAL"
+# ========================================
+
 # CHUNK_SIZE untuk kompatibilitas (sama dengan DEFAULT_CHUNK_SIZE)
 CHUNK_SIZE = DEFAULT_CHUNK_SIZE
 
@@ -22,6 +29,7 @@ DEFAULT_EXTENSIONS = [
 # Status values
 STATUS_WAITING = "waiting"
 STATUS_DOWNLOADING = "downloading"
+STATUS_UPLOADING = "uploading"  # BARU!
 STATUS_COMPLETED = "completed"
 STATUS_FAILED = "failed"
 STATUS_PAUSED = "paused"

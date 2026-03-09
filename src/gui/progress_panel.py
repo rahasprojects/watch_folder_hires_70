@@ -155,24 +155,30 @@ class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
         if not widgets:
             return
         
-        # Update progress bar
-        widgets['progress_var'].set(job.progress)
+        try: 
+
+            # Update progress bar
+            widgets['progress_var'].set(job.progress)
+            
+            # Update speed
+            if job.speed_mbps > 0:
+                widgets['speed_label'].config(text=f"{job.speed_mbps:.1f} MB/s")
+            else:
+                widgets['speed_label'].config(text="")
+            
+            # Update size info
+            size_text = f"{job.copied_gb:.2f} GB / {job.size_gb:.2f} GB ({job.progress:.1f}%)"
+            widgets['size_label'].config(text=size_text)
+            
+            # Update ETA
+            if job.eta_seconds > 0:
+                widgets['eta_label'].config(text=f"ETA: {job.eta_formatted}")
+            else:
+                widgets['eta_label'].config(text="")
         
-        # Update speed
-        if job.speed_mbps > 0:
-            widgets['speed_label'].config(text=f"{job.speed_mbps:.1f} MB/s")
-        else:
-            widgets['speed_label'].config(text="")
-        
-        # Update size info
-        size_text = f"{job.copied_gb:.2f} GB / {job.size_gb:.2f} GB ({job.progress:.1f}%)"
-        widgets['size_label'].config(text=size_text)
-        
-        # Update ETA
-        if job.eta_seconds > 0:
-            widgets['eta_label'].config(text=f"ETA: {job.eta_formatted}")
-        else:
-            widgets['eta_label'].config(text="")
+        except Exception as e:
+            logger.debug(f"Error updating progress for {job.name}: {e}")
+            # Jangan sampai error ini mengganggu refresh berikutnya
     
     def _destroy_job_widgets(self, job_name: str):
         """

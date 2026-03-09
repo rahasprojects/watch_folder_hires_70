@@ -12,7 +12,7 @@ from datetime import datetime
 from ..utils.history import HistoryLogger
 from ..constants.settings import REFRESH_INTERVAL
 
-class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
+class HistoryPanel(ttk.Frame):
     """
     Panel untuk menampilkan history file yang sudah dicopy/dihapus
     """
@@ -29,9 +29,9 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         
         self.history_logger = history_logger
         self.after_id = None
-        self.last_clear_time = time.time()  # <-- INI KUNCINYA!
-        self.all_entries = []  # Menyimpan semua entries dari file
-        self.filtered_entries = []  # Entries setelah filter
+        self.last_clear_time = time.time()
+        self.all_entries = []
+        self.filtered_entries = []
         
         self._create_widgets()
         self._refresh_display()
@@ -48,21 +48,41 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         ttk.Button(toolbar, text="📂 Open File", command=self._open_history_file, width=10).pack(side='left', padx=2)
         ttk.Button(toolbar, text="📊 Stats", command=self._show_stats, width=8).pack(side='left', padx=2)
         
-        # Filter
-        ttk.Label(toolbar, text="Filter:").pack(side='left', padx=(10, 2))
+        # Filter Status
+        ttk.Label(toolbar, text="Status:").pack(side='left', padx=(10, 2))
         self.filter_var = tk.StringVar(value="All")
         filter_combo = ttk.Combobox(toolbar, textvariable=self.filter_var, 
-                                    values=["All", "SUCCESS", "FAILED"], width=10, state='readonly')
+                                    values=["All", "SUCCESS", "FAILED"], width=8, state='readonly')
         filter_combo.pack(side='left', padx=2)
         filter_combo.bind('<<ComboboxSelected>>', lambda e: self._refresh_display())
+        
+        # Filter Destination
+        ttk.Label(toolbar, text="Dest:").pack(side='left', padx=(10, 2))
+        self.dest_filter_var = tk.StringVar(value="All")
+        dest_filter_combo = ttk.Combobox(toolbar, textvariable=self.dest_filter_var,
+                                        values=["All", "70", "51", "40"], width=5, state='readonly')
+        dest_filter_combo.pack(side='left', padx=2)
+        dest_filter_combo.bind('<<ComboboxSelected>>', lambda e: self._refresh_display())
         
         # Info clear
         self.clear_info_label = ttk.Label(toolbar, text="", font=('Arial', 8, 'italic'))
         self.clear_info_label.pack(side='right', padx=5)
         
-        # Treeview untuk history
-        columns = ('timestamp', 'filename', 'size', 'status', 'duration', 'retry')
-        self.tree = ttk.Treeview(self, columns=columns, show='headings', height=12)
+        # ===== MAIN CONTENT AREA =====
+        content_frame = ttk.Frame(self)
+        content_frame.pack(fill='both', expand=True)
+        
+        # Configure grid for content (70% tree, 30% stats)
+        content_frame.grid_columnconfigure(0, weight=7)  # Treeview 70%
+        content_frame.grid_columnconfigure(1, weight=3)  # Stats 30%
+        content_frame.grid_rowconfigure(0, weight=1)
+        
+        # ===== TREEVIEW (LEFT) =====
+        tree_frame = ttk.Frame(content_frame)
+        tree_frame.grid(row=0, column=0, sticky='nsew', padx=(0, 5))
+        
+        columns = ('timestamp', 'filename', 'size', 'status', 'duration', 'retry', 'dest')
+        self.tree = ttk.Treeview(tree_frame, columns=columns, show='headings', height=12)
         
         # Define headings
         self.tree.heading('timestamp', text='Timestamp')
@@ -71,26 +91,37 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         self.tree.heading('status', text='Status')
         self.tree.heading('duration', text='Duration')
         self.tree.heading('retry', text='Retry')
+        self.tree.heading('dest', text='Dest')
         
         # Define columns
         self.tree.column('timestamp', width=140, anchor='center')
-        self.tree.column('filename', width=350, anchor='w')
-        self.tree.column('size', width=90, anchor='center')
-        self.tree.column('status', width=90, anchor='center')
-        self.tree.column('duration', width=80, anchor='center')
-        self.tree.column('retry', width=60, anchor='center')
+        self.tree.column('filename', width=300, anchor='w')
+        self.tree.column('size', width=80, anchor='center')
+        self.tree.column('status', width=80, anchor='center')
+        self.tree.column('duration', width=70, anchor='center')
+        self.tree.column('retry', width=50, anchor='center')
+        self.tree.column('dest', width=50, anchor='center')
         
         # Scrollbar
-        scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.tree.yview)
+        scrollbar = ttk.Scrollbar(tree_frame, orient='vertical', command=self.tree.yview)
         self.tree.configure(yscrollcommand=scrollbar.set)
         
-        # Pack
+        # Pack tree
         self.tree.pack(side='left', fill='both', expand=True)
         scrollbar.pack(side='right', fill='y')
         
-        # Status bar
-        self.status_label = ttk.Label(self, text="", font=('Arial', 9))
-        self.status_label.pack(fill='x', pady=5)
+        # Configure tags untuk warna baris
+        self.tree.tag_configure('success_row', foreground='#27ae60')  # Hijau
+        self.tree.tag_configure('failed_row', foreground='#c0392b')   # Merah
+        
+        # ===== STATS PANEL (RIGHT) - VERTIKAL BOLD =====
+        stats_frame = ttk.LabelFrame(content_frame, text="Statistics", padding=10)
+        stats_frame.grid(row=0, column=1, sticky='nsew')
+        
+        self.stats_text = tk.Text(stats_frame, wrap='word', height=15, width=25,
+                                  font=('Arial', 10, 'bold'), bd=0, bg='#f5f5f5')
+        self.stats_text.pack(fill='both', expand=True)
+        self.stats_text.config(state='disabled')
     
     def _refresh_display(self):
         """Refresh tampilan history"""
@@ -108,40 +139,43 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         else:
             self.filtered_entries = self.all_entries.copy()
         
+        # Filter berdasarkan destination
+        dest_filter = self.dest_filter_var.get()
+        if dest_filter != "All":
+            self.filtered_entries = [e for e in self.filtered_entries if e.get('dest', '') == dest_filter]
+        
         # Filter berdasarkan waktu (hanya yang setelah last_clear_time)
         display_entries = []
         for entry in self.filtered_entries:
             try:
-                # Parse timestamp entry
                 entry_time = datetime.strptime(entry['timestamp'], "%Y-%m-%d %H:%M:%S").timestamp()
-                # Hanya tampilkan yang lebih baru dari last_clear_time
                 if entry_time > self.last_clear_time:
                     display_entries.append(entry)
             except:
-                # Jika gagal parse, tampilkan saja
                 display_entries.append(entry)
         
-        # Insert entries (tampilkan 100 terakhir)
+        # Insert entries ke treeview dengan warna sesuai status
         for entry in display_entries[-100:]:
+            # Tentukan tag berdasarkan status
+            if entry['status'] == 'SUCCESS':
+                tags = ('success_row',)
+            elif entry['status'] == 'FAILED':
+                tags = ('failed_row',)
+            else:
+                tags = ()
+            
             self.tree.insert('', 'end', values=(
                 entry['timestamp'],
                 entry['filename'],
                 entry['size'],
                 entry['status'],
                 entry['duration'],
-                entry['retry']
-            ))
+                entry['retry'],
+                entry.get('dest', '-')
+            ), tags=tags)
         
-        # Update status
-        total = len(self.all_entries)
-        displayed = len(display_entries)
-        success = len([e for e in self.all_entries if e['status'] == 'SUCCESS'])
-        failed = len([e for e in self.all_entries if e['status'] == 'FAILED'])
-        total_gb = sum(self._parse_size(e['size']) for e in self.all_entries if e['status'] == 'SUCCESS')
-        
-        self.status_label.config(
-            text=f"Total: {total} files | Displayed: {displayed} | Success: {success} | Failed: {failed} | Total copied: {total_gb:.2f} GB"
-        )
+        # ===== UPDATE STATS PANEL (VERTIKAL BOLD) =====
+        self._update_stats_display()
         
         # Update info clear
         if self.last_clear_time > 0:
@@ -153,13 +187,54 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         # Refresh lagi nanti
         self.after_id = self.after(REFRESH_INTERVAL * 5, self._refresh_display)
     
-    def _parse_history_file(self) -> list:
-        """
-        Parse file history
+    def _update_stats_display(self):
+        """Update panel statistik dengan format vertikal bold"""
+        # Hitung statistik
+        total = len(self.all_entries)
+        displayed = len([e for e in self.filtered_entries 
+                        if self._is_after_clear(e)])
         
-        Returns:
-            List of history entries
+        success = len([e for e in self.all_entries if e['status'] == 'SUCCESS'])
+        failed = len([e for e in self.all_entries if e['status'] == 'FAILED'])
+        
+        to_70 = len([e for e in self.all_entries if e.get('dest') == '70'])
+        to_51 = len([e for e in self.all_entries if e.get('dest') == '51'])
+        to_40 = len([e for e in self.all_entries if e.get('dest') == '40'])
+        
+        total_gb = sum(self._parse_size(e['size']) for e in self.all_entries if e['status'] == 'SUCCESS')
+        
+        # Format teks vertikal bold
+        stats_text = f"""
+Total: {total} files
+
+Displayed: {displayed}
+
+Server 70: {to_70}
+Server 51: {to_51}
+Server 40: {to_40}
+
+Success: {success}
+Failed: {failed}
+
+Total: {total_gb:.2f} GB
         """
+        
+        # Update text widget
+        self.stats_text.config(state='normal')
+        self.stats_text.delete('1.0', tk.END)
+        self.stats_text.insert('1.0', stats_text)
+        self.stats_text.config(state='disabled')
+    
+    def _is_after_clear(self, entry):
+        """Cek apakah entry setelah last_clear_time"""
+        try:
+            entry_time = datetime.strptime(entry['timestamp'], "%Y-%m-%d %H:%M:%S").timestamp()
+            return entry_time > self.last_clear_time
+        except:
+            return True
+    
+    def _parse_history_file(self) -> list:
+        """Parse file history (sama seperti sebelumnya)"""
         entries = []
         
         try:
@@ -178,16 +253,41 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
                 if not line:
                     continue
                 
-                # Parse line format:
-                # 2026-02-23 21:36:31  test 1.mxf                             1.84 GB SUCCESS    00:45:41   1
                 parts = line.split()
-                if len(parts) >= 7:
+                
+                # Format dengan destination
+                if len(parts) >= 8:
                     timestamp = f"{parts[0]} {parts[1]}"
                     
-                    # Filename bisa mengandung spasi, ambil sisanya sampai ketemu size
                     idx = 2
                     filename_parts = []
-                    while idx < len(parts) and not parts[idx].replace('.','').replace('(','').replace(')','').isdigit():
+                    while idx < len(parts) and not parts[idx].replace('.','').replace('(','').replace(')','').replace(',','').isdigit():
+                        filename_parts.append(parts[idx])
+                        idx += 1
+                    filename = ' '.join(filename_parts)
+                    
+                    size = f"{parts[idx]} {parts[idx+1]}" if idx+1 < len(parts) else "-"
+                    status = parts[idx+2] if idx+2 < len(parts) else "-"
+                    duration = parts[idx+3] if idx+3 < len(parts) else "-"
+                    retry = parts[idx+4] if idx+4 < len(parts) else "-"
+                    dest = parts[idx+5] if idx+5 < len(parts) else "70"
+                    
+                    entries.append({
+                        'timestamp': timestamp,
+                        'filename': filename,
+                        'size': size,
+                        'status': status,
+                        'duration': duration,
+                        'retry': retry,
+                        'dest': dest
+                    })
+                elif len(parts) >= 7:
+                    # Format lama tanpa destination
+                    timestamp = f"{parts[0]} {parts[1]}"
+                    
+                    idx = 2
+                    filename_parts = []
+                    while idx < len(parts) and not parts[idx].replace('.','').replace('(','').replace(')','').replace(',','').isdigit():
                         filename_parts.append(parts[idx])
                         idx += 1
                     filename = ' '.join(filename_parts)
@@ -203,10 +303,11 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
                         'size': size,
                         'status': status,
                         'duration': duration,
-                        'retry': retry
+                        'retry': retry,
+                        'dest': '70'
                     })
             
-            return entries[::-1]  # Balik urutan (terbaru di atas)
+            return entries[::-1]  # Balik urutan
             
         except Exception as e:
             print(f"Error parsing history: {e}")
@@ -216,24 +317,23 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         """Parse size string to GB"""
         try:
             parts = size_str.split()
-            if len(parts) == 2:
+            if len(parts) >= 1:
                 return float(parts[0])
             return 0
         except:
             return 0
     
     def _clear_display(self):
-        """Clear tampilan history - history lama hilang dari display, file tetap ada"""
+        """Clear tampilan history"""
         self.last_clear_time = time.time()
         self._refresh_display()
         
-        # Tambah pesan di log activity (opsional)
         from ..utils.logger import get_logger
         log = get_logger(__name__)
         log.info("History display cleared")
     
     def _open_history_file(self):
-        """Buka file history dengan default editor"""
+        """Buka file history"""
         try:
             root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
             history_path = os.path.join(root_dir, 'copy_history.txt')
@@ -250,12 +350,12 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
             messagebox.showerror("Error", f"Error opening history file: {e}")
     
     def _show_stats(self):
-        """Tampilkan statistik dalam dialog"""
+        """Tampilkan statistik detail dalam dialog"""
         stats = self.history_logger.get_stats()
         
         dialog = tk.Toplevel(self)
         dialog.title("History Statistics")
-        dialog.geometry("400x300")
+        dialog.geometry("450x400")
         dialog.transient(self)
         dialog.grab_set()
         
@@ -264,15 +364,33 @@ class HistoryPanel(ttk.Frame):  # Ubah dari LabelFrame ke Frame biasa
         
         ttk.Label(main_frame, text="📊 COPY STATISTICS", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        stats_text = f"""
-Total Files: {stats['total_files']}
-Success: {stats['success_count']}
-Failed: {stats['failed_count']}
-Total Size: {stats['total_size_gb']:.2f} GB
-Total Duration: {stats['total_duration_seconds']/3600:.2f} hours
-        """
+        # Global stats
+        global_frame = ttk.LabelFrame(main_frame, text="Global", padding=5)
+        global_frame.pack(fill='x', pady=5)
         
-        ttk.Label(main_frame, text=stats_text, font=('Arial', 10)).pack(pady=10)
+        ttk.Label(global_frame, 
+                 text=f"Total Files: {stats['total_files']}\n"
+                      f"Success: {stats['success_count']}\n"
+                      f"Failed: {stats['failed_count']}\n"
+                      f"Total Size: {stats['total_size_gb']:.2f} GB\n"
+                      f"Total Duration: {stats['total_duration_seconds']/3600:.2f} hours",
+                 font=('Arial', 10)).pack(anchor='w', padx=10, pady=5)
+        
+        # Per destination stats
+        dest_frame = ttk.LabelFrame(main_frame, text="Per Destination", padding=5)
+        dest_frame.pack(fill='x', pady=5)
+        
+        dest_stats = stats.get('by_destination', {})
+        
+        text = ""
+        for dest in ['70', '51', '40']:
+            if dest in dest_stats:
+                d = dest_stats[dest]
+                text += f"Destination {dest}:\n"
+                text += f"  Success: {d['success']}, Failed: {d['failed']}\n"
+                text += f"  Size: {d['size']:.2f} GB\n\n"
+        
+        ttk.Label(dest_frame, text=text, font=('Arial', 10)).pack(anchor='w', padx=10, pady=5)
         
         ttk.Button(main_frame, text="Close", command=dialog.destroy).pack(pady=10)
     

@@ -11516,3 +11516,1022 @@
 2026-02-24 20:24:49 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
 2026-02-24 20:24:49 [INFO] All workers stopped
 2026-02-24 20:24:49 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 13:08:25 [INFO] ==================================================
+2026-03-09 13:08:25 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-03-09 13:08:25 [INFO] ==================================================
+2026-03-09 13:08:25 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:25 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:25 [INFO] Config loaded: max_download=5
+2026-03-09 13:08:25 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 13:08:25 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 13:08:25 [INFO] State loaded: 2 jobs in state
+2026-03-09 13:08:25 [INFO] QueueManager initialized
+2026-03-09 13:08:25 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 13:08:25 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 13:08:25 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 13:08:25 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 13:08:25 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 13:08:25 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 13:08:26 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 13:08:28 [INFO] Creating ProgressPanel with download_manager: <src.core.download_manager.DownloadManager object at 0x0000025E82341160>
+2026-03-09 13:08:28 [INFO] Main window initialized
+2026-03-09 13:08:28 [INFO] File monitor started
+2026-03-09 13:08:28 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 13:08:28 [INFO] FileMonitor started
+2026-03-09 13:08:28 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 13:08:28 [DEBUG] Job removed from state: CSR MNC PEDULI 400.mxf
+2026-03-09 13:08:28 [DEBUG] Job removed from state: SEKOLAH PONDOK .mp4
+2026-03-09 13:08:28 [INFO] Cleared 2 completed/failed jobs from state
+2026-03-09 13:08:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:28 [INFO] DownloadWorker-1 initialized
+2026-03-09 13:08:28 [INFO] DownloadWorker-1 started
+2026-03-09 13:08:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:28 [INFO] DownloadWorker-2 initialized
+2026-03-09 13:08:28 [INFO] DownloadWorker-2 started
+2026-03-09 13:08:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:28 [INFO] DownloadWorker-3 initialized
+2026-03-09 13:08:28 [INFO] DownloadWorker-3 started
+2026-03-09 13:08:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:28 [INFO] DownloadWorker-4 initialized
+2026-03-09 13:08:28 [INFO] DownloadWorker-4 started
+2026-03-09 13:08:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 13:08:28 [INFO] DownloadWorker-5 initialized
+2026-03-09 13:08:28 [INFO] DownloadWorker-5 started
+2026-03-09 13:08:28 [INFO] Started 5 download workers
+2026-03-09 13:08:28 [INFO] Download manager started
+2026-03-09 13:08:28 [INFO] Starting GUI main loop
+2026-03-09 13:08:28 [INFO] Starting main loop
+2026-03-09 13:12:35 [INFO] Closing application...
+2026-03-09 13:12:35 [INFO] FileMonitor stopped
+2026-03-09 13:12:35 [INFO] Stopping all workers...
+2026-03-09 13:12:35 [INFO] DownloadWorker-1 stopping...
+2026-03-09 13:12:35 [INFO] DownloadWorker-2 stopping...
+2026-03-09 13:12:35 [INFO] DownloadWorker-3 stopping...
+2026-03-09 13:12:35 [INFO] DownloadWorker-4 stopping...
+2026-03-09 13:12:35 [INFO] DownloadWorker-5 stopping...
+2026-03-09 13:12:37 [INFO] DownloadWorker-3 stopped
+2026-03-09 13:12:37 [INFO] DownloadWorker-4 stopped
+2026-03-09 13:12:37 [INFO] DownloadWorker-2 stopped
+2026-03-09 13:12:37 [INFO] DownloadWorker-5 stopped
+2026-03-09 13:12:37 [INFO] DownloadWorker-1 stopped
+2026-03-09 13:12:37 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 13:12:37 [INFO] All workers stopped
+2026-03-09 13:12:37 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 14:27:42 [INFO] ==================================================
+2026-03-09 14:27:42 [INFO] Memulai aplikasi watch_folder_hires_70
+2026-03-09 14:27:42 [INFO] ==================================================
+2026-03-09 14:27:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:42 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:42 [INFO]   destination_70: D:\Test watch folder\destination
+2026-03-09 14:27:42 [INFO]   destination_51: 
+2026-03-09 14:27:42 [INFO]   destination_40: 
+2026-03-09 14:27:42 [INFO]   max_upload_51: 2
+2026-03-09 14:27:42 [INFO]   max_upload_40: 3
+2026-03-09 14:27:42 [INFO] Config loaded: max_download=5
+2026-03-09 14:27:42 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 14:27:42 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 14:27:42 [INFO] State loaded: 0 jobs in state
+2026-03-09 14:27:42 [INFO] QueueManager initialized
+2026-03-09 14:27:42 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 14:27:42 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 14:27:42 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 14:27:42 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 14:27:42 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 14:27:42 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 14:27:43 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 14:27:43 [INFO] Creating ProgressPanel with download_manager: <src.core.download_manager.DownloadManager object at 0x000001A3F0CA8D70>
+2026-03-09 14:27:43 [INFO] Main window initialized
+2026-03-09 14:27:43 [INFO] File monitor started
+2026-03-09 14:27:43 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 14:27:43 [INFO] FileMonitor started
+2026-03-09 14:27:43 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 14:27:43 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:43 [INFO] DownloadWorker-1 initialized
+2026-03-09 14:27:43 [INFO] DownloadWorker-1 started
+2026-03-09 14:27:43 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:43 [INFO] DownloadWorker-2 initialized
+2026-03-09 14:27:43 [INFO] DownloadWorker-2 started
+2026-03-09 14:27:43 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:43 [INFO] DownloadWorker-3 initialized
+2026-03-09 14:27:43 [INFO] DownloadWorker-3 started
+2026-03-09 14:27:43 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:43 [INFO] DownloadWorker-4 initialized
+2026-03-09 14:27:43 [INFO] DownloadWorker-4 started
+2026-03-09 14:27:43 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 14:27:43 [INFO] DownloadWorker-5 initialized
+2026-03-09 14:27:43 [INFO] DownloadWorker-5 started
+2026-03-09 14:27:43 [INFO] Started 5 download workers
+2026-03-09 14:27:43 [INFO] Download manager started
+2026-03-09 14:27:43 [INFO] Starting GUI main loop
+2026-03-09 14:27:43 [INFO] Starting main loop
+2026-03-09 14:28:10 [INFO] Closing application...
+2026-03-09 14:28:10 [INFO] FileMonitor stopped
+2026-03-09 14:28:10 [INFO] Stopping all workers...
+2026-03-09 14:28:10 [INFO] DownloadWorker-1 stopping...
+2026-03-09 14:28:10 [INFO] DownloadWorker-2 stopping...
+2026-03-09 14:28:10 [INFO] DownloadWorker-3 stopping...
+2026-03-09 14:28:10 [INFO] DownloadWorker-4 stopping...
+2026-03-09 14:28:10 [INFO] DownloadWorker-5 stopping...
+2026-03-09 14:28:11 [INFO] DownloadWorker-4 stopped
+2026-03-09 14:28:11 [INFO] DownloadWorker-2 stopped
+2026-03-09 14:28:11 [INFO] DownloadWorker-1 stopped
+2026-03-09 14:28:11 [INFO] DownloadWorker-3 stopped
+2026-03-09 14:28:11 [INFO] DownloadWorker-5 stopped
+2026-03-09 14:28:11 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 14:28:11 [INFO] All workers stopped
+2026-03-09 14:28:11 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:19:19 [INFO] ==================================================
+2026-03-09 15:19:19 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 15:19:19 [INFO] ==================================================
+2026-03-09 15:19:19 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:19 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:19 [INFO]   destination_70: D:\Test watch folder\destination
+2026-03-09 15:19:19 [INFO]   destination_51: 
+2026-03-09 15:19:19 [INFO]   destination_40: 
+2026-03-09 15:19:19 [INFO]   max_upload_51: 2
+2026-03-09 15:19:19 [INFO]   max_upload_40: 3
+2026-03-09 15:19:19 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 15:19:19 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:19:19 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:19:19 [INFO] State loaded: 0 jobs in state
+2026-03-09 15:19:19 [INFO] QueueManager initialized
+2026-03-09 15:19:19 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 15:19:19 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:19:19 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:19:19 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:19 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 15:19:19 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:19:19 [INFO] UploadController initialized
+2026-03-09 15:19:19 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:19:19 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:19:19 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 15:19:19 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 15:19:19 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 15:19:19 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 15:19:20 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:19:21 [INFO] Main window initialized with Upload panels
+2026-03-09 15:19:21 [INFO] File monitor started
+2026-03-09 15:19:21 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 15:19:21 [INFO] FileMonitor started
+2026-03-09 15:19:21 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] DownloadWorker-1 initialized
+2026-03-09 15:19:21 [INFO] DownloadWorker-1 started
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] DownloadWorker-2 initialized
+2026-03-09 15:19:21 [INFO] DownloadWorker-2 started
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] DownloadWorker-3 initialized
+2026-03-09 15:19:21 [INFO] DownloadWorker-3 started
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] DownloadWorker-4 initialized
+2026-03-09 15:19:21 [INFO] DownloadWorker-4 started
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] DownloadWorker-5 initialized
+2026-03-09 15:19:21 [INFO] DownloadWorker-5 started
+2026-03-09 15:19:21 [INFO] Started 5 download workers
+2026-03-09 15:19:21 [INFO] Download manager started
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:19:21 [INFO] UploadWorker51-1 started
+2026-03-09 15:19:21 [INFO] Started UploadWorker51-1
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:19:21 [INFO] UploadWorker51-2 started
+2026-03-09 15:19:21 [INFO] Started UploadWorker51-2
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 15:19:21 [INFO] UploadWorker40-1 started
+2026-03-09 15:19:21 [INFO] Started UploadWorker40-1
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 15:19:21 [INFO] UploadWorker40-2 started
+2026-03-09 15:19:21 [INFO] Started UploadWorker40-2
+2026-03-09 15:19:21 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:19:21 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 15:19:21 [INFO] UploadWorker40-3 started
+2026-03-09 15:19:21 [INFO] Started UploadWorker40-3
+2026-03-09 15:19:21 [INFO] Total upload workers started: 5
+2026-03-09 15:19:21 [INFO] Upload manager started
+2026-03-09 15:19:21 [INFO] Download→Upload hook registered
+2026-03-09 15:19:21 [INFO] Starting GUI main loop
+2026-03-09 15:19:21 [INFO] Starting main loop
+2026-03-09 15:31:13 [INFO] Config saved to: C:\watch_folder_hires_70\config.json
+2026-03-09 15:31:14 [INFO] Settings changed, updating components...
+2026-03-09 15:31:14 [INFO] UploadController settings cache refreshed
+2026-03-09 15:31:26 [INFO] New file detected: TESTFC0101 finsdsb.mxf (0.32GB) in D:\Test watch folder\source
+2026-03-09 15:31:26 [DEBUG] Checking TESTFC0101 finsdsb.mxf: size=343405176, last_size=343405176, time=0.0s
+2026-03-09 15:31:31 [DEBUG] Checking TESTFC0101 finsdsb.mxf: size=343405176, last_size=343405176, time=5.0s
+2026-03-09 15:31:31 [INFO] File stable: TESTFC0101 finsdsb.mxf (0.32GB) after 5.0s
+2026-03-09 15:31:31 [INFO] Created job for TESTFC0101 finsdsb.mxf with source: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:31 [INFO] Job added to queue: TESTFC0101 finsdsb.mxf (size: 0.32GB)
+2026-03-09 15:31:31 [INFO] Job added to queue at position 1
+2026-03-09 15:31:31 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:31:32 [INFO] Job started: TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] Worker-4 processing: TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] Dest path from job: 
+2026-03-09 15:31:32 [INFO] Size: 343405176 bytes
+2026-03-09 15:31:32 [INFO] Source file exists, size: 343405176 bytes
+2026-03-09 15:31:32 [WARNING] Destination path is EMPTY for TESTFC0101 finsdsb.mxf, trying to set from config
+2026-03-09 15:31:32 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:31:32 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:31:32 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:31:32 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:31:32 [INFO]   max_upload_51: 2
+2026-03-09 15:31:32 [INFO]   max_upload_40: 3
+2026-03-09 15:31:32 [INFO] Set destination path from config: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] All path checks passed for TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] Final source: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] Final dest: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] Starting copy for TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:32 [INFO] File already exists, using: TESTFC0101 finsdsb (3).mxf
+2026-03-09 15:31:32 [INFO] Destination renamed to avoid conflict: TESTFC0101 finsdsb.mxf → TESTFC0101 finsdsb (3).mxf
+2026-03-09 15:31:32 [INFO] Copying to: D:/Test watch folder/destination 70\TESTFC0101 finsdsb (3).mxf
+2026-03-09 15:31:34 [INFO] TESTFC0101 finsdsb.mxf: 78.2% (0.25GB/0.32GB)
+2026-03-09 15:31:34 [DEBUG] Checkpoint saved for TESTFC0101 finsdsb.mxf: 78.2%
+2026-03-09 15:31:34 [DEBUG] Checkpoint TESTFC0101 finsdsb.mxf: 70%
+2026-03-09 15:31:35 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:31:35 [INFO] TESTFC0101 finsdsb.mxf: 100.0% (0.32GB/0.32GB)
+2026-03-09 15:31:35 [DEBUG] Checkpoint saved for TESTFC0101 finsdsb.mxf: 100.0%
+2026-03-09 15:31:35 [DEBUG] Checkpoint TESTFC0101 finsdsb.mxf: 100%
+2026-03-09 15:31:35 [INFO] Copy completed: TESTFC0101 finsdsb (3).mxf (0.32GB) in 2.43s
+2026-03-09 15:31:35 [INFO] Verification passed: TESTFC0101 finsdsb (3).mxf (0.32GB)
+2026-03-09 15:31:35 [INFO] File saved as: TESTFC0101 finsdsb (3).mxf
+2026-03-09 15:31:35 [DEBUG] History logged: TESTFC0101 finsdsb (3).mxf - SUCCESS - Dest: 70
+2026-03-09 15:31:35 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:31:35 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:31:35 [INFO] UploadController initialized
+2026-03-09 15:31:35 [INFO] Triggering upload for: TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:35 [INFO] Deleting source file: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:35 [INFO] Deleted: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:31:35 [INFO] Worker-4 completed: TESTFC0101 finsdsb (3).mxf in 2.45s
+2026-03-09 15:31:35 [INFO] Job completed: TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:02 [INFO] New file detected: TESTFC0101 finsdsb.mxf (0.32GB) in D:\Test watch folder\source
+2026-03-09 15:32:02 [DEBUG] Checking TESTFC0101 finsdsb.mxf: size=343405176, last_size=343405176, time=0.3s
+2026-03-09 15:32:07 [DEBUG] Checking TESTFC0101 finsdsb.mxf: size=343405176, last_size=343405176, time=5.3s
+2026-03-09 15:32:07 [INFO] File stable: TESTFC0101 finsdsb.mxf (0.32GB) after 5.3s
+2026-03-09 15:32:07 [INFO] Created job for TESTFC0101 finsdsb.mxf with source: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Job added to queue: TESTFC0101 finsdsb.mxf (size: 0.32GB)
+2026-03-09 15:32:07 [INFO] Job added to queue at position 1
+2026-03-09 15:32:07 [INFO] Job started: TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:32:07 [INFO] Worker-2 processing: TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Dest path from job: 
+2026-03-09 15:32:07 [INFO] Size: 343405176 bytes
+2026-03-09 15:32:07 [INFO] Source file exists, size: 343405176 bytes
+2026-03-09 15:32:07 [WARNING] Destination path is EMPTY for TESTFC0101 finsdsb.mxf, trying to set from config
+2026-03-09 15:32:07 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:32:07 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:32:07 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:32:07 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:32:07 [INFO]   max_upload_51: 2
+2026-03-09 15:32:07 [INFO]   max_upload_40: 3
+2026-03-09 15:32:07 [INFO] Set destination path from config: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] All path checks passed for TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Final source: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Final dest: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Starting copy for TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:07 [INFO] Copying to: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:09 [INFO] TESTFC0101 finsdsb.mxf: 78.2% (0.25GB/0.32GB)
+2026-03-09 15:32:09 [DEBUG] Checkpoint saved for TESTFC0101 finsdsb.mxf: 78.2%
+2026-03-09 15:32:09 [DEBUG] Checkpoint TESTFC0101 finsdsb.mxf: 70%
+2026-03-09 15:32:10 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:32:10 [INFO] TESTFC0101 finsdsb.mxf: 100.0% (0.32GB/0.32GB)
+2026-03-09 15:32:10 [DEBUG] Checkpoint saved for TESTFC0101 finsdsb.mxf: 100.0%
+2026-03-09 15:32:10 [DEBUG] Checkpoint TESTFC0101 finsdsb.mxf: 100%
+2026-03-09 15:32:10 [INFO] Copy completed: TESTFC0101 finsdsb.mxf (0.32GB) in 2.69s
+2026-03-09 15:32:10 [INFO] Verification passed: TESTFC0101 finsdsb.mxf (0.32GB)
+2026-03-09 15:32:10 [DEBUG] History logged: TESTFC0101 finsdsb.mxf - SUCCESS - Dest: 70
+2026-03-09 15:32:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:32:10 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:32:10 [INFO] UploadController initialized
+2026-03-09 15:32:10 [INFO] Triggering upload for: TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:10 [INFO] Deleting source file: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:10 [INFO] Deleted: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:32:10 [INFO] Worker-2 completed: TESTFC0101 finsdsb.mxf in 2.70s
+2026-03-09 15:32:10 [INFO] Job completed: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:41 [INFO] ==================================================
+2026-03-09 15:37:41 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 15:37:41 [INFO] ==================================================
+2026-03-09 15:37:41 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:41 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:41 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:37:41 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:37:41 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:37:41 [INFO]   max_upload_51: 2
+2026-03-09 15:37:41 [INFO]   max_upload_40: 3
+2026-03-09 15:37:41 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 15:37:41 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:37:41 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:37:41 [INFO] State loaded: 1 jobs in state
+2026-03-09 15:37:41 [INFO] QueueManager initialized
+2026-03-09 15:37:41 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 15:37:41 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:37:41 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:37:41 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:41 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 15:37:41 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:37:41 [INFO] UploadController initialized
+2026-03-09 15:37:41 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:37:41 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:37:41 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 15:37:41 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 15:37:41 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 15:37:41 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 15:37:41 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:37:42 [INFO] Main window initialized with Upload panels
+2026-03-09 15:37:42 [INFO] File monitor started
+2026-03-09 15:37:42 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 15:37:42 [INFO] FileMonitor started
+2026-03-09 15:37:42 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:37:42 [INFO] Found 1 resumable jobs
+2026-03-09 15:37:42 [INFO] Job added to queue: TESTFC0101 finsdsb.mxf (size: 0.32GB)
+2026-03-09 15:37:42 [INFO] Resumed job: TESTFC0101 finsdsb.mxf (100.0%)
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] DownloadWorker-1 initialized
+2026-03-09 15:37:42 [INFO] DownloadWorker-1 started
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] DownloadWorker-2 initialized
+2026-03-09 15:37:42 [INFO] Job started: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] DownloadWorker-2 started
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] DownloadWorker-3 initialized
+2026-03-09 15:37:42 [INFO] Worker-1 processing: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] DownloadWorker-3 started
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] DownloadWorker-4 initialized
+2026-03-09 15:37:42 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] DownloadWorker-4 started
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] DownloadWorker-5 initialized
+2026-03-09 15:37:42 [INFO] Dest path from job: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] DownloadWorker-5 started
+2026-03-09 15:37:42 [INFO] Started 5 download workers
+2026-03-09 15:37:42 [INFO] Size: 343405176 bytes
+2026-03-09 15:37:42 [INFO] Download manager started
+2026-03-09 15:37:42 [ERROR] Source file does NOT exist: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:37:42 [WARNING] Job TESTFC0101 finsdsb.mxf will retry (1/3)
+2026-03-09 15:37:42 [INFO] UploadWorker51-1 started
+2026-03-09 15:37:42 [INFO] Job started: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] Started UploadWorker51-1
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:37:42 [INFO] Worker-2 processing: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] UploadWorker51-2 started
+2026-03-09 15:37:42 [INFO] Started UploadWorker51-2
+2026-03-09 15:37:42 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 15:37:42 [INFO] Dest path from job: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] UploadWorker40-1 started
+2026-03-09 15:37:42 [INFO] Started UploadWorker40-1
+2026-03-09 15:37:42 [INFO] Size: 343405176 bytes
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 15:37:42 [ERROR] Source file does NOT exist: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] UploadWorker40-2 started
+2026-03-09 15:37:42 [INFO] Started UploadWorker40-2
+2026-03-09 15:37:42 [WARNING] Job TESTFC0101 finsdsb.mxf will retry (2/3)
+2026-03-09 15:37:42 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:37:42 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 15:37:42 [INFO] Job started: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] UploadWorker40-3 started
+2026-03-09 15:37:42 [INFO] Started UploadWorker40-3
+2026-03-09 15:37:42 [INFO] Worker-3 processing: TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] Total upload workers started: 5
+2026-03-09 15:37:42 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] Upload manager started
+2026-03-09 15:37:42 [INFO] Dest path from job: D:/Test watch folder/destination 70\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] Size: 343405176 bytes
+2026-03-09 15:37:42 [INFO] Download→Upload hook registered
+2026-03-09 15:37:42 [INFO] Starting GUI main loop
+2026-03-09 15:37:42 [ERROR] Source file does NOT exist: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:37:42 [INFO] Starting main loop
+2026-03-09 15:37:42 [ERROR] Job failed permanently: TESTFC0101 finsdsb.mxf - Source file not found: D:\Test watch folder\source\TESTFC0101 finsdsb.mxf
+2026-03-09 15:38:02 [INFO] New file detected: TESTFC0101 .mxf (0.32GB) in D:\Test watch folder\source
+2026-03-09 15:38:02 [DEBUG] Checking TESTFC0101 .mxf: size=343405176, last_size=343405176, time=0.0s
+2026-03-09 15:38:07 [DEBUG] Checking TESTFC0101 .mxf: size=343405176, last_size=343405176, time=5.0s
+2026-03-09 15:38:07 [INFO] File stable: TESTFC0101 .mxf (0.32GB) after 5.0s
+2026-03-09 15:38:07 [INFO] Created job for TESTFC0101 .mxf with source: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Job added to queue: TESTFC0101 .mxf (size: 0.32GB)
+2026-03-09 15:38:07 [INFO] Job added to queue at position 1
+2026-03-09 15:38:07 [INFO] Job started: TESTFC0101 .mxf
+2026-03-09 15:38:07 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:38:07 [INFO] Worker-2 processing: TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Dest path from job: 
+2026-03-09 15:38:07 [INFO] Size: 343405176 bytes
+2026-03-09 15:38:07 [INFO] Source file exists, size: 343405176 bytes
+2026-03-09 15:38:07 [WARNING] Destination path is EMPTY for TESTFC0101 .mxf, trying to set from config
+2026-03-09 15:38:07 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:38:07 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:38:07 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:38:07 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:38:07 [INFO]   max_upload_51: 2
+2026-03-09 15:38:07 [INFO]   max_upload_40: 3
+2026-03-09 15:38:07 [INFO] Set destination path from config: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] All path checks passed for TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Final source: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Final dest: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Starting copy for TESTFC0101 .mxf
+2026-03-09 15:38:07 [INFO] Copying to: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:38:09 [INFO] TESTFC0101 .mxf: 78.2% (0.25GB/0.32GB)
+2026-03-09 15:38:09 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 78.2%
+2026-03-09 15:38:09 [DEBUG] Checkpoint TESTFC0101 .mxf: 70%
+2026-03-09 15:38:10 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:38:10 [INFO] TESTFC0101 .mxf: 100.0% (0.32GB/0.32GB)
+2026-03-09 15:38:10 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 100.0%
+2026-03-09 15:38:10 [DEBUG] Checkpoint TESTFC0101 .mxf: 100%
+2026-03-09 15:38:10 [INFO] Copy completed: TESTFC0101 .mxf (0.32GB) in 2.74s
+2026-03-09 15:38:10 [INFO] Verification passed: TESTFC0101 .mxf (0.32GB)
+2026-03-09 15:38:10 [DEBUG] History logged: TESTFC0101 .mxf - SUCCESS - Dest: 70
+2026-03-09 15:38:10 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:38:10 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:38:10 [INFO] UploadController initialized
+2026-03-09 15:38:10 [WARNING] ⚠️ No upload controller registered
+2026-03-09 15:38:10 [INFO] Deleting source file: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:38:10 [INFO] Deleted: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:38:10 [INFO] Worker-2 completed: TESTFC0101 .mxf in 2.76s
+2026-03-09 15:38:10 [INFO] Job completed: TESTFC0101 .mxf
+2026-03-09 15:40:28 [INFO] ==================================================
+2026-03-09 15:40:28 [INFO] Memulai aplikasi watch_folder_hires_70 - FASE 2
+2026-03-09 15:40:28 [INFO] ==================================================
+2026-03-09 15:40:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:28 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:28 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:40:28 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:40:28 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:40:28 [INFO]   max_upload_51: 2
+2026-03-09 15:40:28 [INFO]   max_upload_40: 3
+2026-03-09 15:40:28 [INFO] Config loaded: max_download=5, max_upload_51=2, max_upload_40=3
+2026-03-09 15:40:28 [DEBUG] StateManager initialized with path: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:40:28 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:40:28 [INFO] State loaded: 2 jobs in state
+2026-03-09 15:40:28 [INFO] QueueManager initialized
+2026-03-09 15:40:28 [INFO] UploadQueueManager initialized with separate queues for 51 and 40
+2026-03-09 15:40:28 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:40:28 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:40:28 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:28 [INFO] UploadManager initialized with max_workers_51=2, max_workers_40=3
+2026-03-09 15:40:28 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:40:28 [INFO] UploadController initialized
+2026-03-09 15:40:28 [DEBUG] FileHandler initialized with chunk_size=256MB
+2026-03-09 15:40:28 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:40:28 [INFO] DownloadManager initialized with max_parallel=5
+2026-03-09 15:40:28 [INFO] FileMonitor initialized with 1 folders
+2026-03-09 15:40:28 [INFO]   - Monitoring: D:\Test watch folder\source
+2026-03-09 15:40:28 [INFO]   - Extensions: ['.mxf', '.mov', '.mp4', '.avi', '.mkv', '.m4v', '.mpg', '.mpeg', '.wmv', '.flv', '.mts', '.m2ts', '.vob', '.3gp', '.webm']
+2026-03-09 15:40:29 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:40:29 [INFO] Main window initialized with Upload panels
+2026-03-09 15:40:29 [INFO] File monitor started
+2026-03-09 15:40:29 [INFO] Upload controller registered
+2026-03-09 15:40:29 [INFO] Monitor loop started (interval: 5s)
+2026-03-09 15:40:29 [INFO] Upload controller registered to download manager
+2026-03-09 15:40:29 [INFO] FileMonitor started
+2026-03-09 15:40:29 [INFO] State loaded from: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:40:29 [INFO] Found 1 resumable jobs
+2026-03-09 15:40:29 [INFO] Job added to queue: TESTFC0101 .mxf (size: 0.32GB)
+2026-03-09 15:40:29 [INFO] Resumed job: TESTFC0101 .mxf (100.0%)
+2026-03-09 15:40:29 [DEBUG] Job removed from state: TESTFC0101 finsdsb.mxf
+2026-03-09 15:40:29 [INFO] Cleared 1 completed/failed jobs from state
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] DownloadWorker-1 initialized
+2026-03-09 15:40:29 [INFO] DownloadWorker-1 started
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] DownloadWorker-2 initialized
+2026-03-09 15:40:29 [INFO] Job started: TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] DownloadWorker-2 started
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] DownloadWorker-3 initialized
+2026-03-09 15:40:29 [INFO] Worker-1 processing: TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] DownloadWorker-3 started
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] DownloadWorker-4 initialized
+2026-03-09 15:40:29 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Dest path from job: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] DownloadWorker-4 started
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] DownloadWorker-5 initialized
+2026-03-09 15:40:29 [INFO] Size: 343405176 bytes
+2026-03-09 15:40:29 [INFO] DownloadWorker-5 started
+2026-03-09 15:40:29 [INFO] Started 5 download workers
+2026-03-09 15:40:29 [ERROR] Source file does NOT exist: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Download manager started
+2026-03-09 15:40:29 [WARNING] Job TESTFC0101 .mxf will retry (1/3)
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] UploadWorker51-1 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:40:29 [INFO] Job started: TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] UploadWorker51-1 started
+2026-03-09 15:40:29 [INFO] Started UploadWorker51-1
+2026-03-09 15:40:29 [INFO] Worker-2 processing: TESTFC0101 .mxf
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] UploadWorker51-2 initialized (⭐ HIGH PRIORITY)
+2026-03-09 15:40:29 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] UploadWorker51-2 started
+2026-03-09 15:40:29 [INFO] Started UploadWorker51-2
+2026-03-09 15:40:29 [INFO] Dest path from job: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] UploadWorker40-1 initialized (NORMAL PRIORITY)
+2026-03-09 15:40:29 [INFO] Size: 343405176 bytes
+2026-03-09 15:40:29 [INFO] UploadWorker40-1 started
+2026-03-09 15:40:29 [INFO] Started UploadWorker40-1
+2026-03-09 15:40:29 [ERROR] Source file does NOT exist: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] UploadWorker40-2 initialized (NORMAL PRIORITY)
+2026-03-09 15:40:29 [WARNING] Job TESTFC0101 .mxf will retry (2/3)
+2026-03-09 15:40:29 [INFO] UploadWorker40-2 started
+2026-03-09 15:40:29 [INFO] Job started: TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Started UploadWorker40-2
+2026-03-09 15:40:29 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:29 [INFO] UploadWorker40-3 initialized (NORMAL PRIORITY)
+2026-03-09 15:40:29 [INFO] Worker-3 processing: TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] UploadWorker40-3 started
+2026-03-09 15:40:29 [INFO] Started UploadWorker40-3
+2026-03-09 15:40:29 [INFO] Dest path from job: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Total upload workers started: 5
+2026-03-09 15:40:29 [INFO] Size: 343405176 bytes
+2026-03-09 15:40:29 [INFO] Upload manager started
+2026-03-09 15:40:29 [ERROR] Source file does NOT exist: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Download→Upload hook registered
+2026-03-09 15:40:29 [ERROR] Job failed permanently: TESTFC0101 .mxf - Source file not found: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:29 [INFO] Starting GUI main loop
+2026-03-09 15:40:29 [INFO] Starting main loop
+2026-03-09 15:40:39 [INFO] New file detected: TESTFC0101 .mxf (0.32GB) in D:\Test watch folder\source
+2026-03-09 15:40:39 [DEBUG] Checking TESTFC0101 .mxf: size=343405176, last_size=343405176, time=0.0s
+2026-03-09 15:40:44 [DEBUG] Checking TESTFC0101 .mxf: size=343405176, last_size=343405176, time=5.0s
+2026-03-09 15:40:44 [INFO] File stable: TESTFC0101 .mxf (0.32GB) after 5.0s
+2026-03-09 15:40:44 [INFO] Created job for TESTFC0101 .mxf with source: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Job added to queue: TESTFC0101 .mxf (size: 0.32GB)
+2026-03-09 15:40:44 [INFO] Job added to queue at position 1
+2026-03-09 15:40:44 [INFO] Job started: TESTFC0101 .mxf
+2026-03-09 15:40:44 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:40:44 [INFO] Worker-5 processing: TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Source path from job: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Dest path from job: 
+2026-03-09 15:40:44 [INFO] Size: 343405176 bytes
+2026-03-09 15:40:44 [INFO] Source file exists, size: 343405176 bytes
+2026-03-09 15:40:44 [WARNING] Destination path is EMPTY for TESTFC0101 .mxf, trying to set from config
+2026-03-09 15:40:44 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:44 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:40:44 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:40:44 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:40:44 [INFO]   max_upload_51: 2
+2026-03-09 15:40:44 [INFO]   max_upload_40: 3
+2026-03-09 15:40:44 [INFO] Set destination path from config: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] All path checks passed for TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Final source: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Final dest: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Starting copy for TESTFC0101 .mxf
+2026-03-09 15:40:44 [INFO] Copying to: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:46 [INFO] TESTFC0101 .mxf: 78.2% (0.25GB/0.32GB)
+2026-03-09 15:40:46 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 78.2%
+2026-03-09 15:40:46 [DEBUG] Checkpoint TESTFC0101 .mxf: 70%
+2026-03-09 15:40:47 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:40:47 [INFO] TESTFC0101 .mxf: 100.0% (0.32GB/0.32GB)
+2026-03-09 15:40:47 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 100.0%
+2026-03-09 15:40:47 [DEBUG] Checkpoint TESTFC0101 .mxf: 100%
+2026-03-09 15:40:47 [INFO] Copy completed: TESTFC0101 .mxf (0.32GB) in 2.68s
+2026-03-09 15:40:47 [INFO] Verification passed: TESTFC0101 .mxf (0.32GB)
+2026-03-09 15:40:47 [DEBUG] History logged: TESTFC0101 .mxf - SUCCESS - Dest: 70
+2026-03-09 15:40:47 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:47 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:40:47 [INFO] UploadController initialized
+2026-03-09 15:40:47 [INFO] === UPLOAD CONTROLLER ===
+2026-03-09 15:40:47 [INFO] 📥 Download completed: TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] 📁 Source file in 70: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] 🔍 Checking settings...
+2026-03-09 15:40:47 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:40:47 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:40:47 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:40:47 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:40:47 [INFO]   max_upload_51: 2
+2026-03-09 15:40:47 [INFO]   max_upload_40: 3
+2026-03-09 15:40:47 [DEBUG] Settings loaded: dest_51='D:/Test watch folder/destionation 51', dest_40='D:/Test watch folder/destination 40'
+2026-03-09 15:40:47 [INFO] ✅ Settings valid:
+2026-03-09 15:40:47 [INFO]    - destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:40:47 [INFO]    - destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:40:47 [INFO] 🔍 Checking destination folders...
+2026-03-09 15:40:47 [INFO] ✅ Destination 51 folder exists: D:/Test watch folder/destionation 51
+2026-03-09 15:40:47 [INFO] ✅ Write permission OK for destination 51
+2026-03-09 15:40:47 [INFO] ✅ Destination 40 folder exists: D:/Test watch folder/destination 40
+2026-03-09 15:40:47 [INFO] ✅ Write permission OK for destination 40
+2026-03-09 15:40:47 [INFO] 🔍 Creating upload job for 51 (HIRES)...
+2026-03-09 15:40:47 [DEBUG] Creating job for 51-HIRES with folder: D:/Test watch folder/destionation 51
+2026-03-09 15:40:47 [DEBUG] Destination path: D:/Test watch folder/destionation 51\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] ✅ Created upload job for 51-HIRES: TESTFC0101 .mxf
+2026-03-09 15:40:47 [DEBUG]   Source: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [DEBUG]   Dest: D:/Test watch folder/destionation 51\TESTFC0101 .mxf
+2026-03-09 15:40:47 [DEBUG]   Priority: HIGH
+2026-03-09 15:40:47 [INFO] 🔍 Creating upload job for 40 (LOWRES)...
+2026-03-09 15:40:47 [DEBUG] Creating job for 40-LOWRES with folder: D:/Test watch folder/destination 40
+2026-03-09 15:40:47 [DEBUG] Destination path: D:/Test watch folder/destination 40\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] ✅ Created upload job for 40-LOWRES: TESTFC0101 .mxf
+2026-03-09 15:40:47 [DEBUG]   Source: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [DEBUG]   Dest: D:/Test watch folder/destination 40\TESTFC0101 .mxf
+2026-03-09 15:40:47 [DEBUG]   Priority: NORMAL
+2026-03-09 15:40:47 [INFO] ✅ Upload job 51 created successfully
+2026-03-09 15:40:47 [INFO] [51-HIGH] Job added to queue: TESTFC0101 .mxf (size: 0.32GB)
+2026-03-09 15:40:47 [INFO] [51-HIGH] Added to queue at position 1
+2026-03-09 15:40:47 [INFO]    Source: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO]    Dest: D:/Test watch folder/destionation 51\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] ✅ Upload job 40 created successfully
+2026-03-09 15:40:47 [INFO] [40-NORMAL] Job added to queue: TESTFC0101 .mxf (size: 0.32GB)
+2026-03-09 15:40:47 [INFO] [40-NORMAL] Added to queue at position 1
+2026-03-09 15:40:47 [INFO]    Source: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO]    Dest: D:/Test watch folder/destination 40\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] ✅ Upload controller notified for TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Deleting source file: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Deleted: D:\Test watch folder\source\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Worker-5 completed: TESTFC0101 .mxf in 2.69s
+2026-03-09 15:40:47 [INFO] Job completed: TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] [40-NORMAL] Job started: TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Worker40-2 processing: TESTFC0101 .mxf (NORMAL PRIORITY)
+2026-03-09 15:40:47 [INFO] [51-HIGH] Job started: TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Source path: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Worker51-2 processing: TESTFC0101 .mxf (⭐ HIGH PRIORITY)
+2026-03-09 15:40:47 [INFO] Dest path: D:/Test watch folder/destination 40\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Size: 343405176 bytes
+2026-03-09 15:40:47 [INFO] Source path: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Dest path: D:/Test watch folder/destionation 51\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Size: 343405176 bytes
+2026-03-09 15:40:47 [INFO] Source file exists, size: 343405176 bytes
+2026-03-09 15:40:47 [INFO] Source file exists, size: 343405176 bytes
+2026-03-09 15:40:47 [INFO] All path checks passed for TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] All path checks passed for TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Final source: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Final source: D:/Test watch folder/destination 70\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Final dest: D:/Test watch folder/destination 40\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Final dest: D:/Test watch folder/destionation 51\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Starting upload for TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Starting upload for TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Copying to: D:/Test watch folder/destination 40\TESTFC0101 .mxf
+2026-03-09 15:40:47 [INFO] Copying to: D:/Test watch folder/destionation 51\TESTFC0101 .mxf
+2026-03-09 15:40:53 [INFO] TESTFC0101 .mxf: 78.2% (0.25GB/0.32GB)
+2026-03-09 15:40:53 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 78.2%
+2026-03-09 15:40:53 [DEBUG] Checkpoint TESTFC0101 .mxf: 70%
+2026-03-09 15:40:53 [INFO] TESTFC0101 .mxf: 78.2% (0.25GB/0.32GB)
+2026-03-09 15:40:53 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 78.2%
+2026-03-09 15:40:53 [DEBUG] Checkpoint TESTFC0101 .mxf: 70%
+2026-03-09 15:40:55 [INFO] TESTFC0101 .mxf: 100.0% (0.32GB/0.32GB)
+2026-03-09 15:40:55 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 100.0%
+2026-03-09 15:40:55 [DEBUG] Checkpoint TESTFC0101 .mxf: 100%
+2026-03-09 15:40:55 [INFO] Copy completed: TESTFC0101 .mxf (0.32GB) in 7.04s
+2026-03-09 15:40:55 [INFO] Verification passed: TESTFC0101 .mxf (0.32GB)
+2026-03-09 15:40:55 [DEBUG] History logged: TESTFC0101 .mxf - SUCCESS - Dest: 51
+2026-03-09 15:40:55 [INFO] Worker51-2 completed: TESTFC0101 .mxf in 7.06s
+2026-03-09 15:40:55 [INFO] [51-HIGH] Job completed: TESTFC0101 .mxf
+2026-03-09 15:40:55 [INFO] ✅ Upload to 51 completed: TESTFC0101 .mxf
+2026-03-09 15:40:55 [INFO] TESTFC0101 .mxf: 100.0% (0.32GB/0.32GB)
+2026-03-09 15:40:55 [DEBUG] Checkpoint saved for TESTFC0101 .mxf: 100.0%
+2026-03-09 15:40:55 [DEBUG] Checkpoint TESTFC0101 .mxf: 100%
+2026-03-09 15:40:55 [INFO] Copy completed: TESTFC0101 .mxf (0.32GB) in 7.58s
+2026-03-09 15:40:55 [INFO] Verification passed: TESTFC0101 .mxf (0.32GB)
+2026-03-09 15:40:55 [DEBUG] History logged: TESTFC0101 .mxf - SUCCESS - Dest: 40
+2026-03-09 15:40:55 [INFO] Worker40-2 completed: TESTFC0101 .mxf in 7.59s
+2026-03-09 15:40:55 [INFO] [40-NORMAL] Job completed: TESTFC0101 .mxf
+2026-03-09 15:40:55 [INFO] ✅ Upload to 40 completed: TESTFC0101 .mxf
+2026-03-09 15:40:55 [INFO] 🎉 Both uploads completed for: TESTFC0101 .mxf
+2026-03-09 15:40:55 [INFO] 🗑️ Deleted source file from 70: TESTFC0101 .mxf
+2026-03-09 15:40:55 [DEBUG] History logged: TESTFC0101 .mxf - SUCCESS - Dest: 70_DELETED
+2026-03-09 15:41:09 [INFO] New file detected: CSR MNC PEDULI 40100.mxf (1.84GB) in D:\Test watch folder\source
+2026-03-09 15:41:09 [DEBUG] Checking CSR MNC PEDULI 40100.mxf: size=1980634532, last_size=1980634532, time=0.0s
+2026-03-09 15:41:14 [DEBUG] Checking CSR MNC PEDULI 40100.mxf: size=1980634532, last_size=1980634532, time=5.0s
+2026-03-09 15:41:14 [INFO] File stable: CSR MNC PEDULI 40100.mxf (1.84GB) after 5.0s
+2026-03-09 15:41:14 [INFO] Created job for CSR MNC PEDULI 40100.mxf with source: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Job added to queue: CSR MNC PEDULI 40100.mxf (size: 1.84GB)
+2026-03-09 15:41:14 [INFO] Job added to queue at position 1
+2026-03-09 15:41:14 [INFO] Job started: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:41:14 [INFO] Worker-3 processing: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Dest path from job: 
+2026-03-09 15:41:14 [INFO] Size: 1980634532 bytes
+2026-03-09 15:41:14 [INFO] Source file exists, size: 1980634532 bytes
+2026-03-09 15:41:14 [WARNING] Destination path is EMPTY for CSR MNC PEDULI 40100.mxf, trying to set from config
+2026-03-09 15:41:14 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:41:14 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:41:14 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:41:14 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:41:14 [INFO]   max_upload_51: 2
+2026-03-09 15:41:14 [INFO]   max_upload_40: 3
+2026-03-09 15:41:14 [INFO] Set destination path from config: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] All path checks passed for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Final dest: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Starting copy for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:14 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 15:41:15 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:15 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 15:41:17 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:17 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 15:41:21 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:21 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 15:41:29 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:29 [ERROR] Permission denied for CSR MNC PEDULI 40100.mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\CSR MNC PEDULI 40100.mxf'
+2026-03-09 15:41:29 [ERROR] Worker-3 failed: CSR MNC PEDULI 40100.mxf - Copy failed (safe_copy returned False)
+2026-03-09 15:41:29 [DEBUG] History logged: CSR MNC PEDULI 40100.mxf - FAILED - Dest: 70
+2026-03-09 15:41:29 [INFO] Worker-3 will retry CSR MNC PEDULI 40100.mxf (1/3)
+2026-03-09 15:41:29 [WARNING] Job CSR MNC PEDULI 40100.mxf will retry (1/3)
+2026-03-09 15:41:29 [INFO] Job started: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:29 [INFO] Worker-5 processing: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:29 [INFO] Source path from job: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:29 [INFO] Dest path from job: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:29 [INFO] Size: 1980634532 bytes
+2026-03-09 15:41:30 [INFO] Source file exists, size: 1980634532 bytes
+2026-03-09 15:41:30 [INFO] All path checks passed for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:30 [INFO] Final source: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:30 [INFO] Final dest: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:30 [INFO] Starting copy for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:30 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:30 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 15:41:31 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:31 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 15:41:33 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:33 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 15:41:37 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:37 [WARNING] Permission denied for CSR MNC PEDULI 40100.mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 15:41:45 [INFO] Copying to: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:41:49 [INFO] CSR MNC PEDULI 40100.mxf: 13.6% (0.25GB/1.84GB)
+2026-03-09 15:41:49 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 13.6%
+2026-03-09 15:41:49 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 10%
+2026-03-09 15:41:53 [INFO] CSR MNC PEDULI 40100.mxf: 27.1% (0.50GB/1.84GB)
+2026-03-09 15:41:53 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 27.1%
+2026-03-09 15:41:53 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 20%
+2026-03-09 15:41:57 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:41:57 [INFO] CSR MNC PEDULI 40100.mxf: 40.7% (0.75GB/1.84GB)
+2026-03-09 15:41:57 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 40.7%
+2026-03-09 15:41:57 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 40%
+2026-03-09 15:42:01 [INFO] CSR MNC PEDULI 40100.mxf: 54.2% (1.00GB/1.84GB)
+2026-03-09 15:42:01 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 54.2%
+2026-03-09 15:42:01 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 50%
+2026-03-09 15:42:05 [INFO] CSR MNC PEDULI 40100.mxf: 67.8% (1.25GB/1.84GB)
+2026-03-09 15:42:05 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 67.8%
+2026-03-09 15:42:05 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 60%
+2026-03-09 15:42:12 [INFO] CSR MNC PEDULI 40100.mxf: 81.3% (1.50GB/1.84GB)
+2026-03-09 15:42:12 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 81.3%
+2026-03-09 15:42:12 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 80%
+2026-03-09 15:42:16 [INFO] CSR MNC PEDULI 40100.mxf: 94.9% (1.75GB/1.84GB)
+2026-03-09 15:42:16 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 94.9%
+2026-03-09 15:42:16 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 90%
+2026-03-09 15:42:18 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:42:18 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 100.0%
+2026-03-09 15:42:18 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 100%
+2026-03-09 15:42:18 [INFO] Copy completed: CSR MNC PEDULI 40100.mxf (1.84GB) in 48.15s
+2026-03-09 15:42:18 [INFO] Verification passed: CSR MNC PEDULI 40100.mxf (1.84GB)
+2026-03-09 15:42:18 [DEBUG] History logged: CSR MNC PEDULI 40100.mxf - SUCCESS - Dest: 70
+2026-03-09 15:42:18 [DEBUG] ConfigManager initialized with path: C:\watch_folder_hires_70\config.json
+2026-03-09 15:42:18 [DEBUG] HistoryLogger initialized with path: C:\watch_folder_hires_70\copy_history.txt
+2026-03-09 15:42:18 [INFO] UploadController initialized
+2026-03-09 15:42:18 [INFO] === UPLOAD CONTROLLER ===
+2026-03-09 15:42:18 [INFO] 📥 Download completed: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] 📁 Source file in 70: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] 🔍 Checking settings...
+2026-03-09 15:42:18 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:42:18 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:42:18 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:42:18 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:42:18 [INFO]   max_upload_51: 2
+2026-03-09 15:42:18 [INFO]   max_upload_40: 3
+2026-03-09 15:42:18 [DEBUG] Settings loaded: dest_51='D:/Test watch folder/destionation 51', dest_40='D:/Test watch folder/destination 40'
+2026-03-09 15:42:18 [INFO] ✅ Settings valid:
+2026-03-09 15:42:18 [INFO]    - destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:42:18 [INFO]    - destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:42:18 [INFO] 🔍 Checking destination folders...
+2026-03-09 15:42:18 [INFO] ✅ Destination 51 folder exists: D:/Test watch folder/destionation 51
+2026-03-09 15:42:18 [INFO] ✅ Write permission OK for destination 51
+2026-03-09 15:42:18 [INFO] ✅ Destination 40 folder exists: D:/Test watch folder/destination 40
+2026-03-09 15:42:18 [INFO] ✅ Write permission OK for destination 40
+2026-03-09 15:42:18 [INFO] 🔍 Creating upload job for 51 (HIRES)...
+2026-03-09 15:42:18 [DEBUG] Creating job for 51-HIRES with folder: D:/Test watch folder/destionation 51
+2026-03-09 15:42:18 [DEBUG] Destination path: D:/Test watch folder/destionation 51\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] ✅ Created upload job for 51-HIRES: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [DEBUG]   Source: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [DEBUG]   Dest: D:/Test watch folder/destionation 51\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [DEBUG]   Priority: HIGH
+2026-03-09 15:42:18 [INFO] 🔍 Creating upload job for 40 (LOWRES)...
+2026-03-09 15:42:18 [DEBUG] Creating job for 40-LOWRES with folder: D:/Test watch folder/destination 40
+2026-03-09 15:42:18 [DEBUG] Destination path: D:/Test watch folder/destination 40\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] ✅ Created upload job for 40-LOWRES: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [DEBUG]   Source: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [DEBUG]   Dest: D:/Test watch folder/destination 40\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [DEBUG]   Priority: NORMAL
+2026-03-09 15:42:18 [INFO] ✅ Upload job 51 created successfully
+2026-03-09 15:42:18 [INFO] [51-HIGH] Job added to queue: CSR MNC PEDULI 40100.mxf (size: 1.84GB)
+2026-03-09 15:42:18 [INFO] [51-HIGH] Added to queue at position 1
+2026-03-09 15:42:18 [INFO] [51-HIGH] Job started: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO]    Source: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Worker51-1 processing: CSR MNC PEDULI 40100.mxf (⭐ HIGH PRIORITY)
+2026-03-09 15:42:18 [INFO]    Dest: D:/Test watch folder/destionation 51\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Source path: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] ✅ Upload job 40 created successfully
+2026-03-09 15:42:18 [INFO] Dest path: D:/Test watch folder/destionation 51\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] [40-NORMAL] Job added to queue: CSR MNC PEDULI 40100.mxf (size: 1.84GB)
+2026-03-09 15:42:18 [INFO] Size: 1980634532 bytes
+2026-03-09 15:42:18 [INFO] [40-NORMAL] Added to queue at position 1
+2026-03-09 15:42:18 [INFO] [40-NORMAL] Job started: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Source file exists, size: 1980634532 bytes
+2026-03-09 15:42:18 [INFO]    Source: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Worker40-2 processing: CSR MNC PEDULI 40100.mxf (NORMAL PRIORITY)
+2026-03-09 15:42:18 [INFO] All path checks passed for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO]    Dest: D:/Test watch folder/destination 40\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Source path: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Final source: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] ✅ Upload controller notified for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Dest path: D:/Test watch folder/destination 40\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Final dest: D:/Test watch folder/destionation 51\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Deleting source file: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Size: 1980634532 bytes
+2026-03-09 15:42:18 [INFO] Starting upload for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Source file exists, size: 1980634532 bytes
+2026-03-09 15:42:18 [INFO] All path checks passed for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Copying to: D:/Test watch folder/destionation 51\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Final source: D:/Test watch folder/destination 70\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Final dest: D:/Test watch folder/destination 40\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Starting upload for CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Copying to: D:/Test watch folder/destination 40\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Deleted: D:\Test watch folder\source\CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:18 [INFO] Worker-5 completed: CSR MNC PEDULI 40100.mxf in 48.37s
+2026-03-09 15:42:18 [INFO] Job completed: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:42:28 [INFO] CSR MNC PEDULI 40100.mxf: 13.6% (0.25GB/1.84GB)
+2026-03-09 15:42:28 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 13.6%
+2026-03-09 15:42:28 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 10%
+2026-03-09 15:42:28 [INFO] CSR MNC PEDULI 40100.mxf: 13.6% (0.25GB/1.84GB)
+2026-03-09 15:42:28 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 13.6%
+2026-03-09 15:42:28 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 10%
+2026-03-09 15:42:36 [INFO] CSR MNC PEDULI 40100.mxf: 27.1% (0.50GB/1.84GB)
+2026-03-09 15:42:36 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 27.1%
+2026-03-09 15:42:36 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 20%
+2026-03-09 15:42:36 [INFO] CSR MNC PEDULI 40100.mxf: 27.1% (0.50GB/1.84GB)
+2026-03-09 15:42:36 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 27.1%
+2026-03-09 15:42:36 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 20%
+2026-03-09 15:42:42 [INFO] CSR MNC PEDULI 40100.mxf: 40.7% (0.75GB/1.84GB)
+2026-03-09 15:42:42 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 40.7%
+2026-03-09 15:42:42 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 40%
+2026-03-09 15:42:44 [INFO] CSR MNC PEDULI 40100.mxf: 40.7% (0.75GB/1.84GB)
+2026-03-09 15:42:44 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 40.7%
+2026-03-09 15:42:44 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 40%
+2026-03-09 15:42:48 [INFO] CSR MNC PEDULI 40100.mxf: 54.2% (1.00GB/1.84GB)
+2026-03-09 15:42:48 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 54.2%
+2026-03-09 15:42:48 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 50%
+2026-03-09 15:42:49 [INFO] CSR MNC PEDULI 40100.mxf: 54.2% (1.00GB/1.84GB)
+2026-03-09 15:42:49 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 54.2%
+2026-03-09 15:42:49 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 50%
+2026-03-09 15:42:56 [INFO] CSR MNC PEDULI 40100.mxf: 67.8% (1.25GB/1.84GB)
+2026-03-09 15:42:56 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 67.8%
+2026-03-09 15:42:56 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 60%
+2026-03-09 15:42:58 [INFO] CSR MNC PEDULI 40100.mxf: 67.8% (1.25GB/1.84GB)
+2026-03-09 15:42:58 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 67.8%
+2026-03-09 15:42:58 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 60%
+2026-03-09 15:43:04 [INFO] CSR MNC PEDULI 40100.mxf: 81.3% (1.50GB/1.84GB)
+2026-03-09 15:43:04 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 81.3%
+2026-03-09 15:43:04 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 80%
+2026-03-09 15:43:07 [INFO] CSR MNC PEDULI 40100.mxf: 81.3% (1.50GB/1.84GB)
+2026-03-09 15:43:07 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 81.3%
+2026-03-09 15:43:07 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 80%
+2026-03-09 15:43:14 [INFO] CSR MNC PEDULI 40100.mxf: 94.9% (1.75GB/1.84GB)
+2026-03-09 15:43:14 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 94.9%
+2026-03-09 15:43:14 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 90%
+2026-03-09 15:43:16 [INFO] CSR MNC PEDULI 40100.mxf: 94.9% (1.75GB/1.84GB)
+2026-03-09 15:43:16 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 94.9%
+2026-03-09 15:43:16 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 90%
+2026-03-09 15:43:18 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 100.0%
+2026-03-09 15:43:18 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 100%
+2026-03-09 15:43:18 [INFO] Copy completed: CSR MNC PEDULI 40100.mxf (1.84GB) in 59.68s
+2026-03-09 15:43:18 [INFO] Verification passed: CSR MNC PEDULI 40100.mxf (1.84GB)
+2026-03-09 15:43:18 [DEBUG] History logged: CSR MNC PEDULI 40100.mxf - SUCCESS - Dest: 51
+2026-03-09 15:43:18 [INFO] Worker51-1 completed: CSR MNC PEDULI 40100.mxf in 59.69s
+2026-03-09 15:43:18 [INFO] [51-HIGH] Job completed: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:43:18 [INFO] ✅ Upload to 51 completed: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:43:18 [DEBUG] Checkpoint saved for CSR MNC PEDULI 40100.mxf: 100.0%
+2026-03-09 15:43:18 [DEBUG] Checkpoint CSR MNC PEDULI 40100.mxf: 100%
+2026-03-09 15:43:18 [INFO] Copy completed: CSR MNC PEDULI 40100.mxf (1.84GB) in 59.88s
+2026-03-09 15:43:18 [INFO] Verification passed: CSR MNC PEDULI 40100.mxf (1.84GB)
+2026-03-09 15:43:18 [DEBUG] History logged: CSR MNC PEDULI 40100.mxf - SUCCESS - Dest: 40
+2026-03-09 15:43:18 [INFO] Worker40-2 completed: CSR MNC PEDULI 40100.mxf in 59.91s
+2026-03-09 15:43:18 [INFO] [40-NORMAL] Job completed: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:43:18 [INFO] ✅ Upload to 40 completed: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:43:18 [INFO] 🎉 Both uploads completed for: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:43:18 [INFO] 🗑️ Deleted source file from 70: CSR MNC PEDULI 40100.mxf
+2026-03-09 15:43:18 [DEBUG] History logged: CSR MNC PEDULI 40100.mxf - SUCCESS - Dest: 70_DELETED
+2026-03-09 15:45:24 [INFO] New file detected: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) in D:\Test watch folder\source
+2026-03-09 15:45:24 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=0.0s
+2026-03-09 15:45:30 [DEBUG] Checking SPECIAL EVENT - TABLIGH AKBAR - .mxf: size=10079366016, last_size=10079366016, time=5.3s
+2026-03-09 15:45:30 [INFO] File stable: SPECIAL EVENT - TABLIGH AKBAR - .mxf (9.39GB) after 5.3s
+2026-03-09 15:45:30 [INFO] Created job for SPECIAL EVENT - TABLIGH AKBAR - .mxf with source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Job added to queue: SPECIAL EVENT - TABLIGH AKBAR - .mxf (size: 9.39GB)
+2026-03-09 15:45:30 [INFO] Job added to queue at position 1
+2026-03-09 15:45:30 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [DEBUG] Removed 1 files from stabilization queue
+2026-03-09 15:45:30 [INFO] Worker-4 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Dest path from job: 
+2026-03-09 15:45:30 [INFO] Size: 10079366016 bytes
+2026-03-09 15:45:30 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 15:45:30 [WARNING] Destination path is EMPTY for SPECIAL EVENT - TABLIGH AKBAR - .mxf, trying to set from config
+2026-03-09 15:45:30 [INFO] Config loaded from: C:\watch_folder_hires_70\config.json
+2026-03-09 15:45:30 [INFO]   destination_70: D:/Test watch folder/destination 70
+2026-03-09 15:45:30 [INFO]   destination_51: D:/Test watch folder/destionation 51
+2026-03-09 15:45:30 [INFO]   destination_40: D:/Test watch folder/destination 40
+2026-03-09 15:45:30 [INFO]   max_upload_51: 2
+2026-03-09 15:45:30 [INFO]   max_upload_40: 3
+2026-03-09 15:45:30 [INFO] Set destination path from config: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:30 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 15:45:31 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:31 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 15:45:33 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:33 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 15:45:37 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:37 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 15:45:45 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:45 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 15:45:45 [ERROR] Worker-4 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 15:45:45 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 15:45:45 [INFO] Worker-4 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (1/3)
+2026-03-09 15:45:45 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (1/3)
+2026-03-09 15:45:45 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:45 [INFO] Worker-3 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:45 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:45 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:45 [INFO] Size: 10079366016 bytes
+2026-03-09 15:45:46 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 15:45:46 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:46 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:46 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:46 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:46 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:46 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 15:45:47 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:47 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 15:45:49 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:49 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 15:45:53 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:45:53 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 15:46:01 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 15:46:01 [ERROR] Worker-3 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 15:46:01 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 15:46:01 [INFO] Worker-3 will retry SPECIAL EVENT - TABLIGH AKBAR - .mxf (2/3)
+2026-03-09 15:46:01 [WARNING] Job SPECIAL EVENT - TABLIGH AKBAR - .mxf will retry (2/3)
+2026-03-09 15:46:01 [INFO] Job started: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Worker-3 processing: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Source path from job: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Dest path from job: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Size: 10079366016 bytes
+2026-03-09 15:46:01 [INFO] Source file exists, size: 10079366016 bytes
+2026-03-09 15:46:01 [INFO] All path checks passed for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Final source: D:\Test watch folder\source\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Final dest: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Starting copy for SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:01 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 1 detik... (attempt 1/5)
+2026-03-09 15:46:02 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:02 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 2 detik... (attempt 2/5)
+2026-03-09 15:46:04 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:04 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 4 detik... (attempt 3/5)
+2026-03-09 15:46:08 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:08 [WARNING] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf, file mungkin masih digunakan. Retry dalam 8 detik... (attempt 4/5)
+2026-03-09 15:46:16 [INFO] Copying to: D:/Test watch folder/destination 70\SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:16 [ERROR] Permission denied for SPECIAL EVENT - TABLIGH AKBAR - .mxf after 5 attempts: [Errno 13] Permission denied: 'D:\\Test watch folder\\source\\SPECIAL EVENT - TABLIGH AKBAR - .mxf'
+2026-03-09 15:46:16 [ERROR] Worker-3 failed: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 15:46:16 [DEBUG] History logged: SPECIAL EVENT - TABLIGH AKBAR - .mxf - FAILED - Dest: 70
+2026-03-09 15:46:16 [ERROR] Worker-3 permanent failure: SPECIAL EVENT - TABLIGH AKBAR - .mxf
+2026-03-09 15:46:16 [ERROR] Job failed permanently: SPECIAL EVENT - TABLIGH AKBAR - .mxf - Copy failed (safe_copy returned False)
+2026-03-09 15:48:33 [INFO] Closing application...
+2026-03-09 15:48:33 [INFO] FileMonitor stopped
+2026-03-09 15:48:33 [INFO] Stopping all workers...
+2026-03-09 15:48:33 [INFO] DownloadWorker-1 stopping...
+2026-03-09 15:48:33 [INFO] DownloadWorker-2 stopping...
+2026-03-09 15:48:34 [INFO] DownloadWorker-3 stopping...
+2026-03-09 15:48:34 [INFO] DownloadWorker-4 stopping...
+2026-03-09 15:48:34 [INFO] DownloadWorker-5 stopping...
+2026-03-09 15:48:34 [INFO] DownloadWorker-2 stopped
+2026-03-09 15:48:34 [INFO] DownloadWorker-1 stopped
+2026-03-09 15:48:34 [INFO] DownloadWorker-5 stopped
+2026-03-09 15:48:34 [INFO] DownloadWorker-4 stopped
+2026-03-09 15:48:35 [INFO] DownloadWorker-3 stopped
+2026-03-09 15:48:35 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json
+2026-03-09 15:48:35 [INFO] All workers stopped
+2026-03-09 15:48:35 [INFO] Stopping all upload workers...
+2026-03-09 15:48:35 [INFO] UploadWorker51-1 stopping...
+2026-03-09 15:48:35 [INFO] UploadWorker51-2 stopping...
+2026-03-09 15:48:35 [INFO] UploadWorker40-1 stopping...
+2026-03-09 15:48:35 [INFO] UploadWorker40-2 stopping...
+2026-03-09 15:48:35 [INFO] UploadWorker40-3 stopping...
+2026-03-09 15:48:35 [INFO] UploadWorker51-1 stopped
+2026-03-09 15:48:36 [INFO] UploadWorker40-2 stopped
+2026-03-09 15:48:36 [INFO] UploadWorker40-1 stopped
+2026-03-09 15:48:36 [INFO] UploadWorker40-3 stopped
+2026-03-09 15:48:37 [INFO] UploadWorker51-2 stopped
+2026-03-09 15:48:37 [INFO] All upload workers stopped
+2026-03-09 15:48:37 [INFO] State saved to: C:\watch_folder_hires_70\pipeline_state.json

@@ -22,6 +22,36 @@ class DownloadManager:
     Kelas untuk mengelola download workers
     """
     
+    def register_upload_controller(self, upload_controller):
+            """Register upload controller untuk dipanggil saat download selesai"""
+            self.upload_controller = upload_controller
+            logger.info("Upload controller registered")
+        
+    def register_download_complete_callback(self, callback):
+        """Register callback untuk download selesai"""
+        self.on_download_complete_callbacks.append(callback)
+        
+    def _notify_download_complete(self, job: FileJob):
+        """Notifikasi semua listener bahwa download selesai"""
+        logger.info(f"📥 Download completed: {job.name}, notifying listeners...")
+        
+        # Panggil upload controller jika ada
+        if self.upload_controller:
+            try:
+                self.upload_controller.on_download_complete(job)
+                logger.info(f"✅ Upload controller notified for {job.name}")
+            except Exception as e:
+                logger.error(f"❌ Error notifying upload controller: {e}")
+        
+        # Panggil semua callback
+        for i, callback in enumerate(self.on_download_complete_callbacks):
+            try:
+                callback(job)
+                logger.debug(f"Callback {i+1} executed for {job.name}")
+            except Exception as e:
+                logger.error(f"Error in callback {i+1}: {e}")
+
+
     def __init__(self, 
                  max_parallel: int = DEFAULT_MAX_DOWNLOAD,
                  max_retry: int = DEFAULT_MAX_RETRY,

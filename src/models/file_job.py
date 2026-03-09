@@ -4,10 +4,13 @@ Model untuk merepresentasikan satu file yang akan diproses
 """
 
 import os
+import logging  # <-- TAMBAHKAN INI
 from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Optional, List
 from ..constants.settings import STATUS_WAITING
+
+logger = logging.getLogger(__name__)  # <-- INI BUTUH logging
 
 @dataclass
 class FileJob:
@@ -71,7 +74,7 @@ class FileJob:
         if not self.start_time:
             return 0
         
-        # Konversi ke datetime jika masih berupa float
+        # Konversi ke datetime jika masih berupa float (timestamp)
         if isinstance(self.start_time, (int, float)):
             start = datetime.fromtimestamp(self.start_time)
         else:
@@ -86,8 +89,13 @@ class FileJob:
         else:
             end = datetime.now()
         
+        # Pastikan keduanya datetime
+        if not isinstance(start, datetime) or not isinstance(end, datetime):
+            # Gunakan logger yang sudah diimport
+            logger.error(f"Invalid types: start={type(start)}, end={type(end)}")
+            return 0
+        
         return (end - start).total_seconds()
-    
     
     @property
     def speed_mbps(self) -> float:
@@ -131,7 +139,6 @@ class FileJob:
             return True  # Ada checkpoint baru
         return False
     
-
     def to_dict(self) -> dict:
         """Konversi ke dictionary untuk disimpan ke JSON"""
         return {
@@ -153,9 +160,7 @@ class FileJob:
             'last_checkpoint': self.last_checkpoint,
             'checkpoints': self.checkpoints
         }
-
-
-
+    
     @classmethod
     def from_dict(cls, data: dict) -> 'FileJob':
         """Buat FileJob dari dictionary"""

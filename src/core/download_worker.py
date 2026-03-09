@@ -109,12 +109,12 @@ class DownloadWorker(threading.Thread):
             
             # Load config untuk dapat destination folder
             config = self.config_manager.load()
-            if config.destination_folder and config.destination_folder != "":
+            if config.destination_70 and config.destination_70 != "":
                 import os
-                job.dest_path = os.path.join(config.destination_folder, job.name)
+                job.dest_path = os.path.join(config.destination_70, job.name)
                 logger.info(f"Set destination path from config: {job.dest_path}")
             else:
-                logger.error(f"Cannot set destination path: destination_folder is empty in config")
+                logger.error(f"Cannot set destination path: destination_70 is empty in config")
                 self.queue_manager.fail_job(job, "Destination folder not configured", retry=False)
                 return
         
@@ -173,23 +173,56 @@ class DownloadWorker(threading.Thread):
                 # Sukses
                 job.status = STATUS_COMPLETED
                 job.end_time = time.time()
+                actual_filename = os.path.basename(job.dest_path)
                 
                 # Catat history
                 self.history_logger.log_success(
-                    filename=job.name,
+                    filename=actual_filename,
                     size_bytes=job.size_bytes,
                     duration_seconds=duration,
-                    retry_count=job.retry_count
+                    retry_count=job.retry_count,
+                    destination="70"  # <-- TAMBAH DESTINATION
                 )
                 
                 # Update state
                 self.state_manager.update_job(job)
                 
+                # ===== PANGGIL UPLOAD CONTROLLER =====
+                try:
+                    # Import di sini untuk menghindari circular import
+                    from ..core.upload_controller import UploadController
+                    from ..utils.config_manager import ConfigManager
+                    
+                    # Buat controller sementara
+                    config_mgr = ConfigManager()
+                    upload_controller = UploadController(
+                        upload_manager=None,  # Akan di-set dari luar
+                        queue_manager=None,
+                        config_manager=config_mgr
+                    )
+                    
+                    # Panggil callback
+                    # ===== PANGGIL UPLOAD CONTROLLER (PAKAI YANG SUDAH TERDAFTAR) =====
+                    if hasattr(self.download_manager, 'upload_controller') and self.download_manager.upload_controller:
+                        try:
+                            self.download_manager.upload_controller.on_download_complete(job)
+                            logger.info(f"✅ Upload controller notified for {job.name}")
+                        except Exception as e:
+                            logger.error(f"❌ Error notifying upload controller: {e}")
+                    else:
+                        logger.warning("⚠️ No upload controller registered")
+                    # ==================================================================
+                    
+                except Exception as e:
+                    logger.error(f"Error triggering upload: {e}")
+                # =====================================
+                
                 # Hapus file sumber dari 12
                 logger.info(f"Deleting source file: {job.source_path}")
+
                 self.file_handler.delete_file(job.source_path)
                 
-                logger.info(f"Worker-{self.worker_id} completed: {job.name} in {duration:.2f}s")
+                logger.info(f"Worker-{self.worker_id} completed: {actual_filename} in {duration:.2f}s")
                 
                 # Notifikasi queue manager
                 self.queue_manager.complete_job(job, success=True)

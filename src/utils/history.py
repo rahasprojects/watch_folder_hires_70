@@ -6,7 +6,8 @@ History logger untuk mencatat semua file yang pernah diproses
 import os
 import logging
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Dict  # Untuk Python 3.8
+
 from ..constants.settings import HISTORY_FILE
 
 logger = logging.getLogger(__name__)
@@ -40,16 +41,19 @@ class HistoryLogger:
         """Tulis header ke file history"""
         try:
             with open(self.history_path, 'w', encoding='utf-8') as f:
-                f.write("="*100 + "\n")
+                f.write("="*120 + "\n")
                 f.write("HISTORY COPY FILE - watch_folder_hires_70\n")
                 f.write(f"Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-                f.write("="*100 + "\n")
-                f.write(f"{'Timestamp':<20} {'Filename':<40} {'Size':>12} {'Status':<10} {'Duration':<10} {'Retry':<5}\n")
-                f.write("-"*100 + "\n")
+                f.write("="*120 + "\n")
+                # ===== TAMBAH KOLOM DESTINATION =====
+                f.write(f"{'Timestamp':<20} {'Filename':<40} {'Size':>12} {'Status':<10} {'Duration':<10} {'Retry':<5} {'Dest':<5}\n")
+                f.write("-"*120 + "\n")
         except Exception as e:
             logger.error(f"Error writing history header: {e}")
     
-    def log_success(self, filename: str, size_bytes: int, duration_seconds: float, retry_count: int = 0):
+    # ===== LOG SUCCESS DENGAN DESTINATION =====
+    def log_success(self, filename: str, size_bytes: int, duration_seconds: float, 
+                   retry_count: int = 0, destination: str = "70"):
         """
         Catat file yang sukses di-copy
         
@@ -58,10 +62,13 @@ class HistoryLogger:
             size_bytes: Ukuran file dalam bytes
             duration_seconds: Durasi copy dalam detik
             retry_count: Jumlah retry
+            destination: Tujuan (70, 51, 40) - BARU!
         """
-        self._log_entry(filename, size_bytes, "SUCCESS", duration_seconds, retry_count)
+        self._log_entry(filename, size_bytes, "SUCCESS", duration_seconds, retry_count, destination)
     
-    def log_failed(self, filename: str, size_bytes: int, error_msg: str, retry_count: int = 3):
+    # ===== LOG FAILED DENGAN DESTINATION =====
+    def log_failed(self, filename: str, size_bytes: int, error_msg: str, 
+                  retry_count: int = 3, destination: str = "70"):
         """
         Catat file yang gagal di-copy
         
@@ -70,12 +77,14 @@ class HistoryLogger:
             size_bytes: Ukuran file dalam bytes
             error_msg: Pesan error
             retry_count: Jumlah retry
+            destination: Tujuan (70, 51, 40) - BARU!
         """
-        self._log_entry(filename, size_bytes, f"FAILED", 0, retry_count, error_msg)
+        self._log_entry(filename, size_bytes, "FAILED", 0, retry_count, destination, error_msg)
     
+    # ===== UPDATE METHOD _log_entry DENGAN DESTINATION =====
     def _log_entry(self, filename: str, size_bytes: int, status: str, 
                    duration_seconds: float = 0, retry_count: int = 0, 
-                   error_msg: Optional[str] = None):
+                   destination: str = "70", error_msg: Optional[str] = None):
         """
         Internal method untuk menulis entry ke history
         """
@@ -95,8 +104,8 @@ class HistoryLogger:
             # Potong filename jika terlalu panjang
             display_filename = filename if len(filename) <= 38 else filename[:35] + "..."
             
-            # Format line
-            line = f"{timestamp:<20} {display_filename:<40} {size_gb:>11.2f} GB {status:<10} {duration_str:<10} {retry_count:<5}\n"
+            # ===== FORMAT LINE DENGAN DESTINATION =====
+            line = f"{timestamp:<20} {display_filename:<40} {size_gb:>11.2f} GB {status:<10} {duration_str:<10} {retry_count:<5} {destination:<5}\n"
             
             # Tambah error message jika ada
             if error_msg:
@@ -106,12 +115,12 @@ class HistoryLogger:
             with open(self.history_path, 'a', encoding='utf-8') as f:
                 f.write(line)
             
-            logger.debug(f"History logged: {filename} - {status}")
+            logger.debug(f"History logged: {filename} - {status} - Dest: {destination}")
             
         except Exception as e:
             logger.error(f"Error writing to history: {e}")
     
-    def get_recent(self, limit: int = 10) -> list:
+    def get_recent(self, limit: int = 10) -> List[str]:
         """
         Ambil history terbaru
         
@@ -142,7 +151,8 @@ class HistoryLogger:
         
         return entries
     
-    def get_stats(self) -> dict:
+    # ===== UPDATE STATS UNTUK DESTINATION =====
+    def get_stats(self) -> Dict:
         """
         Dapatkan statistik dari history
         
@@ -154,7 +164,13 @@ class HistoryLogger:
             'total_size_gb': 0,
             'success_count': 0,
             'failed_count': 0,
-            'total_duration_seconds': 0
+            'total_duration_seconds': 0,
+            # ===== STATS PER DESTINATION - BARU =====
+            'by_destination': {
+                '70': {'success': 0, 'failed': 0, 'size': 0},
+                '51': {'success': 0, 'failed': 0, 'size': 0},
+                '40': {'success': 0, 'failed': 0, 'size': 0}
+            }
         }
         
         try:
@@ -170,7 +186,8 @@ class HistoryLogger:
             for line in data_lines:
                 if line.strip() and not line.startswith(' '):
                     parts = line.split()
-                    if len(parts) >= 6:
+                    # ===== PARSING DENGAN DESTINATION =====
+                    if len(parts) >= 8:  # Sekarang ada 8 kolom
                         stats['total_files'] += 1
                         
                         # Parse size (kolom ke-4 dan 5: "XX.XX GB")
@@ -178,7 +195,7 @@ class HistoryLogger:
                             size = float(parts[3])
                             stats['total_size_gb'] += size
                         except:
-                            pass
+                            size = 0
                         
                         # Parse status (kolom ke-6)
                         status = parts[5]
@@ -186,6 +203,17 @@ class HistoryLogger:
                             stats['success_count'] += 1
                         elif status == 'FAILED':
                             stats['failed_count'] += 1
+                        
+                        # Parse destination (kolom ke-8)
+                        dest = parts[7] if len(parts) > 7 else '70'
+                        
+                        # Update stats per destination
+                        if dest in stats['by_destination']:
+                            if status == 'SUCCESS':
+                                stats['by_destination'][dest]['success'] += 1
+                                stats['by_destination'][dest]['size'] += size
+                            elif status == 'FAILED':
+                                stats['by_destination'][dest]['failed'] += 1
                         
                         # Parse duration (kolom ke-7)
                         if len(parts) > 6 and parts[6] != '-':
@@ -214,10 +242,10 @@ if __name__ == "__main__":
     # Test HistoryLogger
     history = HistoryLogger()
     
-    # Log beberapa entry
-    history.log_success("movie1.mxf", 21474836480, 3600, 0)  # 20GB, 1 jam
-    history.log_success("movie2.mp4", 32212254720, 5400, 1)  # 30GB, 1.5 jam
-    history.log_failed("corrupt.mov", 10737418240, "Connection timeout", 3)  # 10GB
+    # Log beberapa entry dengan destination
+    history.log_success("movie1.mxf", 21474836480, 3600, 0, "51")  # 20GB, 1 jam, ke 51
+    history.log_success("movie2.mp4", 32212254720, 5400, 1, "40")  # 30GB, 1.5 jam, ke 40
+    history.log_failed("corrupt.mov", 10737418240, "Connection timeout", 3, "51")  # 10GB, ke 51
     
     # Tampilkan recent
     print("\nRecent history:")

@@ -13,11 +13,16 @@ from ..utils.state_manager import StateManager
 from ..utils.history import HistoryLogger
 from ..core.queue_manager import QueueManager
 from ..core.download_manager import DownloadManager
+from ..core.upload_manager import UploadManager
+from ..core.upload_queue_manager import UploadQueueManager
+from ..core.upload_controller import UploadController
 from ..core.file_monitor import FileMonitor
 from ..gui.queue_panel import QueuePanel
 from ..gui.progress_panel import ProgressPanel
 from ..gui.log_panel import LogPanel
 from ..gui.history_panel import HistoryPanel
+from ..gui.upload_panel_51 import UploadPanel51
+from ..gui.upload_panel_40 import UploadPanel40
 from ..gui.settings_window import SettingsWindow
 from ..constants.settings import REFRESH_INTERVAL
 
@@ -26,10 +31,14 @@ logger = get_logger(__name__)
 class MainWindow:
     """
     Main window aplikasi dengan layout 3 tab
+    - Tab 1: QUEUE (dengan 3 panel: Download, Upload 51, Upload 40)
+    - Tab 2: HISTORY
+    - Tab 3: ACTIVITY LOG
     """
     
     def __init__(self, root, config_mgr: ConfigManager, state_mgr: StateManager,
                  queue_mgr: QueueManager, download_mgr: DownloadManager,
+                 upload_mgr: UploadManager, upload_controller: UploadController,
                  monitor: FileMonitor):
         """
         Inisialisasi MainWindow
@@ -40,6 +49,8 @@ class MainWindow:
             state_mgr: StateManager instance
             queue_mgr: QueueManager instance
             download_mgr: DownloadManager instance
+            upload_mgr: UploadManager instance
+            upload_controller: UploadController instance
             monitor: FileMonitor instance
         """
         self.root = root
@@ -47,13 +58,15 @@ class MainWindow:
         self.state_mgr = state_mgr
         self.queue_mgr = queue_mgr
         self.download_mgr = download_mgr
+        self.upload_mgr = upload_mgr
+        self.upload_controller = upload_controller
         self.monitor = monitor
         self.history_logger = HistoryLogger()
         
         # Window properties
-        self.root.title("🎬 Watch Folder Hires 70 - Pipeline Copy (Fase 1: 12→70)")
-        self.root.geometry("1400x850")
-        self.root.minsize(1200, 700)
+        self.root.title("🎬 Watch Folder Hires 70 - Pipeline Copy (Fase 2: 70 → 40 & 51)")
+        self.root.geometry("1400x900")
+        self.root.minsize(1200, 750)
         
         # Variables
         self.status_var = tk.StringVar(value="Initializing...")
@@ -71,10 +84,10 @@ class MainWindow:
         # Bind keyboard shortcuts
         self._bind_shortcuts()
         
-        logger.info("Main window initialized")
+        logger.info("Main window initialized with Upload panels")
     
     def _create_menu(self):
-        """Buat menu bar"""
+        """Buat menu bar (TIDAK BERUBAH)"""
         menubar = tk.Menu(self.root)
         self.root.config(menu=menubar)
         
@@ -121,7 +134,7 @@ class MainWindow:
         self.notebook = ttk.Notebook(main_container)
         self.notebook.pack(fill='both', expand=True)
         
-        # ===== TAB 1: QUEUE (dengan layout left-right) =====
+        # ===== TAB 1: QUEUE (dengan 3 panel) =====
         self._create_queue_tab()
         
         # ===== TAB 2: HISTORY =====
@@ -131,52 +144,67 @@ class MainWindow:
         self._create_log_tab()
     
     def _create_queue_tab(self):
-        """Buat tab Queue dengan layout left-right"""
+        """Buat tab Queue dengan 3 panel vertikal"""
         queue_tab = ttk.Frame(self.notebook)
         self.notebook.add(queue_tab, text="📋 QUEUE")
         
-        # Configure grid
-        queue_tab.grid_columnconfigure(0, weight=4)
-        queue_tab.grid_columnconfigure(1, weight=6)
-        queue_tab.grid_rowconfigure(0, weight=1)
+        # Configure grid for vertical layout
+        queue_tab.grid_rowconfigure(0, weight=1)  # Download panel
+        queue_tab.grid_rowconfigure(1, weight=1)  # Upload 51 panel
+        queue_tab.grid_rowconfigure(2, weight=1)  # Upload 40 panel
+        queue_tab.grid_columnconfigure(0, weight=1)
         
-        # LEFT PANEL: QUEUE TABLE
-        left_frame = ttk.Frame(queue_tab)
-        left_frame.grid(row=0, column=0, sticky='nsew', padx=(0, 4), pady=5)
+        # ===== PANEL 1: DOWNLOAD =====
+        download_frame = ttk.LabelFrame(queue_tab, text="DOWNLOAD", padding=5)
+        download_frame.grid(row=0, column=0, sticky='nsew', padx=2, pady=2)
         
-        title_left = ttk.Label(left_frame, text="Download Queue", font=('Arial', 11, 'bold'))
-        title_left.pack(anchor='w', pady=(0, 5))
+        self.download_panel = QueuePanel(download_frame, self.queue_mgr)
+        self.download_panel.pack(fill='both', expand=True)
         
-        self.queue_panel = QueuePanel(left_frame, self.queue_mgr)
-        self.queue_panel.pack(fill='both', expand=True)
+        # ===== PANEL 2: UPLOAD 51 (HIRES) =====
+        upload51_frame = ttk.LabelFrame(queue_tab, text="UPLOAD 51 (HIRES) - ⭐ HIGH PRIORITY", padding=5)
+        upload51_frame.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
         
-        # RIGHT PANEL: ACTIVE DOWNLOADS
-        right_frame = ttk.Frame(queue_tab)
-        right_frame.grid(row=0, column=1, sticky='nsew', padx=(4, 0), pady=5)
+        # Stats untuk upload 51
+        upload51_stats = ttk.Frame(upload51_frame)
+        upload51_stats.pack(fill='x', pady=(0, 5))
         
-        title_right = ttk.Label(right_frame, text="Active Downloads", font=('Arial', 11, 'bold'))
-        title_right.pack(anchor='w', pady=(0, 5))
+        self.ul51_active_label = ttk.Label(upload51_stats, text="Active: 0", font=('Arial', 9, 'bold'))
+        self.ul51_active_label.pack(side='left', padx=5)
         
-        # Stats
-        stats_frame = ttk.Frame(right_frame)
-        stats_frame.pack(fill='x', pady=(0, 10))
+        self.ul51_waiting_label = ttk.Label(upload51_stats, text="Waiting: 0", font=('Arial', 9, 'bold'))
+        self.ul51_waiting_label.pack(side='left', padx=5)
         
-        self.active_label = ttk.Label(stats_frame, text="Active: 0", font=('Arial', 10, 'bold'))
-        self.active_label.pack(side='left', padx=10)
+        self.ul51_max_label = ttk.Label(upload51_stats, text="Max: 2", font=('Arial', 9, 'bold'))
+        self.ul51_max_label.pack(side='left', padx=5)
         
-        self.waiting_label = ttk.Label(stats_frame, text="Waiting: 0", font=('Arial', 10, 'bold'))
-        self.waiting_label.pack(side='left', padx=10)
+        # Upload 51 Panel
+        self.upload51_panel = UploadPanel51(upload51_frame, self.upload_mgr)
+        self.upload51_panel.pack(fill='both', expand=True)
         
-        self.total_label = ttk.Label(stats_frame, text="Total: 0", font=('Arial', 10, 'bold'))
-        self.total_label.pack(side='left', padx=10)
+        # ===== PANEL 3: UPLOAD 40 (LOWRES) =====
+        upload40_frame = ttk.LabelFrame(queue_tab, text="UPLOAD 40 (LOWRES) - NORMAL PRIORITY", padding=5)
+        upload40_frame.grid(row=2, column=0, sticky='nsew', padx=2, pady=2)
         
-        # Progress Panel - PASTIKAN INI
-        logger.info(f"Creating ProgressPanel with download_manager: {self.download_mgr}")
-        self.progress_panel = ProgressPanel(right_frame, self.download_mgr)
-        self.progress_panel.pack(fill='both', expand=True)
+        # Stats untuk upload 40
+        upload40_stats = ttk.Frame(upload40_frame)
+        upload40_stats.pack(fill='x', pady=(0, 5))
+        
+        self.ul40_active_label = ttk.Label(upload40_stats, text="Active: 0", font=('Arial', 9, 'bold'))
+        self.ul40_active_label.pack(side='left', padx=5)
+        
+        self.ul40_waiting_label = ttk.Label(upload40_stats, text="Waiting: 0", font=('Arial', 9, 'bold'))
+        self.ul40_waiting_label.pack(side='left', padx=5)
+        
+        self.ul40_max_label = ttk.Label(upload40_stats, text="Max: 3", font=('Arial', 9, 'bold'))
+        self.ul40_max_label.pack(side='left', padx=5)
+        
+        # Upload 40 Panel
+        self.upload40_panel = UploadPanel40(upload40_frame, self.upload_mgr)
+        self.upload40_panel.pack(fill='both', expand=True)
     
     def _create_history_tab(self):
-        """Buat tab History - tanpa title, full width"""
+        """Buat tab History (sama seperti Fase 1)"""
         history_tab = ttk.Frame(self.notebook)
         self.notebook.add(history_tab, text="📜 HISTORY")
         
@@ -184,12 +212,8 @@ class MainWindow:
         history_tab.grid_columnconfigure(0, weight=1)
         
         try:
-            from ..gui.history_panel import HistoryPanel
-            
-            # History Panel langsung tanpa title, full width
             self.history_panel = HistoryPanel(history_tab, self.history_logger)
             self.history_panel.grid(row=0, column=0, sticky='nsew', padx=5, pady=5)
-            
         except Exception as e:
             logger.error(f"Could not load HistoryPanel: {e}")
             error_frame = ttk.Frame(history_tab)
@@ -198,19 +222,18 @@ class MainWindow:
                      foreground='red', font=('Arial', 12)).pack(pady=50)
     
     def _create_log_tab(self):
-        """Buat tab Activity Log - tanpa title, full width"""
+        """Buat tab Activity Log (sama seperti Fase 1)"""
         log_tab = ttk.Frame(self.notebook)
         self.notebook.add(log_tab, text="📝 ACTIVITY LOG")
         
         log_tab.grid_rowconfigure(0, weight=1)
         log_tab.grid_columnconfigure(0, weight=1)
         
-        # Log Panel langsung tanpa title, full width
         self.log_panel = LogPanel(log_tab)
         self.log_panel.grid(row=0, column=0, sticky='nsew', padx=5, pady=5)
     
     def _create_statusbar(self):
-        """Buat status bar"""
+        """Buat status bar dengan info download dan upload"""
         status_frame = ttk.Frame(self.root, relief='sunken', padding=(5, 2))
         status_frame.pack(side='bottom', fill='x')
         
@@ -221,8 +244,9 @@ class MainWindow:
         status_label = ttk.Label(status_frame, textvariable=self.status_var, anchor='w')
         status_label.pack(side='left', padx=5)
         
-        # Right side - Speed
-        self.speed_label = ttk.Label(status_frame, text="Speed: 0 MB/s", anchor='e', font=('Arial', 8))
+        # Right side - Speed info
+        self.speed_label = ttk.Label(status_frame, text="DL:0 | UL51:0 | UL40:0 MB/s", 
+                                     anchor='e', font=('Arial', 8))
         self.speed_label.pack(side='right', padx=5)
         
         # Progress bar kecil untuk aktivitas
@@ -268,10 +292,12 @@ class MainWindow:
     
     def _refresh_all(self):
         """Refresh semua panel"""
-        if hasattr(self, 'queue_panel'):
-            self.queue_panel._refresh_display()
-        if hasattr(self, 'progress_panel'):
-            self.progress_panel._refresh_display()
+        if hasattr(self, 'download_panel'):
+            self.download_panel._refresh_display()
+        if hasattr(self, 'upload51_panel'):
+            self.upload51_panel._refresh_display()
+        if hasattr(self, 'upload40_panel'):
+            self.upload40_panel._refresh_display()
         if hasattr(self, 'history_panel'):
             self.history_panel._refresh_display()
         self.log_panel.add_message("Manual refresh requested", "DEBUG")
@@ -297,10 +323,11 @@ class MainWindow:
             self.history_panel._show_stats()
     
     def _update_status(self):
-        """Update status bar dan stats"""
+        """Update status bar dengan info download dan upload"""
         try:
             # Get stats
             download_stats = self.download_mgr.get_stats()
+            upload_stats = self.upload_mgr.get_stats()
             queue_stats = self.queue_mgr.get_stats()
             
             # Update status icon
@@ -317,24 +344,60 @@ class MainWindow:
             
             self.status_var.set(f"{status_text} | Folders: {folders}")
             
-            # Update speed
-            total_speed = download_stats['workers']['total_speed_mbps']
-            self.speed_label.config(text=f"Speed: {total_speed:.1f} MB/s")
+            # Update speed - dengan error handling
+            try:
+                dl_speed = download_stats['workers']['total_speed_mbps']
+            except:
+                dl_speed = 0
+                
+            try:
+                ul51_speed = upload_stats['workers_51']['total_speed_mbps']
+            except:
+                ul51_speed = 0
+                
+            try:
+                ul40_speed = upload_stats['workers_40']['total_speed_mbps']
+            except:
+                ul40_speed = 0
             
-            # Update stats di tab Queue
-            if hasattr(self, 'active_label'):
-                self.active_label.config(text=f"Active: {queue_stats['active']}")
-                self.waiting_label.config(text=f"Waiting: {queue_stats['waiting']}")
-                self.total_label.config(text=f"Total: {queue_stats['total']}")
+            self.speed_label.config(
+                text=f"DL:{dl_speed:.1f} | UL51:{ul51_speed:.1f} | UL40:{ul40_speed:.1f} MB/s"
+            )
+            
+            # Update stats di panel
+            if hasattr(self, 'dl_active_label'):
+                try:
+                    self.dl_active_label.config(text=f"Active: {download_stats['workers']['busy']}")
+                    self.dl_waiting_label.config(text=f"Waiting: {queue_stats['waiting']}")
+                    self.dl_total_label.config(text=f"Total: {queue_stats['total']}")
+                except:
+                    pass
+            
+            if hasattr(self, 'ul51_active_label'):
+                try:
+                    self.ul51_active_label.config(text=f"Active: {upload_stats['workers_51']['busy']}")
+                    self.ul51_waiting_label.config(text=f"Waiting: {upload_stats['queue']['51']['waiting']}")
+                    self.ul51_total_label.config(text=f"Max: {upload_stats['max_workers_51']}")
+                except:
+                    pass
+            
+            if hasattr(self, 'ul40_active_label'):
+                try:
+                    self.ul40_active_label.config(text=f"Active: {upload_stats['workers_40']['busy']}")
+                    self.ul40_waiting_label.config(text=f"Waiting: {upload_stats['queue']['40']['waiting']}")
+                    self.ul40_total_label.config(text=f"Max: {upload_stats['max_workers_40']}")
+                except:
+                    pass
             
             # Activity bar
-            if download_stats['workers']['busy'] > 0:
+            if download_stats['workers']['busy'] > 0 or upload_stats['workers_51']['busy'] > 0 or upload_stats['workers_40']['busy'] > 0:
                 self.activity_bar.start(10)
             else:
                 self.activity_bar.stop()
             
         except Exception as e:
-            logger.error(f"Error updating status: {e}")
+            logger.debug(f"Non-critical error updating status: {e}")
+            # Jangan sampai error ini mengganggu aplikasi
         
         # Schedule next update
         self.after_id = self.root.after(REFRESH_INTERVAL, self._update_status)
@@ -351,26 +414,37 @@ class MainWindow:
         # Update download manager
         self.download_mgr.set_max_parallel(settings.max_download)
         
+        # Update upload managers
+        self.upload_mgr.set_max_workers_51(settings.max_upload_51)
+        self.upload_mgr.set_max_workers_40(settings.max_upload_40)
+        
+        # Update upload controller cache
+        self.upload_controller.on_settings_changed()
+        
         self.log_panel.add_message("Settings applied", "INFO")
     
     def _show_about(self):
         """Show about dialog"""
         about_text = """
 🎬 Watch Folder Hires 70
-Pipeline Copy - Fase 1 (12 → 70)
+Pipeline Copy - Fase 2 (70 → 40 & 51)
 
-Version: 1.0.0
+Version: 2.0.0
 Created: 2026
 
 Fitur:
 ✅ Monitor folder 12 via SMB
+✅ Download 12 → 70
+✅ Upload 70 → 51 (HIRES) ⭐ HIGH PRIORITY
+✅ Upload 70 → 40 (LOWRES) NORMAL PRIORITY
+✅ Auto-delete from 70 after both uploads
 ✅ FIFO queue tanpa prioritas
 ✅ Resume capability (checkpoint 10%)
-✅ Max parallel download (1-10)
+✅ Max parallel configurable
 ✅ Filter file extensions
 ✅ Real-time progress
 ✅ Auto-rename untuk file duplikat
-✅ Copy history dengan detail
+✅ Copy history dengan detail destination
 ✅ Settings window terpisah
 
 Untuk file video besar (20-60GB)
@@ -384,6 +458,7 @@ Untuk file video besar (20-60GB)
         # Stop components
         self.monitor.stop()
         self.download_mgr.stop()
+        self.upload_mgr.stop()
         
         # Cancel pending after events
         if self.after_id:
@@ -404,4 +479,4 @@ Untuk file video besar (20-60GB)
 
 # Test sederhana
 if __name__ == "__main__":
-    print("MainWindow class ready with History & Log full width")
+    print("MainWindow class ready with 3 panels in Queue tab")

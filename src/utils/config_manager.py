@@ -51,6 +51,14 @@ class ConfigManager:
             
             self.settings = Settings.from_dict(data)
             logger.info(f"Config loaded from: {self.config_path}")
+            
+            # Log nilai settings yang baru
+            logger.info(f"  destination_70: {self.settings.destination_70}")
+            logger.info(f"  destination_51: {self.settings.destination_51}")
+            logger.info(f"  destination_40: {self.settings.destination_40}")
+            logger.info(f"  max_upload_51: {self.settings.max_upload_51}")
+            logger.info(f"  max_upload_40: {self.settings.max_upload_40}")
+            
             return self.settings
             
         except Exception as e:
@@ -125,7 +133,7 @@ if __name__ == "__main__":
     print(f"Loaded settings: {settings.to_dict()}")
     
     # Update settings
-    mgr.update_settings(max_download=5, max_retry=2)
+    mgr.update_settings(max_download=5, max_upload_51=3, max_upload_40=4)
     
     # Save config
     mgr.save()

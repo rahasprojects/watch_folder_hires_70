@@ -335,6 +335,27 @@ class FileHandler:
             logger.error(f"Error getting file info for {path}: {e}")
             return None
 
+    def safe_copy_upload(self, upload_job, progress_callback=None, checkpoint_callback=None):
+        """
+        Safe copy untuk UploadJob
+        """
+        # Buat objek sederhana yang kompatibel
+        from types import SimpleNamespace
+        
+        job = SimpleNamespace(
+            source_path=upload_job.source_path,
+            dest_path=upload_job.dest_path,
+            size_bytes=upload_job.file_size,
+            copied_bytes=upload_job.copied_bytes,
+            last_checkpoint=upload_job.last_checkpoint,
+            name=upload_job.file_name,
+            size_gb=upload_job.size_gb,
+            speed_mbps=0,
+            eta_formatted="-"
+        )
+        
+        return self.safe_copy(job, progress_callback, checkpoint_callback)
+
 
 # Test sederhana
 if __name__ == "__main__":

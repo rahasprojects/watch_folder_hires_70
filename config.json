@@ -2,7 +2,9 @@
     "source_folders": [
         "D:\\Test watch folder\\source"
     ],
-    "destination_folder": "D:\\Test watch folder\\destination",
+    "destination_70": "D:/Test watch folder/destination 70",
+    "destination_51": "D:/Test watch folder/destionation 51",
+    "destination_40": "D:/Test watch folder/destination 40",
     "extensions": [
         ".mxf",
         ".mov",
@@ -21,5 +23,7 @@
         ".webm"
     ],
     "max_download": 5,
+    "max_upload_51": 2,
+    "max_upload_40": 3,
     "max_retry": 3
 }
