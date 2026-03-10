@@ -1,29 +1,27 @@
 {
     "version": "1.0",
-    "last_update": "2026-03-10T21:01:40.684044",
+    "last_update": "2026-03-10T21:08:45.152905",
     "jobs": {
-        "CSR MNC PEDULI 40100.mxf": {
-            "name": "CSR MNC PEDULI 40100.mxf",
-            "source_path": "D:\\Test watch folder\\source\\CSR MNC PEDULI 40100.mxf",
-            "dest_path": "D:/Test watch folder/destination 70\\CSR MNC PEDULI 40100.mxf",
-            "size_bytes": 1980634532,
-            "status": "downloading",
-            "progress": 100.0,
-            "copied_bytes": 1980634532,
-            "detected_time": "2026-03-10T21:01:09.277509",
+        "TESTFC0101 .mxf": {
+            "name": "TESTFC0101 .mxf",
+            "source_path": "D:\\Test watch folder\\source\\TESTFC0101 .mxf",
+            "dest_path": "D:/Test watch folder/destination 70\\TESTFC0101 .mxf",
+            "size_bytes": 343405176,
+            "status": "completed",
+            "progress": 100,
+            "copied_bytes": 343405176,
+            "detected_time": "2026-03-10T21:08:17.875166",
             "start_time": null,
-            "end_time": null,
+            "end_time": 1773151700.8193386,
             "queue_position": 1,
             "priority": 2,
             "retry_count": 0,
             "max_retry": 3,
             "last_error": null,
-            "last_checkpoint": 90,
+            "last_checkpoint": 100,
             "checkpoints": []
         }
     },
-    "active_downloads": [
-        "CSR MNC PEDULI 40100.mxf"
-    ],
+    "active_downloads": [],
     "queue": []
 }

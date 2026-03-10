@@ -10,7 +10,7 @@ from ..models.file_job import FileJob
 from ..core.queue_manager import QueueManager
 from ..constants.settings import REFRESH_INTERVAL
 
-class QueuePanel(ttk.Frame):
+class QueuePanel(ttk.LabelFrame):
     """
     Panel untuk menampilkan antrian download
     """
@@ -23,7 +23,7 @@ class QueuePanel(ttk.Frame):
             parent: Parent widget
             queue_manager: QueueManager instance
         """
-        super().__init__(parent)
+        super().__init__(parent, text="📋 Download Queue", padding=5)
         
         self.queue_manager = queue_manager
         self.after_id = None
@@ -34,9 +34,9 @@ class QueuePanel(ttk.Frame):
     def _create_widgets(self):
         """Buat semua widget"""
         
-        # Treeview untuk menampilkan queue
-        columns = ('priority', 'filename', 'size', 'status', 'progress', 'speed','eta')      
-        self.tree = ttk.Treeview(self, columns=columns, show='headings', height=6)
+        # ===== TAMBAH KOLOM SPEED =====
+        columns = ('priority', 'filename', 'size', 'status', 'progress', 'speed', 'eta')
+        self.tree = ttk.Treeview(self, columns=columns, show='headings', height=4)  # Height 4 agar lebih kecil
         
         # Define headings
         self.tree.heading('priority', text='#')
@@ -44,14 +44,16 @@ class QueuePanel(ttk.Frame):
         self.tree.heading('size', text='Size')
         self.tree.heading('status', text='Status')
         self.tree.heading('progress', text='Progress')
+        self.tree.heading('speed', text='Speed')  # <-- KOLOM BARU
         self.tree.heading('eta', text='ETA')
         
         # Define columns
         self.tree.column('priority', width=40, anchor='center')
-        self.tree.column('filename', width=300, anchor='w')
+        self.tree.column('filename', width=250, anchor='w')
         self.tree.column('size', width=80, anchor='center')
         self.tree.column('status', width=100, anchor='center')
-        self.tree.column('progress', width=80, anchor='center')
+        self.tree.column('progress', width=70, anchor='center')
+        self.tree.column('speed', width=80, anchor='center')  # <-- KOLOM BARU
         self.tree.column('eta', width=80, anchor='center')
         
         # Scrollbar
@@ -62,8 +64,12 @@ class QueuePanel(ttk.Frame):
         self.tree.pack(side='left', fill='both', expand=True)
         scrollbar.pack(side='right', fill='y')
         
-        # ===== INFO BAR DIHAPUS =====
-        # Tidak ada info_label lagi
+        # Info bar
+        info_frame = ttk.Frame(self)
+        info_frame.pack(fill='x', pady=5)
+        
+        self.info_label = ttk.Label(info_frame, text="", font=('Arial', 9, 'italic'))
+        self.info_label.pack(side='left')
         
         # Bind double-click untuk detail
         self.tree.bind('<Double-Button-1>', self._show_job_details)
@@ -78,6 +84,12 @@ class QueuePanel(ttk.Frame):
         waiting_jobs = self.queue_manager.get_waiting_jobs()
         active_jobs = self.queue_manager.get_active_jobs()
         
+        # Hitung statistik
+        total_waiting = len(waiting_jobs)
+        total_active = len(active_jobs)
+        total_size = sum(job.size_gb for job in waiting_jobs + active_jobs)
+        
+     
         # Tampilkan active jobs dulu (dengan warna hijau)
         for job in active_jobs:
             self._insert_job_row(job, 'active')
@@ -85,8 +97,6 @@ class QueuePanel(ttk.Frame):
         # Tampilkan waiting jobs
         for job in waiting_jobs:
             self._insert_job_row(job, 'waiting')
-        
-        # ===== INFO LABEL TIDAK DIUPDATE LAGI =====
         
         # Schedule refresh berikutnya
         self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
@@ -102,16 +112,26 @@ class QueuePanel(ttk.Frame):
         # Format size
         size_str = f"{job.size_gb:.1f} GB"
         
-        # Format progress
+        # ===== FORMAT SPEED =====
         if status_type == 'active':
             progress_str = f"{job.progress:.1f}%"
+            # Format speed dengan icon
+            if job.speed_mbps > 0:
+                if job.speed_mbps > 40:
+                    speed_str = f"⚡ {job.speed_mbps:.1f}"
+                elif job.speed_mbps > 10:
+                    speed_str = f"📊 {job.speed_mbps:.1f}"
+                else:
+                    speed_str = f"🐢 {job.speed_mbps:.1f}"
+            else:
+                speed_str = "-"
             eta_str = job.eta_formatted
+            status_text = "⬇️ Downloading"
         else:
             progress_str = "-"
+            speed_str = "-"  # <-- UNTUK WAITING, SPEED KOSONG
             eta_str = "-"
-        
-        # Status text
-        status_text = "⬇️ Downloading" if status_type == 'active' else "⏳ Waiting"
+            status_text = "⏳ Waiting"
         
         # Priority/position
         if status_type == 'active':
@@ -120,13 +140,14 @@ class QueuePanel(ttk.Frame):
             pos = job.queue_position or 0
             priority = str(pos)
         
-        # Insert row
+        # Insert row dengan semua kolom termasuk speed
         item_id = self.tree.insert('', 'end', values=(
             priority,
             job.name,
             size_str,
             status_text,
             progress_str,
+            speed_str,  # <-- KOLOM SPEED SEKARANG TERISI
             eta_str
         ))
         
@@ -202,3 +223,11 @@ class QueuePanel(ttk.Frame):
         if self.after_id:
             self.after_cancel(self.after_id)
         super().destroy()
+
+
+# Test sederhana
+if __name__ == "__main__":
+    from ..utils.logger import setup_logging
+    setup_logging()
+    
+    print("QueuePanel class ready with SPEED column")
