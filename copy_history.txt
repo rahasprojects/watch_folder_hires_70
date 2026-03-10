@@ -249,3 +249,115 @@ Timestamp            Filename                                         Size Statu
 2026-03-10 18:27:11  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:15   0     51   
 2026-03-10 18:27:12  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:15   0     40   
 2026-03-10 18:27:12  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:37:38  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:57   0     70   
+2026-03-10 18:37:47  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:55   0     70   
+2026-03-10 18:37:55  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:52   0     70   
+2026-03-10 18:38:02  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:46   0     70   
+2026-03-10 18:38:21  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:42   0     40   
+2026-03-10 18:38:21  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:42   0     70   
+2026-03-10 18:38:22  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:43   0     51   
+2026-03-10 18:38:22  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:38:25  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:29   0     51   
+2026-03-10 18:38:26  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:39   0     40   
+2026-03-10 18:38:26  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:39   0     51   
+2026-03-10 18:38:26  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:38:30  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:34   0     40   
+2026-03-10 18:38:30  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:38:46  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:24   0     51   
+2026-03-10 18:38:47  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:25   0     40   
+2026-03-10 18:38:47  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:38:47  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:22   0     51   
+2026-03-10 18:38:48  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:21   0     40   
+2026-03-10 18:38:48  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:39:01  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    00:02:28   0     70   
+2026-03-10 18:39:52  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    00:00:50   0     51   
+2026-03-10 18:39:52  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    00:00:50   0     40   
+2026-03-10 18:39:52  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:42:57  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:48   0     70   
+2026-03-10 18:42:59  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:36   0     70   
+2026-03-10 18:43:01  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:41   0     70   
+2026-03-10 18:43:04  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:32   0     70   
+2026-03-10 18:43:04  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:27   0     70   
+2026-03-10 18:43:23  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:25   0     51   
+2026-03-10 18:43:23  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:23   0     40   
+2026-03-10 18:43:23  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:25   0     40   
+2026-03-10 18:43:23  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:43:24  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:24   0     51   
+2026-03-10 18:43:24  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:43:26  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:24   0     51   
+2026-03-10 18:43:26  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:25   0     40   
+2026-03-10 18:43:26  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:43:41  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:17   0     40   
+2026-03-10 18:43:41  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:16   0     51   
+2026-03-10 18:43:41  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:43:41  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:18   0     51   
+2026-03-10 18:43:42  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:19   0     40   
+2026-03-10 18:43:42  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:46:34  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:54   0     70   
+2026-03-10 18:46:34  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:30   0     70   
+2026-03-10 18:46:39  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:48   0     70   
+2026-03-10 18:46:42  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:45   0     70   
+2026-03-10 18:46:45  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:30   0     70   
+2026-03-10 18:46:59  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:24   0     40   
+2026-03-10 18:46:59  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:25   0     51   
+2026-03-10 18:47:01  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:25   0     51   
+2026-03-10 18:47:01  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:47:01  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:26   0     40   
+2026-03-10 18:47:01  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:47:03  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:23   0     40   
+2026-03-10 18:47:03  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:23   0     51   
+2026-03-10 18:47:03  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:47:17  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:16   0     51   
+2026-03-10 18:47:17  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:15   0     40   
+2026-03-10 18:47:17  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 18:47:17  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:18   0     51   
+2026-03-10 18:47:18  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:18   0     40   
+2026-03-10 18:47:18  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 19:45:29  TESTFC0101  - Copy - Copy.mxf                   0.32 GB SUCCESS    00:00:45   0     70   
+2026-03-10 19:45:30  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:41   0     70   
+2026-03-10 19:45:31  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:27   0     70   
+2026-03-10 19:45:34  TESTFC0101  - Copy (3).mxf                      0.32 GB SUCCESS    00:00:41   0     70   
+2026-03-10 19:51:44  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:42   0     70   
+2026-03-10 19:52:06  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:21   0     40   
+2026-03-10 19:52:06  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:22   0     51   
+2026-03-10 19:52:06  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 19:52:32  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:47   0     70   
+2026-03-10 19:53:24  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:51   0     40   
+2026-03-10 19:53:24  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:51   0     51   
+2026-03-10 19:53:25  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    -          0     70_DELETED
+2026-03-10 19:57:21  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:33   0     70   
+2026-03-10 19:57:39  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:18   0     51   
+2026-03-10 19:57:40  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    00:00:19   0     40   
+2026-03-10 19:57:40  TESTFC0101  - Copy (2).mxf                      0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 19:58:21  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:24   0     70   
+2026-03-10 19:59:16  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:54   0     51   
+2026-03-10 19:59:17  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:55   0     40   
+2026-03-10 19:59:17  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    -          0     70_DELETED
+2026-03-10 20:01:32  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:15   0     70   
+2026-03-10 20:01:46  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:14   0     51   
+2026-03-10 20:01:48  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:15   0     40   
+2026-03-10 20:01:48  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 20:02:06  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:57   0     70   
+2026-03-10 20:02:57  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:50   0     40   
+2026-03-10 20:02:58  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    00:00:51   0     51   
+2026-03-10 20:02:58  CSR MNC PEDULI 400  awfaef asf asfd...          1.84 GB SUCCESS    -          0     70_DELETED
+2026-03-10 20:18:26  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:03   0     70   
+2026-03-10 20:18:38  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:13   0     70   
+2026-03-10 20:18:41  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:14   0     40   
+2026-03-10 20:18:42  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    00:00:15   0     51   
+2026-03-10 20:18:42  TESTFC0101  - Copy.mxf                          0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 20:18:50  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:11   0     51   
+2026-03-10 20:18:51  TESTFC0101 .mxf                                 0.32 GB SUCCESS    00:00:12   0     40   
+2026-03-10 20:18:51  TESTFC0101 .mxf                                 0.32 GB SUCCESS    -          0     70_DELETED
+2026-03-10 20:21:49  SPECIAL EVENT - TABLIGH AKBA R -.mxf            9.39 GB SUCCESS    00:02:32   0     70   
+2026-03-10 20:27:52  SPECIAL EVENT - TABLIGH AKBA R -.mxf            9.39 GB SUCCESS    00:06:03   0     40   
+2026-03-10 20:27:54  SPECIAL EVENT - TABLIGH AKBA R -.mxf            9.39 GB SUCCESS    00:06:02   0     51   
+2026-03-10 20:27:54  SPECIAL EVENT - TABLIGH AKBA R -.mxf            9.39 GB SUCCESS    -          0     70_DELETED
+2026-03-10 20:46:59  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    00:03:45   0     70   
+2026-03-10 20:52:30  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    00:05:30   0     51   
+2026-03-10 20:52:30  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    00:05:30   0     40   
+2026-03-10 20:52:30  SPECIAL EVENT - TABLIGH AKBAR - .mxf            9.39 GB SUCCESS    -          0     70_DELETED
+2026-03-10 21:01:40  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    00:00:31   0     70   
+2026-03-10 21:02:23  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    00:00:41   0     40   
+2026-03-10 21:02:23  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    00:00:42   0     51   
+2026-03-10 21:02:23  CSR MNC PEDULI 40100.mxf                        1.84 GB SUCCESS    -          0     70_DELETED

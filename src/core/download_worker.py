@@ -153,7 +153,7 @@ class DownloadWorker(threading.Thread):
         # Callback checkpoint
         def checkpoint_callback(job: FileJob):
             self.state_manager.update_job(job)
-            logger.debug(f"Checkpoint saved for {job.name}: {job.progress:.1f}%")
+            # logger.debug(f"Checkpoint saved for {job.name}: {job.progress:.1f}%")
         
         # Start time
         start_time = time.time()

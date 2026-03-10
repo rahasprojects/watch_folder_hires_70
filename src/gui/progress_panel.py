@@ -33,12 +33,10 @@ class ProgressPanel(ttk.Frame):
         self.progress_bars = {}  # Dictionary untuk menyimpan widget per job
         
         # ===== CREATE SCROLLABLE FRAME =====
-        # Create canvas and scrollbar
-        self.canvas = tk.Canvas(self, highlightthickness=0, height=200)
+        self.canvas = tk.Canvas(self, highlightthickness=0, height=120)
         self.scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
         self.scrollable_frame = ttk.Frame(self.canvas)
         
-        # Configure canvas
         self.scrollable_frame.bind(
             "<Configure>",
             lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
@@ -47,29 +45,17 @@ class ProgressPanel(ttk.Frame):
         self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw", width=self.canvas.winfo_width())
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
         
-        # Bind mousewheel untuk scroll
         self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
         
-        # Pack canvas and scrollbar
         self.canvas.pack(side='left', fill='both', expand=True)
         self.scrollbar.pack(side='right', fill='y')
         
-        # Bind canvas resize
         self.canvas.bind('<Configure>', self._on_canvas_configure)
-        # ====================================
         
         self._refresh_display()
     
-    def _create_scrollable_progress(self):
-        """Buat area progress bar dengan scroll vertical"""
-        # Height 120 pixel untuk download panel
-        self.canvas = tk.Canvas(self, highlightthickness=0, height=100)
-        self.scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
-        self.scrollable_frame = ttk.Frame(self.canvas)
-    
     def _on_canvas_configure(self, event):
         """Handler saat canvas diresize"""
-        # Update width of scrollable frame
         self.canvas.itemconfig(1, width=event.width)
     
     def _on_mousewheel(self, event):
@@ -78,9 +64,7 @@ class ProgressPanel(ttk.Frame):
     
     def _refresh_display(self):
         """Refresh tampilan progress"""
-        # Dapatkan active downloads
         active_jobs = self.download_manager.get_active_downloads()
-        
         active_names = [job.name for job in active_jobs]
         
         # Hapus progress bar untuk job yang sudah selesai
@@ -96,27 +80,22 @@ class ProgressPanel(ttk.Frame):
         # Update atau buat progress bar untuk active jobs
         for job in active_jobs:
             if job.name in self.progress_bars:
-                # Update yang sudah ada
                 self._update_job_progress(job)
             else:
-                # Buat yang baru
                 self._create_job_progress(job)
         
         # Jika tidak ada active jobs, tampilkan pesan
         if not active_jobs:
             self._show_no_active_message()
+        else:
+            self._hide_no_active_message()
         
-        # Schedule refresh berikutnya
         self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
     
     def _create_job_progress(self, job: FileJob):
         """
         Buat widget progress untuk job baru
-        
-        Args:
-            job: FileJob object
         """
-        # Frame untuk satu job
         frame = ttk.Frame(self.scrollable_frame)
         frame.pack(fill='x', pady=5, padx=5)
         
@@ -127,7 +106,8 @@ class ProgressPanel(ttk.Frame):
         name_label = ttk.Label(header_frame, text=f"🎬 {job.name}", font=('Arial', 9, 'bold'))
         name_label.pack(side='left')
         
-        speed_label = ttk.Label(header_frame, text="", font=('Arial', 8))
+        # ===== SPEED LABEL DI HEADER =====
+        speed_label = ttk.Label(header_frame, text="", font=('Arial', 8), foreground='#2980b9')
         speed_label.pack(side='right', padx=5)
         
         # Progress bar
@@ -148,27 +128,26 @@ class ProgressPanel(ttk.Frame):
         size_label = ttk.Label(info_frame, text="", font=('Arial', 8))
         size_label.pack(side='left')
         
-        eta_label = ttk.Label(info_frame, text="", font=('Arial', 8))
+        # ===== SPEED LABEL DI INFO (bisa juga ditampilkan di sini) =====
+        # Tapi kita sudah punya di header, jadi ini untuk size saja
+        
+        eta_label = ttk.Label(info_frame, text="", font=('Arial', 8), foreground='#27ae60')
         eta_label.pack(side='right')
         
         # Simpan semua widget
         self.progress_bars[job.name] = {
             'frame': frame,
             'progress_var': progress_var,
-            'speed_label': speed_label,
+            'speed_label': speed_label,  # <-- SIMPAN SPEED LABEL
             'size_label': size_label,
             'eta_label': eta_label
         }
         
-        # Initial update
         self._update_job_progress(job)
     
     def _update_job_progress(self, job: FileJob):
         """
         Update widget progress untuk job
-        
-        Args:
-            job: FileJob object
         """
         widgets = self.progress_bars.get(job.name)
         if not widgets:
@@ -177,9 +156,16 @@ class ProgressPanel(ttk.Frame):
         # Update progress bar
         widgets['progress_var'].set(job.progress)
         
-        # Update speed
+        # ===== UPDATE SPEED =====
         if job.speed_mbps > 0:
-            widgets['speed_label'].config(text=f"{job.speed_mbps:.1f} MB/s")
+            speed_text = f"{job.speed_mbps:.1f} MB/s"
+            # Warna berdasarkan kecepatan
+            if job.speed_mbps > 40:
+                widgets['speed_label'].config(text=f"⚡ {speed_text}", foreground='#27ae60')  # Hijau (cepat)
+            elif job.speed_mbps > 10:
+                widgets['speed_label'].config(text=f"📊 {speed_text}", foreground='#2980b9')  # Biru (sedang)
+            else:
+                widgets['speed_label'].config(text=f"🐢 {speed_text}", foreground='#e67e22')  # Oranye (lambat)
         else:
             widgets['speed_label'].config(text="")
         
@@ -194,29 +180,29 @@ class ProgressPanel(ttk.Frame):
             widgets['eta_label'].config(text="")
     
     def _destroy_job_widgets(self, job_name: str):
-        """
-        Hapus widget untuk job yang selesai
-        
-        Args:
-            job_name: Nama job
-        """
+        """Hapus widget untuk job yang selesai"""
         widgets = self.progress_bars.get(job_name)
         if widgets:
             widgets['frame'].destroy()
     
     def _show_no_active_message(self):
         """Tampilkan pesan ketika tidak ada active downloads"""
-        # Cek apakah sudah ada pesan
         if hasattr(self, 'no_active_label'):
             return
         
         self.no_active_label = ttk.Label(
             self.scrollable_frame, 
-            text="Tidak ada file yang sedang di-download",
+            text="✨ Tidak ada file yang sedang di-download",
             font=('Arial', 9, 'italic'),
-            foreground='gray'
+            foreground='#666666'
         )
         self.no_active_label.pack(pady=20)
+    
+    def _hide_no_active_message(self):
+        """Sembunyikan pesan no active"""
+        if hasattr(self, 'no_active_label'):
+            self.no_active_label.destroy()
+            delattr(self, 'no_active_label')
     
     def destroy(self):
         """Cleanup saat panel di-destroy"""

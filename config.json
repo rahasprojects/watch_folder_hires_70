@@ -19,7 +19,6 @@
         ".mts",
         ".m2ts",
         ".vob",
-        ".3gp",
         ".webm"
     ],
     "max_download": 5,

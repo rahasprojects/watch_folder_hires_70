@@ -35,7 +35,7 @@ class QueuePanel(ttk.Frame):
         """Buat semua widget"""
         
         # Treeview untuk menampilkan queue
-        columns = ('priority', 'filename', 'size', 'status', 'progress', 'eta')
+        columns = ('priority', 'filename', 'size', 'status', 'progress', 'speed','eta')      
         self.tree = ttk.Treeview(self, columns=columns, show='headings', height=6)
         
         # Define headings

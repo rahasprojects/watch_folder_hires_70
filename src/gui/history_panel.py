@@ -312,7 +312,9 @@ Total: {total_gb:.2f} GB
             return True
     
     def _parse_history_file(self) -> list:
-        """Parse file history (sama seperti sebelumnya)"""
+        """
+        Parse file history dengan format baru (termasuk destination)
+        """
         entries = []
         
         try:
@@ -328,67 +330,78 @@ Total: {total_gb:.2f} GB
             # Skip header (first 5 lines)
             for line in lines[5:]:
                 line = line.strip()
-                if not line:
+                if not line or line.startswith('-') or line.startswith('='):
                     continue
                 
+                # Split line menjadi parts
                 parts = line.split()
+                if len(parts) < 8:  # Minimal 8 kolom
+                    continue
                 
-                # Format dengan destination
-                if len(parts) >= 8:
-                    timestamp = f"{parts[0]} {parts[1]}"
-                    
-                    idx = 2
-                    filename_parts = []
-                    while idx < len(parts) and not parts[idx].replace('.','').replace('(','').replace(')','').replace(',','').isdigit():
-                        filename_parts.append(parts[idx])
-                        idx += 1
-                    filename = ' '.join(filename_parts)
-                    
-                    size = f"{parts[idx]} {parts[idx+1]}" if idx+1 < len(parts) else "-"
-                    status = parts[idx+2] if idx+2 < len(parts) else "-"
-                    duration = parts[idx+3] if idx+3 < len(parts) else "-"
-                    retry = parts[idx+4] if idx+4 < len(parts) else "-"
-                    dest = parts[idx+5] if idx+5 < len(parts) else "70"
-                    
-                    entries.append({
-                        'timestamp': timestamp,
-                        'filename': filename,
-                        'size': size,
-                        'status': status,
-                        'duration': duration,
-                        'retry': retry,
-                        'dest': dest
-                    })
-                elif len(parts) >= 7:
-                    # Format lama tanpa destination
-                    timestamp = f"{parts[0]} {parts[1]}"
-                    
-                    idx = 2
-                    filename_parts = []
-                    while idx < len(parts) and not parts[idx].replace('.','').replace('(','').replace(')','').replace(',','').isdigit():
-                        filename_parts.append(parts[idx])
-                        idx += 1
-                    filename = ' '.join(filename_parts)
-                    
-                    size = f"{parts[idx]} {parts[idx+1]}" if idx+1 < len(parts) else "-"
-                    status = parts[idx+2] if idx+2 < len(parts) else "-"
-                    duration = parts[idx+3] if idx+3 < len(parts) else "-"
-                    retry = parts[idx+4] if idx+4 < len(parts) else "-"
-                    
-                    entries.append({
-                        'timestamp': timestamp,
-                        'filename': filename,
-                        'size': size,
-                        'status': status,
-                        'duration': duration,
-                        'retry': retry,
-                        'dest': '70'
-                    })
+                # Timestamp selalu di posisi 0 dan 1
+                timestamp = f"{parts[0]} {parts[1]}"
+                
+                # ===== CARA BARU: Menemukan filename dengan panjang variable =====
+                # Kita tahu bahwa setelah timestamp, kolom berikutnya adalah:
+                # - filename (bisa panjang dan mengandung spasi)
+                # - size (angka dengan decimal)
+                # - unit (GB)
+                # - status (SUCCESS/FAILED)
+                # - duration (HH:MM:SS)
+                # - retry (angka)
+                # - dest (51/40/70)
+                
+                # Cari posisi size (kolom dengan angka decimal)
+                size_idx = -1
+                for i, part in enumerate(parts):
+                    # Cari part yang mengandung angka decimal (seperti 1.84 atau 58.3)
+                    if i > 1 and part.replace('.', '').replace(',', '').isdigit():
+                        # Pastikan part berikutnya adalah "GB"
+                        if i+1 < len(parts) and parts[i+1] == 'GB':
+                            size_idx = i
+                            break
+                
+                if size_idx == -1:
+                    # Fallback ke metode lama jika tidak ketemu
+                    continue
+                
+                # Filename adalah semua parts antara timestamp dan size
+                filename_parts = parts[2:size_idx]
+                filename = ' '.join(filename_parts)
+                
+                # Size dan unit
+                size = f"{parts[size_idx]} {parts[size_idx+1]}"
+                
+                # Status (setelah size+unit)
+                status_idx = size_idx + 2
+                status = parts[status_idx] if status_idx < len(parts) else "-"
+                
+                # Duration (setelah status)
+                duration_idx = status_idx + 1
+                duration = parts[duration_idx] if duration_idx < len(parts) else "-"
+                
+                # Retry (setelah duration)
+                retry_idx = duration_idx + 1
+                retry = parts[retry_idx] if retry_idx < len(parts) else "-"
+                
+                # Destination (setelah retry)
+                dest_idx = retry_idx + 1
+                dest = parts[dest_idx] if dest_idx < len(parts) else "70"
+                
+                entries.append({
+                    'timestamp': timestamp,
+                    'filename': filename,
+                    'size': size,
+                    'status': status,
+                    'duration': duration,
+                    'retry': retry,
+                    'dest': dest
+                })
             
-            return entries[::-1]  # Balik urutan
+            return entries[::-1]  # Balik urutan (terbaru di atas)
             
         except Exception as e:
-            print(f"Error parsing history: {e}")
+            logger.error(f"Error parsing history: {e}")
             return []
     
     def _parse_size(self, size_str: str) -> float:

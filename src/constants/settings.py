@@ -6,12 +6,12 @@ Konstanta dan default settings untuk aplikasi
 # Default settings
 DEFAULT_MAX_DOWNLOAD = 4
 DEFAULT_MAX_RETRY = 3
-DEFAULT_CHUNK_SIZE = 256 * 1024 * 1024  # 256MB
+DEFAULT_CHUNK_SIZE = 128 * 1024 * 1024  # 4MB
 CHECKPOINT_PERCENT = 10  # Resume setiap 10%
 
 # ===== KONSTANTA BARU UNTUK FASE 2 =====
 DEFAULT_MAX_UPLOAD_51 = 2  # Max paralel upload ke HIRES
-DEFAULT_MAX_UPLOAD_40 = 3  # Max paralel upload ke LOWRES
+DEFAULT_MAX_UPLOAD_40 = 2  # Max paralel upload ke LOWRES
 UPLOAD_PRIORITY_51 = "HIGH"
 UPLOAD_PRIORITY_40 = "NORMAL"
 # ========================================
@@ -21,9 +21,7 @@ CHUNK_SIZE = DEFAULT_CHUNK_SIZE
 
 # Default extensions untuk file video
 DEFAULT_EXTENSIONS = [
-    '.mxf', '.mov', '.mp4', '.avi', '.mkv', 
-    '.m4v', '.mpg', '.mpeg', '.wmv', '.flv',
-    '.mts', '.m2ts', '.vob', '.3gp', '.webm'
+    '.mxf', '.mov', '.mp4'
 ]
 
 # Status values
