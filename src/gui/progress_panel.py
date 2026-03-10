@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Progress panel untuk menampilkan progress download aktif
+Progress panel untuk menampilkan progress download aktif dengan scroll vertical
 """
 
 import tkinter as tk
 from tkinter import ttk
-import logging  # <-- TAMBAHKAN INI
+import logging
 from typing import Optional, List
 from ..models.file_job import FileJob
 from ..core.download_manager import DownloadManager
@@ -13,9 +13,9 @@ from ..constants.settings import REFRESH_INTERVAL
 
 logger = logging.getLogger(__name__)
 
-class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
+class ProgressPanel(ttk.Frame):
     """
-    Panel untuk menampilkan progress download aktif
+    Panel untuk menampilkan progress download aktif dengan scroll vertical
     """
     
     def __init__(self, parent, download_manager: DownloadManager):
@@ -32,29 +32,45 @@ class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
         self.after_id = None
         self.progress_bars = {}  # Dictionary untuk menyimpan widget per job
         
-        self._create_widgets()
-        self._refresh_display()
-    
-    def _create_widgets(self):
-        """Buat container untuk progress bars"""
-        # Canvas dengan scrollbar untuk mengakomodasi banyak progress
-        self.canvas = tk.Canvas(self, highlightthickness=0)
-        scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
+        # ===== CREATE SCROLLABLE FRAME =====
+        # Create canvas and scrollbar
+        self.canvas = tk.Canvas(self, highlightthickness=0, height=200)
+        self.scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
         self.scrollable_frame = ttk.Frame(self.canvas)
         
+        # Configure canvas
         self.scrollable_frame.bind(
             "<Configure>",
             lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
         )
         
-        self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
-        self.canvas.configure(yscrollcommand=scrollbar.set)
-        
-        self.canvas.pack(side='left', fill='both', expand=True)
-        scrollbar.pack(side='right', fill='y')
+        self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw", width=self.canvas.winfo_width())
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
         
         # Bind mousewheel untuk scroll
         self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
+        
+        # Pack canvas and scrollbar
+        self.canvas.pack(side='left', fill='both', expand=True)
+        self.scrollbar.pack(side='right', fill='y')
+        
+        # Bind canvas resize
+        self.canvas.bind('<Configure>', self._on_canvas_configure)
+        # ====================================
+        
+        self._refresh_display()
+    
+    def _create_scrollable_progress(self):
+        """Buat area progress bar dengan scroll vertical"""
+        # Height 120 pixel untuk download panel
+        self.canvas = tk.Canvas(self, highlightthickness=0, height=100)
+        self.scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas)
+    
+    def _on_canvas_configure(self, event):
+        """Handler saat canvas diresize"""
+        # Update width of scrollable frame
+        self.canvas.itemconfig(1, width=event.width)
     
     def _on_mousewheel(self, event):
         """Handler untuk mousewheel scrolling"""
@@ -64,7 +80,6 @@ class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
         """Refresh tampilan progress"""
         # Dapatkan active downloads
         active_jobs = self.download_manager.get_active_downloads()
-        # logger.debug(f"Refreshing progress panel: {len(active_jobs)} active jobs")
         
         active_names = [job.name for job in active_jobs]
         
@@ -86,6 +101,10 @@ class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
             else:
                 # Buat yang baru
                 self._create_job_progress(job)
+        
+        # Jika tidak ada active jobs, tampilkan pesan
+        if not active_jobs:
+            self._show_no_active_message()
         
         # Schedule refresh berikutnya
         self.after_id = self.after(REFRESH_INTERVAL, self._refresh_display)
@@ -155,30 +174,24 @@ class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
         if not widgets:
             return
         
-        try: 
-
-            # Update progress bar
-            widgets['progress_var'].set(job.progress)
-            
-            # Update speed
-            if job.speed_mbps > 0:
-                widgets['speed_label'].config(text=f"{job.speed_mbps:.1f} MB/s")
-            else:
-                widgets['speed_label'].config(text="")
-            
-            # Update size info
-            size_text = f"{job.copied_gb:.2f} GB / {job.size_gb:.2f} GB ({job.progress:.1f}%)"
-            widgets['size_label'].config(text=size_text)
-            
-            # Update ETA
-            if job.eta_seconds > 0:
-                widgets['eta_label'].config(text=f"ETA: {job.eta_formatted}")
-            else:
-                widgets['eta_label'].config(text="")
+        # Update progress bar
+        widgets['progress_var'].set(job.progress)
         
-        except Exception as e:
-            logger.debug(f"Error updating progress for {job.name}: {e}")
-            # Jangan sampai error ini mengganggu refresh berikutnya
+        # Update speed
+        if job.speed_mbps > 0:
+            widgets['speed_label'].config(text=f"{job.speed_mbps:.1f} MB/s")
+        else:
+            widgets['speed_label'].config(text="")
+        
+        # Update size info
+        size_text = f"{job.copied_gb:.2f} GB / {job.size_gb:.2f} GB ({job.progress:.1f}%)"
+        widgets['size_label'].config(text=size_text)
+        
+        # Update ETA
+        if job.eta_seconds > 0:
+            widgets['eta_label'].config(text=f"ETA: {job.eta_formatted}")
+        else:
+            widgets['eta_label'].config(text="")
     
     def _destroy_job_widgets(self, job_name: str):
         """
@@ -190,6 +203,20 @@ class ProgressPanel(ttk.Frame):  # <-- UBAH dari LabelFrame ke Frame biasa
         widgets = self.progress_bars.get(job_name)
         if widgets:
             widgets['frame'].destroy()
+    
+    def _show_no_active_message(self):
+        """Tampilkan pesan ketika tidak ada active downloads"""
+        # Cek apakah sudah ada pesan
+        if hasattr(self, 'no_active_label'):
+            return
+        
+        self.no_active_label = ttk.Label(
+            self.scrollable_frame, 
+            text="Tidak ada file yang sedang di-download",
+            font=('Arial', 9, 'italic'),
+            foreground='gray'
+        )
+        self.no_active_label.pack(pady=20)
     
     def destroy(self):
         """Cleanup saat panel di-destroy"""

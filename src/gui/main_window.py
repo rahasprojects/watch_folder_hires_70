@@ -148,26 +148,56 @@ class MainWindow:
         queue_tab = ttk.Frame(self.notebook)
         self.notebook.add(queue_tab, text="📋 QUEUE")
         
-        # Configure grid for vertical layout
-        queue_tab.grid_rowconfigure(0, weight=1)  # Download panel
-        queue_tab.grid_rowconfigure(1, weight=1)  # Upload 51 panel
-        queue_tab.grid_rowconfigure(2, weight=1)  # Upload 40 panel
+       # Weight: download 1, upload 4, upload 4
+        queue_tab.grid_rowconfigure(0, weight=1)  # Download (11%)
+        queue_tab.grid_rowconfigure(1, weight=4)  # Upload 51 (44.5%)
+        queue_tab.grid_rowconfigure(2, weight=4)  # Upload 40 (44.5%)
         queue_tab.grid_columnconfigure(0, weight=1)
         
-        # ===== PANEL 1: DOWNLOAD =====
-        download_frame = ttk.LabelFrame(queue_tab, text="DOWNLOAD", padding=5)
+        # ===== PANEL 1: DOWNLOAD (DENGAN PROGRESS BAR) =====
+        download_frame = ttk.LabelFrame(queue_tab, text="📥 DOWNLOAD (12 → 70)", padding=5)
         download_frame.grid(row=0, column=0, sticky='nsew', padx=2, pady=2)
         
-        self.download_panel = QueuePanel(download_frame, self.queue_mgr)
-        self.download_panel.pack(fill='both', expand=True)
+        # Gunakan grid di dalam download_frame
+        download_frame.grid_rowconfigure(0, weight=0)  # Stats
+        download_frame.grid_rowconfigure(1, weight=0)  # Queue (fixed)
+        download_frame.grid_rowconfigure(2, weight=1)  # Progress (expandable)
+        download_frame.grid_columnconfigure(0, weight=1)
         
-        # ===== PANEL 2: UPLOAD 51 (HIRES) =====
-        upload51_frame = ttk.LabelFrame(queue_tab, text="UPLOAD 51 (HIRES) - ⭐ HIGH PRIORITY", padding=5)
+        # Stats untuk download
+        download_stats = ttk.Frame(download_frame)
+        download_stats.grid(row=0, column=0, sticky='ew', pady=(0, 5))
+        
+        self.dl_active_label = ttk.Label(download_stats, text="Active: 0", font=('Arial', 9, 'bold'))
+        self.dl_active_label.pack(side='left', padx=5)
+        
+        self.dl_waiting_label = ttk.Label(download_stats, text="Waiting: 0", font=('Arial', 9, 'bold'))
+        self.dl_waiting_label.pack(side='left', padx=5)
+        
+        self.dl_max_label = ttk.Label(download_stats, text=f"Max: {self.config_mgr.get_settings().max_download}", 
+                                    font=('Arial', 9, 'bold'))
+        self.dl_max_label.pack(side='left', padx=5)
+        
+        # Queue table untuk download (dengan QueuePanel yang sudah ada)
+        self.download_queue = QueuePanel(download_frame, self.queue_mgr)
+        self.download_queue.grid(row=1, column=0, sticky='ew', pady=(0, 5))
+        
+        # Progress bar dengan SCROLL untuk download (ProgressPanel yang sudah diupdate)
+        self.download_progress = ProgressPanel(download_frame, self.download_mgr)
+        self.download_progress.grid(row=2, column=0, sticky='nsew')
+        
+        # ===== PANEL 2: UPLOAD 51 (HIRES) - SUDAH BAIK =====
+        upload51_frame = ttk.LabelFrame(queue_tab, text="📤 UPLOAD 51 (HIRES) - ⭐ HIGH PRIORITY", padding=5)
         upload51_frame.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
+        
+        # Gunakan grid di dalam upload51_frame
+        upload51_frame.grid_rowconfigure(0, weight=0)  # Stats
+        upload51_frame.grid_rowconfigure(1, weight=1)  # Upload panel
+        upload51_frame.grid_columnconfigure(0, weight=1)
         
         # Stats untuk upload 51
         upload51_stats = ttk.Frame(upload51_frame)
-        upload51_stats.pack(fill='x', pady=(0, 5))
+        upload51_stats.grid(row=0, column=0, sticky='ew', pady=(0, 5))
         
         self.ul51_active_label = ttk.Label(upload51_stats, text="Active: 0", font=('Arial', 9, 'bold'))
         self.ul51_active_label.pack(side='left', padx=5)
@@ -175,20 +205,26 @@ class MainWindow:
         self.ul51_waiting_label = ttk.Label(upload51_stats, text="Waiting: 0", font=('Arial', 9, 'bold'))
         self.ul51_waiting_label.pack(side='left', padx=5)
         
-        self.ul51_max_label = ttk.Label(upload51_stats, text="Max: 2", font=('Arial', 9, 'bold'))
+        self.ul51_max_label = ttk.Label(upload51_stats, text=f"Max: {self.config_mgr.get_settings().max_upload_51}", 
+                                    font=('Arial', 9, 'bold'))
         self.ul51_max_label.pack(side='left', padx=5)
         
-        # Upload 51 Panel
+        # Upload 51 Panel (sudah include queue + progress dengan scroll)
         self.upload51_panel = UploadPanel51(upload51_frame, self.upload_mgr)
-        self.upload51_panel.pack(fill='both', expand=True)
+        self.upload51_panel.grid(row=1, column=0, sticky='nsew')
         
-        # ===== PANEL 3: UPLOAD 40 (LOWRES) =====
-        upload40_frame = ttk.LabelFrame(queue_tab, text="UPLOAD 40 (LOWRES) - NORMAL PRIORITY", padding=5)
+        # ===== PANEL 3: UPLOAD 40 (LOWRES) - SUDAH BAIK =====
+        upload40_frame = ttk.LabelFrame(queue_tab, text="📤 UPLOAD 40 (LOWRES) - NORMAL PRIORITY", padding=5)
         upload40_frame.grid(row=2, column=0, sticky='nsew', padx=2, pady=2)
+        
+        # Gunakan grid di dalam upload40_frame
+        upload40_frame.grid_rowconfigure(0, weight=0)  # Stats
+        upload40_frame.grid_rowconfigure(1, weight=1)  # Upload panel
+        upload40_frame.grid_columnconfigure(0, weight=1)
         
         # Stats untuk upload 40
         upload40_stats = ttk.Frame(upload40_frame)
-        upload40_stats.pack(fill='x', pady=(0, 5))
+        upload40_stats.grid(row=0, column=0, sticky='ew', pady=(0, 5))
         
         self.ul40_active_label = ttk.Label(upload40_stats, text="Active: 0", font=('Arial', 9, 'bold'))
         self.ul40_active_label.pack(side='left', padx=5)
@@ -196,12 +232,13 @@ class MainWindow:
         self.ul40_waiting_label = ttk.Label(upload40_stats, text="Waiting: 0", font=('Arial', 9, 'bold'))
         self.ul40_waiting_label.pack(side='left', padx=5)
         
-        self.ul40_max_label = ttk.Label(upload40_stats, text="Max: 3", font=('Arial', 9, 'bold'))
+        self.ul40_max_label = ttk.Label(upload40_stats, text=f"Max: {self.config_mgr.get_settings().max_upload_40}", 
+                                    font=('Arial', 9, 'bold'))
         self.ul40_max_label.pack(side='left', padx=5)
         
-        # Upload 40 Panel
+        # Upload 40 Panel (sudah include queue + progress dengan scroll)
         self.upload40_panel = UploadPanel40(upload40_frame, self.upload_mgr)
-        self.upload40_panel.pack(fill='both', expand=True)
+        self.upload40_panel.grid(row=1, column=0, sticky='nsew')
     
     def _create_history_tab(self):
         """Buat tab History (sama seperti Fase 1)"""

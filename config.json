@@ -23,7 +23,7 @@
         ".webm"
     ],
     "max_download": 5,
-    "max_upload_51": 2,
+    "max_upload_51": 3,
     "max_upload_40": 3,
     "max_retry": 3
 }

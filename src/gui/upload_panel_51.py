@@ -285,6 +285,13 @@ class UploadPanel51(ttk.Frame):
         if self.after_id:
             self.after_cancel(self.after_id)
         super().destroy()
+    
+    def _create_scrollable_progress(self):
+        """Buat area progress bar dengan scroll vertical"""
+        # Height 80 pixel untuk upload panel (lebih kecil)
+        self.canvas = tk.Canvas(self, highlightthickness=0, height=80)
+        self.scrollbar = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas)
 
 
 # Test sederhana

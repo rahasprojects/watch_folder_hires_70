@@ -4,7 +4,7 @@ Model untuk menyimpan konfigurasi aplikasi
 """
 
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, Tuple
 from ..constants.settings import (
     DEFAULT_MAX_DOWNLOAD, DEFAULT_MAX_RETRY, 
     DEFAULT_EXTENSIONS,

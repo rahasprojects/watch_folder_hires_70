@@ -9,6 +9,7 @@ from tkinter import ttk, messagebox
 import os
 import time
 import re
+import logging  
 import shutil
 from datetime import datetime
 from ..utils.history import HistoryLogger
