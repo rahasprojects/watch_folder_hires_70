@@ -10,6 +10,7 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from ..models.file_job import FileJob
 from ..constants.settings import STATE_FILE
+from .path_utils import get_data_path
 
 logger = logging.getLogger(__name__)
 
@@ -28,9 +29,8 @@ class StateManager:
         if state_path:
             self.state_path = state_path
         else:
-            # Default: pipeline_state.json di folder utama
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            self.state_path = os.path.join(root_dir, STATE_FILE)
+            # ===== SIMPAN DI FOLDER DATA =====
+            self.state_path = get_data_path(STATE_FILE)
         
         self.state = {
             'version': '1.0',
@@ -56,7 +56,6 @@ class StateManager:
             with open(self.state_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
-            # Update state dengan data yang diload
             self.state.update(data)
             logger.info(f"State loaded from: {self.state_path}")
             return self.state
@@ -76,10 +75,8 @@ class StateManager:
             True jika berhasil, False jika gagal
         """
         try:
-            # Update timestamp
             self.state['last_update'] = datetime.now().isoformat()
             
-            # Update jobs jika diberikan
             if jobs is not None:
                 jobs_dict = {}
                 active = []
@@ -97,10 +94,9 @@ class StateManager:
                 self.state['active_downloads'] = active
                 self.state['queue'] = queue
             
-            # Buat folder jika belum ada
+            # Buat folder data jika belum ada
             os.makedirs(os.path.dirname(self.state_path), exist_ok=True)
             
-            # Simpan ke file
             with open(self.state_path, 'w', encoding='utf-8') as f:
                 json.dump(self.state, f, indent=4, ensure_ascii=False)
             

@@ -134,47 +134,31 @@ class LogPanel(ttk.LabelFrame):
     
     def _read_log_file(self) -> list:
         """
-        Baca file log, hanya ambil log setelah last_clear_time
-        
-        Returns:
-            List of log lines
+        Baca file log, buat jika belum ada
         """
         try:
-            # Cari file log di root folder
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            log_path = os.path.join(root_dir, LOG_FILE)
+            from ..utils.path_utils import get_data_path
+            from ..constants.settings import LOG_FILE
             
+            log_path = get_data_path(LOG_FILE)
+            
+            # ===== BUAT FILE LOG KOSONG JIKA BELUM ADA =====
             if not os.path.exists(log_path):
-                return ["Log file not found. Waiting for logs..."]
+                try:
+                    os.makedirs(os.path.dirname(log_path), exist_ok=True)
+                    with open(log_path, 'w', encoding='utf-8') as f:
+                        f.write(f"# Log file created at {datetime.now()}\n")
+                    return ["📁 File log baru dibuat"]
+                except:
+                    return ["⚠️ Tidak dapat membuat file log"]
             
             with open(log_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
             
-            # Filter hanya log setelah last_clear_time
-            filtered_lines = []
-            for line in lines[-self.max_lines:]:
-                line = line.strip()
-                if not line:
-                    continue
-                
-                # Parse timestamp (format: YYYY-MM-DD HH:MM:SS)
-                timestamp_match = re.match(r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', line)
-                if timestamp_match:
-                    try:
-                        log_time_str = timestamp_match.group(1)
-                        log_time = datetime.strptime(log_time_str, "%Y-%m-%d %H:%M:%S").timestamp()
-                        
-                        # Hanya tampilkan log yang lebih baru dari last_clear_time
-                        if log_time > self.last_clear_time:
-                            filtered_lines.append(line)
-                    except:
-                        # Jika gagal parse timestamp, tampilkan saja
-                        filtered_lines.append(line)
-                else:
-                    # Baris tanpa timestamp (mungkin header), tampilkan saja
-                    filtered_lines.append(line)
+            if len(lines) > self.max_lines:
+                lines = lines[-self.max_lines:]
             
-            return filtered_lines
+            return [line.strip() for line in lines]
             
         except Exception as e:
             return [f"Error reading log: {e}"]
@@ -248,20 +232,21 @@ class LogPanel(ttk.LabelFrame):
         self.add_message("Log display cleared", "INFO")
     
     def _open_log_file(self):
-        """Buka file log dengan default editor"""
+        """Buka file log"""
         try:
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            log_path = os.path.join(root_dir, LOG_FILE)
+            from ..utils.path_utils import get_data_path
+            from ..constants.settings import LOG_FILE
+            
+            log_path = get_data_path(LOG_FILE)
             
             if os.path.exists(log_path):
-                if os.name == 'nt':  # Windows
+                if os.name == 'nt':
                     os.startfile(log_path)
-                else:  # Linux/Mac
+                else:
                     import subprocess
                     subprocess.call(['xdg-open', log_path])
             else:
                 logger.error(f"Log file not found: {log_path}")
-                
         except Exception as e:
             logger.error(f"Error opening log file: {e}")
     

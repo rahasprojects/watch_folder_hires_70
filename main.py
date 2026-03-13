@@ -26,12 +26,14 @@ def main():
         from src.core.upload_queue_manager import UploadQueueManager
         from src.core.upload_manager import UploadManager
         from src.core.upload_controller import UploadController
+        from src.utils.path_utils import ensure_data_folder
         # ================================
         from src.gui.main_window import MainWindow
         import tkinter as tk
         import threading
         
         # Setup logging
+        ensure_data_folder()
         setup_logging()
         import logging
         logger = logging.getLogger(__name__)

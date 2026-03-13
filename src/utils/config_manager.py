@@ -9,6 +9,7 @@ import logging
 from typing import Optional
 from ..models.settings import Settings
 from ..constants.settings import CONFIG_FILE
+from .path_utils import get_data_path
 
 logger = logging.getLogger(__name__)
 
@@ -27,9 +28,8 @@ class ConfigManager:
         if config_path:
             self.config_path = config_path
         else:
-            # Default: config.json di folder utama
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            self.config_path = os.path.join(root_dir, CONFIG_FILE)
+            # ===== SIMPAN DI FOLDER DATA =====
+            self.config_path = get_data_path(CONFIG_FILE)
         
         self.settings = Settings()
         logger.debug(f"ConfigManager initialized with path: {self.config_path}")
@@ -51,14 +51,6 @@ class ConfigManager:
             
             self.settings = Settings.from_dict(data)
             logger.info(f"Config loaded from: {self.config_path}")
-            
-            # Log nilai settings yang baru
-            logger.info(f"  destination_70: {self.settings.destination_70}")
-            logger.info(f"  destination_51: {self.settings.destination_51}")
-            logger.info(f"  destination_40: {self.settings.destination_40}")
-            logger.info(f"  max_upload_51: {self.settings.max_upload_51}")
-            logger.info(f"  max_upload_40: {self.settings.max_upload_40}")
-            
             return self.settings
             
         except Exception as e:
@@ -79,7 +71,7 @@ class ConfigManager:
             self.settings = settings
         
         try:
-            # Buat folder jika belum ada
+            # Buat folder data jika belum ada
             os.makedirs(os.path.dirname(self.config_path), exist_ok=True)
             
             with open(self.config_path, 'w', encoding='utf-8') as f:
@@ -119,22 +111,13 @@ class ConfigManager:
         return self.settings
 
 
-# Test sederhana kalau dijalankan langsung
+# Test sederhana
 if __name__ == "__main__":
-    # Setup logging dulu
     from .logger import setup_logging
     setup_logging()
     
-    # Test ConfigManager
     mgr = ConfigManager()
+    print(f"Config path: {mgr.config_path}")
     
-    # Load config
     settings = mgr.load()
     print(f"Loaded settings: {settings.to_dict()}")
-    
-    # Update settings
-    mgr.update_settings(max_download=5, max_upload_51=3, max_upload_40=4)
-    
-    # Save config
-    mgr.save()
-    print(f"Saved settings to {mgr.config_path}")

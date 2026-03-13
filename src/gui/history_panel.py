@@ -13,7 +13,8 @@ import logging
 import shutil
 from datetime import datetime
 from ..utils.history import HistoryLogger
-from ..constants.settings import REFRESH_INTERVAL
+from ..utils.path_utils import get_data_path
+from ..constants.settings import REFRESH_INTERVAL, HISTORY_FILE
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +39,8 @@ class HistoryPanel(ttk.Frame):
         self.all_entries = []
         self.filtered_entries = []
         
-        # Path untuk disk usage
+        # Path untuk disk usage - menggunakan path_utils
+        self.history_path = get_data_path(HISTORY_FILE)
         self.dest_70_path = r"D:/Test watch folder/destination 70"
         self.dest_51_path = r"D:/Test watch folder/destionation 51"
         self.dest_40_path = r"D:/Test watch folder/destination 40"
@@ -318,13 +320,11 @@ Total: {total_gb:.2f} GB
         entries = []
         
         try:
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            history_path = os.path.join(root_dir, 'copy_history.txt')
-            
-            if not os.path.exists(history_path):
+            if not os.path.exists(self.history_path):
+                self._create_empty_history()
                 return []
             
-            with open(history_path, 'r', encoding='utf-8') as f:
+            with open(self.history_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
             
             # Skip header (first 5 lines)
@@ -341,28 +341,15 @@ Total: {total_gb:.2f} GB
                 # Timestamp selalu di posisi 0 dan 1
                 timestamp = f"{parts[0]} {parts[1]}"
                 
-                # ===== CARA BARU: Menemukan filename dengan panjang variable =====
-                # Kita tahu bahwa setelah timestamp, kolom berikutnya adalah:
-                # - filename (bisa panjang dan mengandung spasi)
-                # - size (angka dengan decimal)
-                # - unit (GB)
-                # - status (SUCCESS/FAILED)
-                # - duration (HH:MM:SS)
-                # - retry (angka)
-                # - dest (51/40/70)
-                
                 # Cari posisi size (kolom dengan angka decimal)
                 size_idx = -1
                 for i, part in enumerate(parts):
-                    # Cari part yang mengandung angka decimal (seperti 1.84 atau 58.3)
-                    if i > 1 and part.replace('.', '').replace(',', '').isdigit():
-                        # Pastikan part berikutnya adalah "GB"
+                    if i > 1 and part.replace('.', '').replace(',', '').replace('(','').replace(')','').isdigit():
                         if i+1 < len(parts) and parts[i+1] == 'GB':
                             size_idx = i
                             break
                 
                 if size_idx == -1:
-                    # Fallback ke metode lama jika tidak ketemu
                     continue
                 
                 # Filename adalah semua parts antara timestamp dan size
@@ -404,6 +391,20 @@ Total: {total_gb:.2f} GB
             logger.error(f"Error parsing history: {e}")
             return []
     
+    def _create_empty_history(self):
+        """Buat file history kosong dengan header"""
+        try:
+            os.makedirs(os.path.dirname(self.history_path), exist_ok=True)
+            with open(self.history_path, 'w', encoding='utf-8') as f:
+                f.write("="*120 + "\n")
+                f.write("HISTORY COPY FILE - watch_folder_hires_70\n")
+                f.write(f"Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write("="*120 + "\n")
+                f.write(f"{'Timestamp':<20} {'Filename':<40} {'Size':>12} {'Status':<10} {'Duration':<10} {'Retry':<5} {'Dest':<5}\n")
+                f.write("-"*120 + "\n")
+        except Exception as e:
+            logger.error(f"Error creating history file: {e}")
+    
     def _parse_size(self, size_str: str) -> float:
         """Parse size string to GB"""
         try:
@@ -418,23 +419,17 @@ Total: {total_gb:.2f} GB
         """Clear tampilan history"""
         self.last_clear_time = time.time()
         self._refresh_display()
-        
-        from ..utils.logger import get_logger
-        log = get_logger(__name__)
-        log.info("History display cleared")
+        logger.info("History display cleared")
     
     def _open_history_file(self):
         """Buka file history"""
         try:
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            history_path = os.path.join(root_dir, 'copy_history.txt')
-            
-            if os.path.exists(history_path):
+            if os.path.exists(self.history_path):
                 if os.name == 'nt':  # Windows
-                    os.startfile(history_path)
+                    os.startfile(self.history_path)
                 else:
                     import subprocess
-                    subprocess.call(['xdg-open', history_path])
+                    subprocess.call(['xdg-open', self.history_path])
             else:
                 messagebox.showinfo("Info", "History file not found yet")
         except Exception as e:

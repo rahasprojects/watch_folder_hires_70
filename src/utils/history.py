@@ -7,8 +7,8 @@ import os
 import logging
 from datetime import datetime
 from typing import Optional, List, Dict  # Untuk Python 3.8
-
 from ..constants.settings import HISTORY_FILE
+from .path_utils import get_data_path
 
 logger = logging.getLogger(__name__)
 
@@ -27,9 +27,8 @@ class HistoryLogger:
         if history_path:
             self.history_path = history_path
         else:
-            # Default: copy_history.txt di folder utama
-            root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-            self.history_path = os.path.join(root_dir, HISTORY_FILE)
+            # ===== SIMPAN DI FOLDER DATA =====
+            self.history_path = get_data_path(HISTORY_FILE)
         
         # Buat header jika file belum ada
         if not os.path.exists(self.history_path):
@@ -40,18 +39,19 @@ class HistoryLogger:
     def _write_header(self):
         """Tulis header ke file history"""
         try:
+            os.makedirs(os.path.dirname(self.history_path), exist_ok=True)
+            
             with open(self.history_path, 'w', encoding='utf-8') as f:
                 f.write("="*120 + "\n")
                 f.write("HISTORY COPY FILE - watch_folder_hires_70\n")
                 f.write(f"Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 f.write("="*120 + "\n")
-                # ===== TAMBAH KOLOM DESTINATION =====
                 f.write(f"{'Timestamp':<20} {'Filename':<40} {'Size':>12} {'Status':<10} {'Duration':<10} {'Retry':<5} {'Dest':<5}\n")
                 f.write("-"*120 + "\n")
         except Exception as e:
             logger.error(f"Error writing history header: {e}")
     
-    # ===== LOG SUCCESS DENGAN DESTINATION =====
+# ===== LOG SUCCESS DENGAN DESTINATION =====
     def log_success(self, filename: str, size_bytes: int, duration_seconds: float, 
                    retry_count: int = 0, destination: str = "70"):
         """

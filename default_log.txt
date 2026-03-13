@@ -1,0 +1,2 @@
+# Log file untuk WatchFolderHires70
+# File ini akan dicopy ke folder data saat build
